@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.noComments {
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+@media screen and (orientation: landscape) and (height <= 640px) {
+  .comments {
+    gap: 12px;
+  }
+
+  .comment {
+    h3 {
+      font-size: var(--font-size-s);
+    }
+
+    p {
+      font-size: var(--font-size-xs);
+    }
+  }
+}

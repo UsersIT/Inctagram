@@ -1,0 +1,171 @@
+.content {
+  overflow: hidden;
+  display: grid;
+  grid-template: "carousel profile" min-content "carousel comments" 1fr "carousel likes" min-content / 1fr 1fr;
+
+  width: 100%;
+  height: 562px;
+}
+
+.sliderContainer {
+  display: grid;
+  grid-area: carousel;
+  place-items: center;
+  background-color: var(--color-dark-500);
+}
+
+.slider {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
+}
+
+.description {
+  margin-bottom: 12px;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.avatarContainer {
+  display: flex;
+  grid-area: profile;
+  gap: 12px;
+  align-items: center;
+
+  padding: 12px 24px;
+
+  border-bottom: 1px solid var(--color-dark-100);
+}
+
+.scrollArea {
+  position: relative;
+  grid-area: comments;
+  padding: 12px 24px;
+}
+
+.noComments {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.stats {
+  display: flex;
+  grid-area: likes;
+  flex-direction: column;
+
+  padding: 12px 24px 26px;
+
+  border-top: 1px solid var(--color-dark-100);
+}
+
+.likes {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.heart {
+  display: flex;
+  color: var(--color-danger-500);
+}
+
+.date {
+  color: var(--color-light-900);
+}
+
+@media screen and (orientation: portrait) and (width < 768px) {
+  .content {
+    grid-template: "profile" min-content "carousel" min-content "likes" min-content "comments" auto/ 1fr;
+    height: calc(100vh - 60px);
+    background-color: var(--color-dark-500);
+  }
+
+  .slider {
+    width: (calc(100% - 24px));
+    max-width: 360px;
+  }
+
+  .scrollArea {
+    padding: 0 12px 6px;
+  }
+
+  .stats {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+
+    padding: 12px;
+
+    border-top: none;
+  }
+
+  .avatarContainer {
+    padding: 12px;
+    border-bottom: none;
+  }
+}
+
+@media screen and (orientation: landscape) and (height <= 640px) {
+  .content {
+    grid-template: "profile profile" min-content "carousel comments" auto "carousel likes" 60px / 360px 1fr;
+    height: calc(100vh - 34px);
+    background-color: var(--color-dark-500);
+  }
+
+  .scrollArea,
+  .stats {
+    padding: 12px;
+  }
+
+  .sliderContainer {
+    border-right: 1px solid var(--color-dark-100);
+  }
+
+  .sliderButtons {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .stats {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    border-top: 1px solid var(--color-dark-100);
+  }
+
+  .avatarContainer {
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--color-dark-100);
+  }
+
+  .comments {
+    gap: 12px;
+  }
+
+  .comment {
+    h3 {
+      font-size: var(--font-size-s);
+    }
+
+    p {
+      font-size: var(--font-size-xs);
+    }
+  }
+}
+
+@media screen and (orientation: landscape) and (height <= 450px) {
+  .content {
+    grid-template-columns: 260px 1fr;
+  }
+
+  .sliderButtons {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
