@@ -8,6 +8,7 @@ export const en: LocaleType = {
     backToSignIn: 'Back to Sign In',
     backToSignUp: 'Back to Sign Up',
     cancelButtonTitle: 'No',
+    close: 'Close',
     closeSearchFieldIcon: 'Delete the entered search query',
     confirmButtonTitle: 'Yes',
     createNewPassword: 'Create new password',
@@ -15,6 +16,7 @@ export const en: LocaleType = {
     expandMenu: 'Expand menu',
     eyeIcon: 'Hide the entered password',
     eyeOffIcon: 'Show the entered password',
+    hide: 'Hide',
     hideUploadedPhotosList: 'Hide uploaded photos list',
     hideZoomSelector: 'Hide zoom selector',
     imageUploader: 'Download from device',
@@ -30,6 +32,7 @@ export const en: LocaleType = {
     save: 'Save',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
+    showMore: 'Show more',
     showNextPhoto: 'Show next photo',
     showPhoto: 'Show photo',
     showPreviousPhoto: 'Show previous photo',
@@ -238,6 +241,9 @@ export const en: LocaleType = {
     generalInformation: 'General Information',
     myPayments: 'My payments',
   },
+  time: {
+    postedOn: 'Posted on',
+  },
   validation: {
     ageRestriction: 'A user under 13 cannot create profile!',
     cityNotFound: 'City not found.',
@@ -263,6 +269,12 @@ export const en: LocaleType = {
     linkExpiredLayout: {
       text: 'Looks like the verification link has expired. Not to worry, we can send the link again.',
       title: 'Email verification link expired.',
+    },
+    postModal: {
+      comment: 'Comment',
+      comments: 'Comments',
+      likes: 'Likes',
+      noComments: 'This post has no comments yet.',
     },
   },
 }
