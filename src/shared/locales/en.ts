@@ -156,6 +156,9 @@ export const en: LocaleType = {
         'Looks like the verification link has expired. Not to worry, we can send the link again.',
       warningTitle: 'Email verification link expired.',
     },
+    home: {
+      title: 'Registered users:',
+    },
     policies: {
       policy: {
         childrenText: 'Our Service does not address anyone under the age of 13 ("Children").',
