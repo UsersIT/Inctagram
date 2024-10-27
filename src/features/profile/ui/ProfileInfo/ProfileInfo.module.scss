@@ -2,3 +2,16 @@
   width: 100%;
   margin: 0 auto;
 }
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+@media screen and (width <= 576px) {
+  .buttonContainer {
+    display: block;
+    width: 100%;
+  }
+
+}

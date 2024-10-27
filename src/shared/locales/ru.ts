@@ -29,6 +29,7 @@ export const ru = {
     save: 'Сохранить',
     sendLink: 'Отправить ссылку',
     sendLinkAgain: 'Отправить ссылку повторно',
+    sendMassage: 'Написать сообщение',
     showNextPhoto: 'Показать следующее фото',
     showPhoto: 'Показать фото',
     showPreviousPhoto: 'Показать предыдущее фото',

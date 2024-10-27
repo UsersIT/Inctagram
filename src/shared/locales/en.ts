@@ -31,6 +31,7 @@ export const en: LocaleType = {
     save: 'Save',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
+    sendMassage: 'Send Massage',
     showNextPhoto: 'Show next photo',
     showPhoto: 'Show photo',
     showPreviousPhoto: 'Show previous photo',

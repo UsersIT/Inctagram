@@ -2,6 +2,7 @@ import { ProfileHeader } from '@/src/entities/profile'
 import { useMeQuery } from '@/src/features/auth'
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
+import { useMediaQuery } from '@/src/shared/hooks/useMediaQuery'
 import { Button } from '@/src/shared/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -29,6 +30,7 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
   const { data: me } = useMeQuery(undefined)
 
   const { t } = useTranslation()
+  const isMobile = useMediaQuery('(max-width: 576px)')
 
   if (!profileData) {
     return null
@@ -49,16 +51,21 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
         publicationsCount={userData?.publicationsCount}
         userName={profileData?.userName}
       >
-        {isSuccess && !isMyProfile && (
-          <Button
-            disabled={isLoadingFollow}
-            onClick={followingUserHandler}
-            variant={userData?.isFollowing ? 'outlined' : 'primary'}
-          >
-            {userData?.isFollowing ? `${t.buttons.unfollow}` : `${t.buttons.follow}`}
-          </Button>
+        {isSuccess && isMyProfile && (
+          <div className={s.buttonContainer}>
+            <Button
+              disabled={isLoadingFollow}
+              onClick={followingUserHandler}
+              variant={userData?.isFollowing ? 'outlined' : 'primary'}
+            >
+              {userData?.isFollowing ? `${t.buttons.unfollow}` : `${t.buttons.follow}`}
+            </Button>
+            <Button className={s.buttonSpacing} onClick={() => {}} variant={'secondary'}>
+              {t.buttons.sendMassage}
+            </Button>
+          </div>
         )}
-        {isMyProfile && (
+        {!isMyProfile && !isMobile && (
           <Button
             as={Link}
             className={s.settings}

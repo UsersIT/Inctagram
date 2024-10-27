@@ -1,8 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 
-import { useAppDispatch, useAppSelector } from '@/src/app/providers/store'
-import { RootState } from '@/src/app/providers/store/store'
 import { PostImageCard } from '@/src/entities/post'
 import { useTranslation } from '@/src/shared/hooks'
 import { useInfiniteScroll } from '@/src/shared/hooks/useInfiniteScroll'
