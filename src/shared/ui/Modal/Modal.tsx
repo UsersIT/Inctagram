@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import s from './Modal.module.scss'
 
 import { ArrowIosBack, Close } from '../../assets/icons'
+import { useTranslation } from '../../hooks'
 import { Button } from '../Button/Button'
 
 export type ModalSize = 'lg' | 'md' | 'sm' | 'xlg'
@@ -68,6 +69,8 @@ export const Modal: FC<ModalProps> = props => {
     title,
   } = props
 
+  const { t } = useTranslation()
+
   function handleModalClosed() {
     onClose?.()
   }
@@ -118,7 +121,7 @@ export const Modal: FC<ModalProps> = props => {
                   )}
                   {showNextButton && (
                     <Button className={s.nextButton} onClick={onNextButton} variant={'text'}>
-                      Next
+                      {t.buttons.next}
                     </Button>
                   )}
                 </header>

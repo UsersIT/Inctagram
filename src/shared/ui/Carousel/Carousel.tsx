@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 import { useEffect } from 'react'
 
-import { ArrowIosBackOutline, ArrowIosForward } from '@/src/shared/assets/icons'
+import { ArrowIosBack, ArrowIosForwardOutline } from '@/src/shared/assets/icons'
 import clsx from 'clsx'
 import Image from 'next/image'
 import SwiperCore from 'swiper'
@@ -15,12 +15,14 @@ import 'swiper/css/pagination'
 import s from './Carousel.module.scss'
 
 export type Props = {
+  buttonsClassName?: string
   imagesUrl?: { url: string }[]
   onNextClick?: (index: number) => void
   onPrevClick?: (index: number) => void
 } & Omit<SwiperProps, 'modules' | 'navigation' | 'pagination' | 'slidesPerView' | 'spaceBetween'>
 
 export const Carousel = ({
+  buttonsClassName,
   className,
   imagesUrl = [],
   onNextClick,
@@ -76,11 +78,19 @@ export const Carousel = ({
       ))}
       {imagesUrl.length > 1 && (
         <>
-          <div className={clsx('swiper-button-next', s['custom-button'])}>
-            <ArrowIosForward className={s.icon} />
+          <div
+            className={clsx('swiper-button-next', s['custom-button'], buttonsClassName)}
+            onClick={e => e.stopPropagation()}
+            role={'button'}
+          >
+            <ArrowIosForwardOutline />
           </div>
-          <div className={clsx('swiper-button-prev', s['custom-button'])}>
-            <ArrowIosBackOutline className={s.icon} />
+          <div
+            className={clsx('swiper-button-prev', s['custom-button'], buttonsClassName)}
+            onClick={e => e.stopPropagation()}
+            role={'button'}
+          >
+            <ArrowIosBack />
           </div>
         </>
       )}

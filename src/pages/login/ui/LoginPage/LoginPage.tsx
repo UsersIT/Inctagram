@@ -1,13 +1,25 @@
-import { GitHubAuthButton, GoogleAuthButton, LoginForm } from '@/src/features/auth'
+import { useEffect } from 'react'
+
+import { GitHubAuthButton, GoogleAuthButton, LoginForm, useMeQuery } from '@/src/features/auth'
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, Card, Typography } from '@/src/shared/ui'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import s from './LoginPage.module.scss'
 
 export const LoginPage = () => {
   const { t } = useTranslation()
+  const router = useRouter()
+
+  const { data: meData } = useMeQuery()
+
+  useEffect(() => {
+    if (meData) {
+      router.push(routes.PROFILE)
+    }
+  }, [meData, router])
 
   return (
     <div className={s.page}>

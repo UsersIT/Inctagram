@@ -1,7 +1,8 @@
 import type { AspectRatio, PostImageType } from '../../model/types/postImage'
 
-import React, { useRef, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import Cropper, { type Point } from 'react-easy-crop'
+import { set } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import {
@@ -36,6 +37,7 @@ export const PostPhotoCropper: React.FC<Props> = props => {
   const { t } = useTranslation()
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [error, setError] = useState<string>('')
   const [images, setImages] = useState<PostImageType[]>(uploadedImages)
   const [showZoomSelector, setShowZoomSelector] = useState(false)
   const [croppedArea, setCroppedArea] = useState<CroppedArea | null>(null)
@@ -43,6 +45,12 @@ export const PostPhotoCropper: React.FC<Props> = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   const imageInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+  }, [error])
 
   const handleSetNewPhoto = (photo: File) => {
     const newImage = setUpNewImage(URL.createObjectURL(photo))
@@ -245,6 +253,7 @@ export const PostPhotoCropper: React.FC<Props> = props => {
             <ImageUploadInput
               accept={'image/jpeg, image/png, image/jpg'}
               className={s.uploader}
+              error={err => setError(err)}
               ref={imageInputRef}
               schema={imageSchema(t, 20)}
               setFile={handleSetNewPhoto}

@@ -33,7 +33,7 @@ export const ImageUploader = ({ className, schema, setFile, ...rest }: ImageUplo
       {error ? (
         <div className={classes.errorWrapper}>
           <Typography as={'span'} className={classes.errorMassage} variant={'bold-text-14'}>
-            {t.errors.errorWord}
+            {t.errors.errorWord}{' '}
           </Typography>
           <Typography as={'span'} className={classes.errorMassage} variant={'regular-text-16'}>
             {error}

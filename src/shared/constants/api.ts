@@ -45,4 +45,7 @@ export const apiEndpoints = {
       usersCount: '/v1/public-user/',
     },
   },
+  subscriptions: {
+    subscribe: '/v1/subscriptions',
+  },
 } as const

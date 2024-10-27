@@ -1,4 +1,6 @@
 import type { UpdateTokensResult } from '../types/api'
+import type { RootState } from '@/src/app/providers/store'
+import type { Action, PayloadAction } from '@reduxjs/toolkit'
 
 import {
   BaseQueryFn,
@@ -8,9 +10,14 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
+import { HYDRATE } from 'next-redux-wrapper'
 
 import { BASE_API_URL, apiEndpoints } from '../constants/api'
 import { tokenStorage } from '../storage'
+
+function isHydrateAction(action: Action): action is PayloadAction<RootState> {
+  return action.type === HYDRATE
+}
 
 const mutex = new Mutex()
 
@@ -68,6 +75,11 @@ const customFetchBase: BaseQueryFn<FetchArgs | string, unknown, FetchBaseQueryEr
 export const baseApi = createApi({
   baseQuery: customFetchBase,
   endpoints: () => ({}),
+  extractRehydrationInfo(action, { reducerPath }): any {
+    if (isHydrateAction(action)) {
+      return action.payload[reducerPath]
+    }
+  },
   reducerPath: 'baseApi',
   tagTypes: ['Me', 'UserPosts'],
 })

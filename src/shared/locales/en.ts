@@ -22,6 +22,7 @@ export const en: LocaleType = {
     languageSelection: 'Language selection',
     login: 'Log in',
     logout: 'Log Out',
+    next: 'Next',
     openMenu: 'Open menu',
     profileSettings: 'Profile Settings',
     publish: 'Publish',
@@ -98,6 +99,23 @@ export const en: LocaleType = {
     statistics: 'Statistics',
   },
   pages: {
+    accountManagement: {
+      accountType: 'Account Type',
+      backToPayment: 'Back to Payment',
+      business: 'Business',
+      day: 'day',
+      error: 'Error',
+      errorMessage: 'Transaction failed! Please try again',
+      month: 'month',
+      ok: 'Ok',
+      or: 'Or',
+      per: 'per',
+      personal: 'Personal',
+      subscriptionCosts: 'Subscription Costs',
+      success: 'Success',
+      successMessage: 'Transaction completed successfully!',
+      week: 'week',
+    },
     create: {
       closeModal: {
         discard: 'Discard',

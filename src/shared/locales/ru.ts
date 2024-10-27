@@ -20,6 +20,7 @@ export const ru = {
     languageSelection: 'Выбор языка',
     login: 'Войти',
     logout: 'Выйти',
+    next: 'Далее',
     openMenu: 'Открыть меню',
     profileSettings: 'Настройки профиля',
     publish: 'Опубликовать',
@@ -97,6 +98,23 @@ export const ru = {
     statistics: 'Статистика',
   },
   pages: {
+    accountManagement: {
+      accountType: 'Тип аккаунта',
+      backToPayment: 'Вернуться к оплате',
+      business: 'Бизнес',
+      day: 'день',
+      error: 'Ошибка',
+      errorMessage: 'Транзакция не удалась! Попробуйте еще раз',
+      month: 'месяц',
+      ok: 'Ок',
+      or: 'Или',
+      per: 'в',
+      personal: 'Персональный',
+      subscriptionCosts: 'Стоимость подписки',
+      success: 'Успешно',
+      successMessage: 'Транзакция успешно завершена!',
+      week: 'неделю',
+    },
     create: {
       closeModal: {
         discard: 'Отменить',
