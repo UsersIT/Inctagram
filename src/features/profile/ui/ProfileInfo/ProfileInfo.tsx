@@ -51,7 +51,7 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
         publicationsCount={userData?.publicationsCount}
         userName={profileData?.userName}
       >
-        {isSuccess && isMyProfile && (
+        {isSuccess && !isMyProfile && (
           <div className={s.buttonContainer}>
             <Button
               disabled={isLoadingFollow}
@@ -65,7 +65,7 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
             </Button>
           </div>
         )}
-        {!isMyProfile && !isMobile && (
+        {isMyProfile && !isMobile && (
           <Button
             as={Link}
             className={s.settings}
