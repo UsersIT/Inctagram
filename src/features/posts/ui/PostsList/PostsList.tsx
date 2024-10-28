@@ -4,6 +4,7 @@ import { PostImageCard } from '@/src/entities/post'
 import { useTranslation } from '@/src/shared/hooks'
 import { useInfiniteScroll } from '@/src/shared/hooks/useInfiniteScroll'
 import { ScrollArea, ScrollBar, Spinner, Typography } from '@/src/shared/ui'
+import eventEmitter from '@/src/shared/utility/EventEmitter'
 import clsx from 'clsx'
 
 import s from './PostsList.module.scss'
@@ -14,7 +15,7 @@ import { Post } from '../../model/types/api'
 
 type Props = {
   className?: string
-  postId: number
+  postId: null | number
   profileId: number
 }
 
@@ -23,6 +24,7 @@ export const PostsList = ({ className, postId, profileId }: Props) => {
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMorePosts, setHasMorePosts] = useState(true)
   const { t } = useTranslation()
+
   const { data: newPosts, isFetching } = useGetUserPublicPostsQuery(
     {
       endCursorPostId: posts.length ? posts[posts.length - 1].id : 0,
@@ -45,6 +47,19 @@ export const PostsList = ({ className, postId, profileId }: Props) => {
       setLoadingMore(false)
     }
   }, [newPosts])
+
+  useEffect(() => {
+    const handlePostCreated = () => {
+      setHasMorePosts(true)
+      setPosts([])
+    }
+
+    eventEmitter.on('postCreated', handlePostCreated)
+
+    return () => {
+      eventEmitter.off('postCreated', handlePostCreated)
+    }
+  }, [])
 
   const loadMoreHandler = () => {
     if (!loadingMore && hasMorePosts) {

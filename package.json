@@ -32,6 +32,7 @@
     "async-mutex": "0.5.0",
     "axios": "1.6.7",
     "clsx": "2.1.0",
+    "events": "^3.3.0",
     "framer-motion": "11.0.24",
     "localforage": "^1.10.0",
     "next": "14.1.1",

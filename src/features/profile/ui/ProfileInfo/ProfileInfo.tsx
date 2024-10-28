@@ -1,8 +1,7 @@
 import { ProfileHeader } from '@/src/entities/profile'
 import { useMeQuery } from '@/src/features/auth'
 import { routes } from '@/src/shared/constants/routes'
-import { useTranslation } from '@/src/shared/hooks'
-import { useMediaQuery } from '@/src/shared/hooks/useMediaQuery'
+import { useMediaQuery, useTranslation } from '@/src/shared/hooks'
 import { Button } from '@/src/shared/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -69,7 +68,7 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
           <Button
             as={Link}
             className={s.settings}
-            href={routes.PROFILE_SETTINGS}
+            href={routes.PROFILE_SETTINGS(profileId)}
             variant={'secondary'}
           >
             {t.buttons.profileSettings}

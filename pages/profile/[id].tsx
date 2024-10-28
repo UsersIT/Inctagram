@@ -11,26 +11,41 @@ import { getPublicUserProfileById } from '@/src/features/profile/api/profileApi'
 import { ProfilePage } from '@/src/pages/profile/ui/ProfilePage/ProfilePage'
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
-  const query = context.query
+  const { query } = context
+  const profileId = Number(query.id)
+  const postId = Number(query.postId)
 
-  const profileId = Number(query.userId?.[0])
-  const postId = Number(query.userId?.[1])
+  if (isNaN(profileId)) {
+    return {
+      notFound: true,
+    }
+  }
 
   store.dispatch(getPublicUserProfileById.initiate({ profileId }, { forceRefetch: true }))
   store.dispatch(
     getUserPublicPosts.initiate({ pageSize: 8, userId: profileId }, { forceRefetch: true })
   )
-  store.dispatch(getPublicPostById.initiate({ postId }, { forceRefetch: true }))
+  if (!isNaN(postId)) {
+    store.dispatch(getPublicPostById.initiate({ postId }, { forceRefetch: true }))
+  }
 
   await Promise.all(store.dispatch(getRunningQueriesThunk()))
 
   return {
-    props: {},
+    props: {
+      postId: isNaN(postId) ? null : postId,
+      profileId,
+    },
   }
 })
 
-const Page: NextPageWithLayout = () => {
-  return <ProfilePage />
+type PageProps = {
+  postId: null | number
+  profileId: number
+}
+
+const Page: NextPageWithLayout<PageProps> = ({ postId, profileId }) => {
+  return <ProfilePage postId={postId} profileId={profileId} />
 }
 
 export default withRootLayout(Page)

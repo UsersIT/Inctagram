@@ -73,7 +73,7 @@ const profileApi = baseApi.injectEndpoints({
       providesTags: [],
       query: ({ profileId }) => ({
         method: 'GET',
-        url: `${apiEndpoints.public.user.userProfileById}${profileId}`,
+        url: `${apiEndpoints.public.user.userProfileById}${Number(profileId)}`,
       }),
     }),
     getUser: builder.query<GetUserResponse, { userName: string | undefined }>({
