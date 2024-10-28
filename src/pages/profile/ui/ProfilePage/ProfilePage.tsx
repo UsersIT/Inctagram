@@ -14,8 +14,8 @@ export const ProfilePage = () => {
   return (
     <main className={s.page}>
       {modal && modal === 'create' ? <PostCreator profileId={meData?.userId as number} /> : null}
-      {/* <ProfileInfo />
-      <PostsList /> */}
+      <ProfileInfo />
+      <PostsList />
     </main>
   )
 }
