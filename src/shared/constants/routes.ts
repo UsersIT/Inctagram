@@ -1,5 +1,5 @@
 export const routes = {
-  CREATE: '/profile/?modal=create',
+  CREATE: (profileId: number) => `/profile/${profileId}?modal=create`,
   FAVORITES: '/favorites',
   FORGOT_PASSWORD: '/auth/forgot-password',
   HOME: '/',
@@ -7,9 +7,8 @@ export const routes = {
   MESSENGER: '/messenger',
   POST: (profileId: number, id: number) => `/profile/${profileId}/?post=${id}`,
   PRIVACY_POLICY: '/policies/privacy-policy',
-  PROFILE: '/profile',
-  PROFILE_PUBLIC: (id: number) => `/profile/${id}`,
-  PROFILE_SETTINGS: '/profile/settings',
+  PROFILE: (profileId: number) => `/profile/${profileId}`,
+  PROFILE_SETTINGS: (profileId: number) => `/profile/${profileId}/settings`,
   REGISTRATION: '/auth/registration',
   SEARCH: '/search',
   STATISTICS: '/statistics',

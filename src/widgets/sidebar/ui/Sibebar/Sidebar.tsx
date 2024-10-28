@@ -1,4 +1,4 @@
-import { type ComponentProps, type FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { LogoutButton } from '@/src/features/auth'
 import { Burger } from '@/src/shared/assets/icons'
@@ -9,11 +9,15 @@ import { useRouter } from 'next/router'
 
 import s from './Sidebar.module.scss'
 
-import { sidebarNavItems } from '../../model/consts/navItems'
+import { generateSidebarNavItems } from '../../model/consts/navItems'
 import { NavItem } from '../NavItem/NavItem'
 import { SidebarSheet } from '../SidebarSheet/SidebarSheet'
 
-export const Sidebar: FC<ComponentProps<'aside'>> = ({ className }) => {
+type Props = {
+  profileId: number
+} & React.ComponentProps<'aside'>
+
+export const Sidebar: React.FC<Props> = ({ className, profileId }) => {
   const { t } = useTranslation()
 
   const router = useRouter()
@@ -55,10 +59,9 @@ export const Sidebar: FC<ComponentProps<'aside'>> = ({ className }) => {
         <ScrollArea className={s.scrollArea}>
           <menu className={s.menu}>
             <ul className={s.navList} role={'menu'}>
-              {sidebarNavItems.map(navItem => (
+              {generateSidebarNavItems(profileId).map(navItem => (
                 <NavItem
                   activeIcon={navItem.activeIcon}
-                  asPath={navItem.asPath}
                   className={navItem.className ? s[navItem.className] : ''}
                   collapsed
                   icon={navItem.icon}
@@ -73,7 +76,11 @@ export const Sidebar: FC<ComponentProps<'aside'>> = ({ className }) => {
         </ScrollArea>
       </aside>
 
-      <SidebarSheet onOpenChange={setIsSidebarSheetOpen} open={isSidebarSheetOpen} />
+      <SidebarSheet
+        onOpenChange={setIsSidebarSheetOpen}
+        open={isSidebarSheetOpen}
+        profileId={profileId}
+      />
     </>
   )
 }

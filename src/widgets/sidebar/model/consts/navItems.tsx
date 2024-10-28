@@ -16,14 +16,23 @@ import { routes } from '@/src/shared/constants/routes'
 
 import { NavItem } from '../types/navItem'
 
-export const navItems: Record<string, NavItem> = {
-  create: {
+type NavItems = {
+  create: (profileId: number) => NavItem
+  favorites: NavItem
+  home: NavItem
+  messenger: NavItem
+  profile: (profileId: number) => NavItem
+  search: NavItem
+  statistics: NavItem
+}
+
+export const navItems: NavItems = {
+  create: (profileId: number): NavItem => ({
     activeIcon: <PlusSquare />,
-    asPath: routes.PROFILE,
     icon: <PlusSquareOutline />,
     label: 'create',
-    path: routes.CREATE,
-  },
+    path: routes.CREATE(profileId),
+  }),
   favorites: {
     activeIcon: <Bookmark />,
     icon: <BookmarkOutline />,
@@ -42,12 +51,12 @@ export const navItems: Record<string, NavItem> = {
     label: 'messenger',
     path: routes.MESSENGER,
   },
-  profile: {
+  profile: (profileId: number): NavItem => ({
     activeIcon: <Person />,
     icon: <PersonOutline />,
     label: 'myProfile',
-    path: routes.PROFILE,
-  },
+    path: routes.PROFILE(profileId),
+  }),
   search: {
     className: 'gap',
     icon: <SearchIcon height={24} width={24} />,
@@ -61,19 +70,20 @@ export const navItems: Record<string, NavItem> = {
   },
 }
 
-export const sidebarNavItems = [
+export const generateSidebarNavItems = (profileId: number): NavItem[] => [
   navItems.home,
-  navItems.create,
-  navItems.profile,
+  navItems.create(profileId),
+  navItems.profile(profileId),
   navItems.messenger,
   navItems.search,
   navItems.statistics,
   navItems.favorites,
 ]
-export const bottombarNavItems = [
+
+export const generateBottombarNavItems = (profileId: number): NavItem[] => [
   navItems.home,
-  navItems.create,
+  navItems.create(profileId),
   navItems.messenger,
   { ...navItems.search, className: undefined },
-  navItems.profile,
+  navItems.profile(profileId),
 ]
