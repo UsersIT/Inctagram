@@ -57,7 +57,7 @@ export const PublicPost: React.FC<Props> = ({ post }) => {
       </Link>
       <Link
         className={s.avatarContainer}
-        href={routes.PROFILE_PUBLIC(post.ownerId)}
+        href={routes.PROFILE(post.ownerId)}
         tabIndex={isDescriptionOpen ? -1 : 0}
       >
         <Avatar circle height={36} iconSize={24} url={post.avatarOwner} width={36} />
@@ -94,7 +94,7 @@ export const PublicPost: React.FC<Props> = ({ post }) => {
       </div>
 
       <div className={clsx(s.scrollArea, isDescriptionOpen && s.visible)}>
-        <Link className={s.avatarContainer} href={routes.PROFILE_PUBLIC(post.ownerId)}>
+        <Link className={s.avatarContainer} href={routes.PROFILE(post.ownerId)}>
           <Avatar circle height={36} iconSize={24} url={post.avatarOwner} width={36} />
           <Typography as={'h3'} variant={'h3'}>
             {post.userName}

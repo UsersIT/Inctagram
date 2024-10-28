@@ -53,7 +53,7 @@ export const ProfileInfo = ({ className }: Props) => {
           <Button
             as={Link}
             className={s.settings}
-            href={routes.PROFILE_SETTINGS}
+            href={routes.PROFILE_SETTINGS(profile.id)}
             variant={'secondary'}
           >
             {t.buttons.profileSettings}

@@ -25,7 +25,7 @@ import { PostPublicationForm } from '../PostPublicationForm/PostPublicationForm'
 
 type StepType = keyof LocaleType['pages']['create']['steps']
 
-export const PostCreator = () => {
+export const PostCreator = ({ profileId }: { profileId: number }) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(true)
@@ -51,7 +51,7 @@ export const PostCreator = () => {
   const handleCloseCreatePost = () => {
     if (step === 0) {
       setIsOpen(false)
-      router.push(routes.PROFILE)
+      router.push(routes.PROFILE(profileId))
       revokeObjectUrls(images)
     } else {
       setShowCloseModal(true)
@@ -60,7 +60,7 @@ export const PostCreator = () => {
 
   const handlePostCreationSuccess = async () => {
     setIsOpen(false)
-    router.push(routes.PROFILE)
+    router.push(routes.PROFILE(profileId))
     revokeObjectUrls(images)
     if (isDraftUsed) {
       await postDraftStorage.removeDraft()
@@ -95,7 +95,7 @@ export const PostCreator = () => {
 
       await postDraftStorage.saveDraft(blobs)
       setShowCloseModal(false)
-      router.push(routes.PROFILE)
+      router.push(routes.PROFILE(profileId))
       revokeObjectUrls(images)
     } catch (error) {
       if (error instanceof Error) {
