@@ -106,7 +106,6 @@ export const {
   useGetFollowersQuery,
   useGetFollowingQuery,
   useGetProfileQuery,
-  useGetPublicUserProfileByIdQuery,
   useLazyGetProfileQuery,
   useUpdateProfileMutation,
   useUploadAvatarMutation,

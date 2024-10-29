@@ -16,19 +16,19 @@ type Props = {
 }
 
 export const ProfileInfo = ({ className }: Props) => {
-  const { data: profile } = useGetProfileQuery()
+  const { data: profile } = useGetProfileQuery(undefined, { refetchOnMountOrArgChange: true })
   const { data: me } = useMeQuery(undefined)
   const { data: followers } = useGetFollowersQuery(
     { username: profile?.userName || '' },
-    { skip: !profile }
+    { refetchOnMountOrArgChange: true, skip: !profile }
   )
   const { data: following } = useGetFollowingQuery(
     { username: profile?.userName || '' },
-    { skip: !profile }
+    { refetchOnMountOrArgChange: true, skip: !profile }
   )
   const { data: posts } = useGetPostsQuery(
     { username: profile?.userName || '' },
-    { skip: !profile }
+    { refetchOnMountOrArgChange: true, skip: !profile }
   )
   const { t } = useTranslation()
 
