@@ -11,6 +11,9 @@ import s from './SubscriptionSelectionSection.module.scss'
 
 type SelectedSubscription = '10-day' | '50-weekly' | '100-monthly'
 
+// https://picthentic.online/en/profile/settings?tab=account-management&&success=true&token=0ER05383K5261415Y&PayerID=Z752CBEKUCW6Q
+// https://picthentic.online/en/profile/settings?tab=account-management&?success=true
+
 export const SubscriptionSelectionSection = () => {
   const [selectedSubscription, setSelectedSubscription] = useState<SelectedSubscription>('10-day')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod | null>(null)
@@ -32,7 +35,7 @@ export const SubscriptionSelectionSection = () => {
     if (isError) {
       toast.error(t.errors.somethingWentWrong)
     }
-  }, [isError])
+  }, [isError, t.errors.somethingWentWrong])
 
   return (
     <section className={s.section}>
@@ -46,7 +49,7 @@ export const SubscriptionSelectionSection = () => {
             $10 {t.pages.accountManagement.per} 1 {t.pages.accountManagement.day}
           </RadioGroupItem>
           <RadioGroupItem value={'50-weekly'}>
-            $50 {t.pages.accountManagement.per} 7 {t.pages.accountManagement.week}
+            $50 {t.pages.accountManagement.per} {t.pages.accountManagement.week}
           </RadioGroupItem>
           <RadioGroupItem value={'100-monthly'}>
             $100 {t.pages.accountManagement.per} {t.pages.accountManagement.month}
