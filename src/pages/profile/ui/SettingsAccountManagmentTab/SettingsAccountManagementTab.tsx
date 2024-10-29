@@ -21,7 +21,7 @@ export const SettingsAccountManagementTab = () => {
       setSuccess(true)
       setSelectedAccountType('business')
       setIsDialogOpen(true)
-    } else if (router.query['?success'] === 'false') {
+    } else if (router.query['success'] === 'false' || router.query['?success'] === 'false') {
       setSuccess(false)
       setIsDialogOpen(true)
     }
