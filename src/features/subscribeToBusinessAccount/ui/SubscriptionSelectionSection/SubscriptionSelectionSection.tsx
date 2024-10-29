@@ -11,6 +11,9 @@ import s from './SubscriptionSelectionSection.module.scss'
 
 type SelectedSubscription = '10-day' | '50-weekly' | '100-monthly'
 
+// https://picthentic.online/en/profile/settings?tab=account-management&&success=true&token=0ER05383K5261415Y&PayerID=Z752CBEKUCW6Q
+// https://picthentic.online/en/profile/settings?tab=account-management&?success=true
+
 export const SubscriptionSelectionSection = () => {
   const [selectedSubscription, setSelectedSubscription] = useState<SelectedSubscription>('10-day')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod | null>(null)
