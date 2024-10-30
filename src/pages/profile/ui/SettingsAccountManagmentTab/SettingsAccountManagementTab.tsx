@@ -17,11 +17,11 @@ export const SettingsAccountManagementTab = () => {
   const router = useRouter()
 
   useLayoutEffect(() => {
-    if (router.query['?success'] === 'true') {
+    if (router.query['success'] === 'true' || router.query['?success'] === 'true') {
       setSuccess(true)
       setSelectedAccountType('business')
       setIsDialogOpen(true)
-    } else if (router.query['?success'] === 'false') {
+    } else if (router.query['success'] === 'false' || router.query['?success'] === 'false') {
       setSuccess(false)
       setIsDialogOpen(true)
     }
@@ -30,7 +30,11 @@ export const SettingsAccountManagementTab = () => {
   const handleCloseDialog = () => {
     const { pathname, query } = router
 
-    delete query['?success'] // Удаляем параметр success
+    delete query['success']
+    delete query['?success']
+    delete query['token']
+    delete query['PayerID']
+
     void router.replace({ pathname, query }, undefined, { shallow: true })
     setIsDialogOpen(false)
   }
