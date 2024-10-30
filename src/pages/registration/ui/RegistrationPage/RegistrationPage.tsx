@@ -17,7 +17,7 @@ export const RegistrationPage = () => {
 
   useEffect(() => {
     if (meData) {
-      router.push(routes.PROFILE)
+      router.push(routes.PROFILE(meData.userId))
     }
   }, [meData, router])
 

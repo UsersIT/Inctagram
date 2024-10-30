@@ -10,7 +10,6 @@ import s from './NavItem.module.scss'
 
 type Props = {
   activeIcon?: JSX.Element
-  asPath?: string
   collapsed?: boolean
   icon: JSX.Element
   label: string
@@ -18,16 +17,15 @@ type Props = {
 } & ComponentProps<'li'>
 
 export const NavItem: FC<Props> = props => {
-  const { activeIcon, asPath, className, collapsed = false, icon, label, path } = props
-  const { pathname, query } = useRouter()
+  const { activeIcon, className, collapsed = false, icon, label, path } = props
+  const { asPath } = useRouter()
 
   const title = collapsed ? label : undefined
-  const isActive =
-    query.modal && query.modal === 'create' ? path === routes.CREATE : path === pathname
+  const isActive = asPath === path
 
   return (
     <li className={clsx(s.root, className)} data-collapsed={collapsed} role={'menuitem'}>
-      <Link as={asPath} className={s.link} data-active={isActive} href={path} title={title}>
+      <Link className={s.link} data-active={isActive} href={path} title={title}>
         {isActive ? activeIcon || icon : icon}
         <Typography as={'span'} className={s.label}>
           {label}

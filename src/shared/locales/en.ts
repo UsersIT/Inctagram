@@ -16,6 +16,7 @@ export const en: LocaleType = {
     eyeIcon: 'Hide the entered password',
     eyeOffIcon: 'Show the entered password',
     follow: 'Follow',
+    hide: 'Hide',
     hideUploadedPhotosList: 'Hide uploaded photos list',
     hideZoomSelector: 'Hide zoom selector',
     imageUploader: 'Download from device',
@@ -32,6 +33,7 @@ export const en: LocaleType = {
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
     sendMassage: 'Send Massage',
+    showMore: 'Show more',
     showNextPhoto: 'Show next photo',
     showPhoto: 'Show photo',
     showPreviousPhoto: 'Show previous photo',
@@ -156,6 +158,9 @@ export const en: LocaleType = {
       warningText:
         'Looks like the verification link has expired. Not to worry, we can send the link again.',
       warningTitle: 'Email verification link expired.',
+    },
+    home: {
+      title: 'Registered users:',
     },
     policies: {
       policy: {

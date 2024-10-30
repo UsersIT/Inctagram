@@ -3,6 +3,8 @@ import { BASE_URL, apiEndpoints } from '@/src/shared/constants/api'
 import { tokenStorage } from '@/src/shared/storage'
 
 import {
+  LoginByGoogleRequest,
+  LoginByGoogleResponse,
   LoginRequest,
   LoginResponse,
   MeResponse,
@@ -34,6 +36,13 @@ const authApi = baseApi.injectEndpoints({
         url: apiEndpoints.auth.login,
       }),
     }),
+    loginByGoogle: builder.mutation<LoginByGoogleResponse, LoginByGoogleRequest>({
+      query: data => ({
+        body: data,
+        method: 'POST',
+        url: apiEndpoints.auth.google,
+      }),
+    }),
     logout: builder.mutation<void, void>({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
@@ -50,6 +59,7 @@ const authApi = baseApi.injectEndpoints({
       }),
     }),
     me: builder.query<MeResponse, void>({
+      providesTags: ['Me'],
       query: () => ({
         method: 'GET',
         url: apiEndpoints.auth.me,
@@ -93,6 +103,7 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useCreateNewPasswordMutation,
   useLazyMeQuery,
+  useLoginByGoogleMutation,
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,

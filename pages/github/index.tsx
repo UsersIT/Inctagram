@@ -1,33 +1,30 @@
 import { useEffect } from 'react'
 
+import { useMeQuery } from '@/src/features/auth'
 import { routes } from '@/src/shared/constants/routes'
 import { tokenStorage } from '@/src/shared/storage'
 import { useRouter } from 'next/router'
-function useQuery() {
-  const router = useRouter()
-  const hasQueryParams = /\[.+\]/.test(router.route) || /\?./.test(router.asPath)
-  const ready = !hasQueryParams || Object.keys(router.query).length > 0
 
-  if (!ready) {
-    return null
-  }
-
-  return router.query
-}
 const Github = () => {
   const router = useRouter()
-  const query = useQuery()
+  const { accessToken } = router.query
+  const { data: meData, isFetching } = useMeQuery(undefined, { skip: !accessToken })
 
   useEffect(() => {
-    if (!query) {
-      return
+    if (accessToken) {
+      tokenStorage.setToken(accessToken as string)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accessToken])
 
-    tokenStorage.setToken(query.accessToken as string)
-    router.push(routes.PROFILE)
-  }, [query])
+  useEffect(() => {
+    if (meData && !isFetching) {
+      router.push(routes.PROFILE(meData.userId))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [meData])
 
-  return <></>
+  return null
 }
 
 export default Github

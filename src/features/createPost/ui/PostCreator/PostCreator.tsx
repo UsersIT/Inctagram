@@ -27,10 +27,11 @@ import { PostPublicationForm } from '../PostPublicationForm/PostPublicationForm'
 
 type StepType = keyof LocaleType['pages']['create']['steps']
 
-export const PostCreator = () => {
+export const PostCreator = ({ profileId }: { profileId: number }) => {
   const router = useRouter()
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(true)
+
   const [step, setStep] = useState(0)
   const [images, setImages] = useState<PostImageType[]>([])
   const [showCloseModal, setShowCloseModal] = useState(false)
