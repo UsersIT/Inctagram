@@ -13,6 +13,7 @@ export const ru = {
     expandMenu: 'Развернуть меню',
     eyeIcon: 'Скрыть введённый пароль',
     eyeOffIcon: 'Показать введённый пароль',
+    hide: 'Скрыть',
     hideUploadedPhotosList: 'Скрыть список загруженных фотографий',
     hideZoomSelector: 'Скрыть селектор масштабирования',
     imageUploader: 'Загрузить с устройства',
@@ -28,6 +29,7 @@ export const ru = {
     save: 'Сохранить',
     sendLink: 'Отправить ссылку',
     sendLinkAgain: 'Отправить ссылку повторно',
+    showMore: 'Показать ещё',
     showNextPhoto: 'Показать следующее фото',
     showPhoto: 'Показать фото',
     showPreviousPhoto: 'Показать предыдущее фото',
@@ -151,6 +153,9 @@ export const ru = {
       warningText:
         'Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку снова.',
       warningTitle: 'Срок действия ссылки для проверки email истек.',
+    },
+    home: {
+      title: 'Зарегистрировано пользователей:',
     },
     policies: {
       policy: {

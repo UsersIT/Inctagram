@@ -25,10 +25,12 @@ const baseQuery = fetchBaseQuery({
   baseUrl: BASE_API_URL,
   credentials: 'include',
   prepareHeaders: headers => {
-    const token = tokenStorage.getToken()
+    if (typeof window !== 'undefined') {
+      const token = tokenStorage.getToken()
 
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`)
+      }
     }
 
     return headers
