@@ -34,46 +34,58 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
   if (!profileData) {
     return null
   }
-  const isMyProfile = me ? me.userId === +profileId : false
+
+  const isMyProfile = me?.userId === profileId
 
   const followingUserHandler = () => {
     followUser({ selectedUserId: profileId })
   }
 
+  const renderButtons = () => {
+    if (isSuccess && !isMyProfile) {
+      return (
+        <div className={s.buttonContainer}>
+          <Button
+            disabled={isLoadingFollow}
+            onClick={followingUserHandler}
+            variant={userData?.isFollowing ? 'outlined' : 'primary'}
+          >
+            {userData?.isFollowing ? t.buttons.unfollow : t.buttons.follow}
+          </Button>
+          <Button className={s.buttonSpacing} onClick={() => {}} variant={'secondary'}>
+            {t.buttons.sendMassage}
+          </Button>
+        </div>
+      )
+    }
+
+    if (isMyProfile && !isMobile) {
+      return (
+        <Button
+          as={Link}
+          className={s.settings}
+          href={routes.PROFILE_SETTINGS(profileId)}
+          variant={'secondary'}
+        >
+          {t.buttons.profileSettings}
+        </Button>
+      )
+    }
+
+    return null
+  }
+
   return (
     <header className={clsx(s.content, className)}>
       <ProfileHeader
-        avatarUrl={profileData?.avatars[0]?.url ? profileData?.avatars[0]?.url : ''}
+        avatarUrl={profileData?.avatars[0]?.url ?? ''}
         description={profileData?.aboutMe}
         followersCount={userData?.followersCount}
         followingCount={userData?.followingCount}
         publicationsCount={userData?.publicationsCount}
         userName={profileData?.userName}
       >
-        {isSuccess && !isMyProfile && (
-          <div className={s.buttonContainer}>
-            <Button
-              disabled={isLoadingFollow}
-              onClick={followingUserHandler}
-              variant={userData?.isFollowing ? 'outlined' : 'primary'}
-            >
-              {userData?.isFollowing ? `${t.buttons.unfollow}` : `${t.buttons.follow}`}
-            </Button>
-            <Button className={s.buttonSpacing} onClick={() => {}} variant={'secondary'}>
-              {t.buttons.sendMassage}
-            </Button>
-          </div>
-        )}
-        {isMyProfile && !isMobile && (
-          <Button
-            as={Link}
-            className={s.settings}
-            href={routes.PROFILE_SETTINGS(profileId)}
-            variant={'secondary'}
-          >
-            {t.buttons.profileSettings}
-          </Button>
-        )}
+        {renderButtons()}
       </ProfileHeader>
     </header>
   )

@@ -3,7 +3,6 @@ import type { PostImageType } from '../../model/types/postImage'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { useMeQuery } from '@/src/features/auth'
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
 import { LocaleType } from '@/src/shared/locales/ru'
@@ -36,7 +35,6 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   const [images, setImages] = useState<PostImageType[]>([])
   const [showCloseModal, setShowCloseModal] = useState(false)
   const [isDraftUsed, setIsDraftUsed] = useState(false)
-  const { data: meData } = useMeQuery(undefined)
   const { draft, isDraftOpeningError, showOpenDraftButton } = useDraft()
 
   const handleProcessingFinished = (images: PostImageType[]) => {
@@ -53,9 +51,8 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   const handleCloseCreatePost = () => {
     if (step === 0) {
       setIsOpen(false)
-      const userId = meData?.userId
 
-      router.push(userId ? routes.PROFILE(userId) : routes.HOME)
+      router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
       revokeObjectUrls(images)
     } else {
       setShowCloseModal(true)
@@ -66,9 +63,8 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
     eventEmitter.emit('postCreated')
 
     setIsOpen(false)
-    const userId = meData?.userId
 
-    router.push(userId ? routes.PROFILE(userId) : routes.HOME)
+    router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
     revokeObjectUrls(images)
     if (isDraftUsed) {
       await postDraftStorage.removeDraft()
@@ -102,9 +98,8 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
 
       await postDraftStorage.saveDraft(blobs)
       setShowCloseModal(false)
-      const userId = meData?.userId
 
-      router.push(userId ? routes.PROFILE(userId) : routes.HOME)
+      router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
       revokeObjectUrls(images)
     } catch (error) {
       if (error instanceof Error) {

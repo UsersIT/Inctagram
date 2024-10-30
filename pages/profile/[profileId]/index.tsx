@@ -7,9 +7,8 @@ import {
   getRunningQueriesThunk,
   getUserPublicPosts,
 } from '@/src/features/posts/api/postApi'
-import { getPublicUserProfileById } from '@/src/features/profile/api/profileApi'
-import { ProfilePage } from '@/src/pages/profile/ui/ProfilePage/ProfilePage'
-
+import { getPublicUserProfileById } from '@/src/features/profile'
+import { ProfilePage } from '@/src/pages/profile'
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
   const { query } = context
   const profileId = Number(query.profileId)
