@@ -16,7 +16,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ postId, profileId }) =
 
   return (
     <main className={s.page}>
-      {modal && modal === 'create' ? <PostCreator /> : null}
+      {modal && modal === 'create' ? <PostCreator profileId={profileId} /> : null}
       <ProfileInfo profileId={profileId} />
       <PostsList postId={postId} profileId={profileId} />
     </main>

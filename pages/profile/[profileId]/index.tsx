@@ -12,7 +12,7 @@ import { ProfilePage } from '@/src/pages/profile/ui/ProfilePage/ProfilePage'
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
   const { query } = context
-  const profileId = Number(query.id)
+  const profileId = Number(query.profileId)
   const postId = Number(query.postId)
 
   if (isNaN(profileId)) {

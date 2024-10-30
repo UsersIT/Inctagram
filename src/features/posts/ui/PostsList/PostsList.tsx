@@ -36,6 +36,12 @@ export const PostsList = ({ className, postId, profileId }: Props) => {
     { skip: !profileId || !hasMorePosts }
   )
 
+  // Очищаем посты при изменении profileId
+  useEffect(() => {
+    setPosts([])
+    setHasMorePosts(true)
+  }, [profileId])
+
   useEffect(() => {
     if (newPosts && newPosts.items.length > 0) {
       const transformedPosts = transformPosts(newPosts.items)
