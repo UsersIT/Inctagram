@@ -1,3 +1,5 @@
+import { ImageType } from '../../../posts/model/types/api'
+
 export type Avatar = {
   createdAt: string
   fileSize: number
@@ -21,21 +23,6 @@ export type GetProfileResponse = {
   id: number
   lastName: string
   region: string
-  userName: string
-}
-
-export type UserProfile = {
-  avatarUrl: string
-  bio: string
-  createdAt: string
-  firstName: string
-  followersCount: number
-  followingCount: number
-  id: number
-  lastName: string
-  location: null | string
-  postsCount: number
-  updatedAt: string
   userName: string
 }
 
@@ -66,4 +53,37 @@ export type GetFollowersOrFollowingResponseParams = {
     search?: string
   }
   username: string
+}
+
+export type GetPublicUserProfileByIdResponse = {
+  aboutMe: string
+  avatars: ImageType[]
+  id: number
+  userName: string
+}
+
+type GetUsersResponseItems = Omit<GetProfileResponse, 'aboutMe' | 'city' | 'dateOfBirth'>
+
+export type GetUsersResponse = {
+  items: GetUsersResponseItems[]
+  nextCursor: number
+  page: number
+  pageSize: number
+  pagesCount: number
+  prevCursor: number
+  totalCount: number
+}
+
+export type GetUsersArgsType = {
+  cursor: number
+  pageNumber?: number
+  pageSize?: number
+  search?: string
+}
+export type GetUserResponse = Omit<GetProfileResponse, 'createdAt'> & {
+  followersCount: number
+  followingCount: number
+  isFollowedBy: boolean
+  isFollowing: boolean
+  publicationsCount: number
 }

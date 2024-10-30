@@ -9,6 +9,7 @@ import { LocaleType } from '@/src/shared/locales/ru'
 import { imageSchema } from '@/src/shared/schemas/ImageSchema'
 import { postDraftStorage } from '@/src/shared/storage'
 import { Button, ImageUploader, Modal } from '@/src/shared/ui'
+import eventEmitter from '@/src/shared/utility/EventEmitter'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
@@ -34,7 +35,6 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   const [images, setImages] = useState<PostImageType[]>([])
   const [showCloseModal, setShowCloseModal] = useState(false)
   const [isDraftUsed, setIsDraftUsed] = useState(false)
-
   const { draft, isDraftOpeningError, showOpenDraftButton } = useDraft()
 
   const handleProcessingFinished = (images: PostImageType[]) => {
@@ -51,7 +51,8 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   const handleCloseCreatePost = () => {
     if (step === 0) {
       setIsOpen(false)
-      router.push(routes.PROFILE(profileId))
+
+      router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
       revokeObjectUrls(images)
     } else {
       setShowCloseModal(true)
@@ -59,14 +60,16 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   }
 
   const handlePostCreationSuccess = async () => {
+    eventEmitter.emit('postCreated')
+
     setIsOpen(false)
-    router.push(routes.PROFILE(profileId))
+
+    router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
     revokeObjectUrls(images)
     if (isDraftUsed) {
       await postDraftStorage.removeDraft()
     }
   }
-
   const handleNextStep = () => {
     setStep(prev => {
       if (prev === 3) {
@@ -95,7 +98,8 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
 
       await postDraftStorage.saveDraft(blobs)
       setShowCloseModal(false)
-      router.push(routes.PROFILE(profileId))
+
+      router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
       revokeObjectUrls(images)
     } catch (error) {
       if (error instanceof Error) {

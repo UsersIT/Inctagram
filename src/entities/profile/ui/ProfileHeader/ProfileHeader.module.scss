@@ -8,6 +8,7 @@
     'avatar aboutMe aboutMe';
   gap: 24px;
 
+  box-sizing: border-box;
   width: 100%;
   max-width: 972px;
   min-height: 200px;
@@ -19,6 +20,7 @@
   display: -webkit-box;
   grid-area: aboutMe;
 
+  text-align: start;
   text-overflow: ellipsis;
   word-break: break-all;
 
@@ -33,8 +35,7 @@
 
 .avatar {
   grid-area: avatar;
-  align-self: flex-start ;
-  object-fit: cover;
+  align-self: flex-start;
 }
 
 .name {
@@ -48,22 +49,23 @@
 
 @media screen and (width <= 1024px) {
   .header {
+    gap: 12px;
     width: 90%;
     max-width: 948px;
   }
-
 }
 
 @media screen and (width <= 768px) {
   .header {
     grid-template-areas:
-      'avatar btn'
-      'avatar stats'
-      'avatar aboutMe'
-      'name .';
-    grid-template-rows: 36px min-content auto;
+      'avatar name btn'
+      'avatar stats stats'
+      'aboutMe aboutMe aboutMe';
+    grid-template-rows: auto auto auto;
+    gap: 6px;
+
     max-width: 768px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 
   .name {
@@ -71,10 +73,9 @@
   }
 
   .avatar {
-    width: 144px ;
+    width: 144px;
     height: 144px;
   }
-
 }
 
 @media screen and (width <= 576px) {
@@ -82,21 +83,19 @@
     grid-template-areas:
       'avatar stats'
       'name .'
+      'btn btn'
       'aboutMe aboutMe';
-    grid-template-rows: auto;
-    place-items: center center;
+    place-items: start;
   }
 
   .avatar {
-    width: 72px ;
+    width: 72px;
     height: 72px;
   }
 
   .name {
-    left: 0;
     font-size: var(--font-size-m);
     line-height: var(--line-height-m);
-
   }
 
   .aboutMe {
@@ -105,6 +104,15 @@
   }
 
   .btn {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn button {
+    width: 100%;
+    min-width: 330px;
+    height: 48px;
+    margin-bottom: 12px;
   }
 }
