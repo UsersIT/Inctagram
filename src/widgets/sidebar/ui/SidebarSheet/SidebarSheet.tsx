@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { LogoutButton } from '@/src/features/auth'
 import { Close } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
@@ -7,14 +9,15 @@ import * as Sheet from '@radix-ui/react-dialog'
 import sidebarStyles from '../Sibebar/Sidebar.module.scss'
 import s from './SidebarSheet.module.scss'
 
-import { sidebarNavItems } from '../../model/consts/navItems'
+import { generateSidebarNavItems } from '../../model/consts/navItems'
 import { NavItem } from '../NavItem/NavItem'
 
 type Props = {
   onOpenChange: (open: boolean) => void
   open: boolean
+  profileId: number
 }
-export const SidebarSheet = ({ onOpenChange, open }: Props) => {
+export const SidebarSheet: React.FC<Props> = ({ onOpenChange, open, profileId }) => {
   const { t } = useTranslation()
 
   return (
@@ -24,10 +27,9 @@ export const SidebarSheet = ({ onOpenChange, open }: Props) => {
         <ScrollArea className={sidebarStyles.scrollArea}>
           <menu className={sidebarStyles.menu}>
             <ul className={sidebarStyles.navList} role={'menu'}>
-              {sidebarNavItems.map(navItem => (
+              {generateSidebarNavItems(profileId).map(navItem => (
                 <NavItem
                   activeIcon={navItem.activeIcon}
-                  asPath={navItem.asPath}
                   className={navItem.className ? sidebarStyles[navItem.className] : ''}
                   collapsed={false}
                   icon={navItem.icon}

@@ -30,7 +30,6 @@ export const GeneralInfoForm = ({ className }: ComponentProps<'form'>) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [getProfile, { data: profile, isLoading: isProfileLoading }] = useLazyGetProfileQuery()
-  const [aboutMeRows, setAboutMeRows] = useState(1)
   const [cityDisplayValue, setCityDisplayValue] = useState('')
   const [updateProfile, { isLoading: isUpdateProfileLoading }] = useUpdateProfileMutation()
   const [isYoungerThan13, setIsYoungerThan13] = useState(false)
@@ -115,10 +114,6 @@ export const GeneralInfoForm = ({ className }: ComponentProps<'form'>) => {
           'aboutMe',
           searchParams?.get('aboutMe') ?? res.aboutMe?.trim().replace(/\n{2,}/g, '\n\n') ?? ''
         )
-
-        const lines = res.aboutMe ? res.aboutMe.split('\n').length : 1
-
-        setAboutMeRows(lines)
         setCityDisplayValue(res.city ?? '')
 
         void trigger()
@@ -228,7 +223,6 @@ export const GeneralInfoForm = ({ className }: ComponentProps<'form'>) => {
         disabled={isProfileLoading || isUpdateProfileLoading}
         label={t.label.aboutMe}
         name={'aboutMe'}
-        rows={aboutMeRows}
       />
 
       <div className={s.divider} />

@@ -16,6 +16,7 @@ export const en: LocaleType = {
     expandMenu: 'Expand menu',
     eyeIcon: 'Hide the entered password',
     eyeOffIcon: 'Show the entered password',
+    follow: 'Follow',
     hide: 'Hide',
     hideUploadedPhotosList: 'Hide uploaded photos list',
     hideZoomSelector: 'Hide zoom selector',
@@ -32,6 +33,7 @@ export const en: LocaleType = {
     save: 'Save',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
+    sendMassage: 'Send Massage',
     showMore: 'Show more',
     showNextPhoto: 'Show next photo',
     showPhoto: 'Show photo',
@@ -40,6 +42,7 @@ export const en: LocaleType = {
     showZoomSelector: 'Show zoom selector',
     signIn: 'Sign In',
     signUp: 'Sign Up',
+    unfollow: 'Unfollow',
     uploadMore: 'Upload more',
   },
   calendar: {
@@ -157,6 +160,9 @@ export const en: LocaleType = {
         'Looks like the verification link has expired. Not to worry, we can send the link again.',
       warningTitle: 'Email verification link expired.',
     },
+    home: {
+      title: 'Registered users:',
+    },
     policies: {
       policy: {
         childrenText: 'Our Service does not address anyone under the age of 13 ("Children").',
@@ -230,6 +236,7 @@ export const en: LocaleType = {
     followers: 'Followers',
     following: 'Following',
     logOutConfirmation: 'Are you really want to log out of your account?',
+    noPublications: 'There are no publications yet!',
     publications: 'Publications',
     success: 'Success!',
     updatedPhoto: 'Profile photo has been updated successfully!',

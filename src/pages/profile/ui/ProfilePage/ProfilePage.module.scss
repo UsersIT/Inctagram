@@ -1,6 +1,3 @@
-/* stylelint-disable-next-line scss/double-slash-comment-whitespace-inside */
-//!! Скорее всего нужно добавить адаптив
-
 .page {
   overflow: auto;
   display: flex;
@@ -11,15 +8,25 @@
   margin: 48px auto 0;
 }
 
-@media screen and (width <= 768px)  {
+@media screen and (width <= 768px) {
   .page {
     margin: 20px auto 0;
   }
 }
 
-@media screen and (width <= 576px)  {
+@media screen and (width <= 576px) {
   .page {
     width: 100%;
-    margin: 10px auto 0 ;
+    margin: 10px auto 0;
+  }
+
+  .list {
+    min-width: 360px;
+  }
+}
+
+@media screen and (width <= 375px) {
+  .list {
+    min-width: 340px;
   }
 }

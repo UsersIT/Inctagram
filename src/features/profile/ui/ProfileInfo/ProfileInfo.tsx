@@ -1,64 +1,91 @@
 import { ProfileHeader } from '@/src/entities/profile'
 import { useMeQuery } from '@/src/features/auth'
-import { useGetPostsQuery } from '@/src/features/posts/api/postApi'
-import { useGetProfileQuery } from '@/src/features/profile'
-import { useGetFollowersQuery, useGetFollowingQuery } from '@/src/features/profile/api/profileApi'
 import { routes } from '@/src/shared/constants/routes'
-import { useTranslation } from '@/src/shared/hooks'
+import { useMediaQuery, useTranslation } from '@/src/shared/hooks'
 import { Button } from '@/src/shared/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 
 import s from './ProfileInfo.module.scss'
 
+import {
+  useFollowingUserMutation,
+  useGetPublicUserProfileByIdQuery,
+  useGetUserQuery,
+} from '../../api/profileApi'
+
 type Props = {
   className?: string
+  profileId: number
 }
 
-export const ProfileInfo = ({ className }: Props) => {
-  const { data: profile } = useGetProfileQuery()
+export const ProfileInfo = ({ className, profileId }: Props) => {
+  const { data: profileData } = useGetPublicUserProfileByIdQuery({ profileId })
+  const { data: userData, isSuccess } = useGetUserQuery(
+    { userName: profileData?.userName },
+    { skip: !profileData?.userName }
+  )
+  const [followUser, { isLoading: isLoadingFollow }] = useFollowingUserMutation()
   const { data: me } = useMeQuery(undefined)
-  const { data: followers } = useGetFollowersQuery(
-    { username: profile?.userName || '' },
-    { skip: !profile }
-  )
-  const { data: following } = useGetFollowingQuery(
-    { username: profile?.userName || '' },
-    { skip: !profile }
-  )
-  const { data: posts } = useGetPostsQuery(
-    { username: profile?.userName || '' },
-    { skip: !profile }
-  )
-  const { t } = useTranslation()
 
-  if (!profile) {
+  const { t } = useTranslation()
+  const isMobile = useMediaQuery('(max-width: 576px)')
+
+  if (!profileData) {
     return null
   }
 
-  const isMyProfile = me?.userId === profile.id
+  const isMyProfile = me?.userId === profileId
+
+  const followingUserHandler = () => {
+    followUser({ selectedUserId: profileId })
+  }
+
+  const renderButtons = () => {
+    if (isSuccess && !isMyProfile) {
+      return (
+        <div className={s.buttonContainer}>
+          <Button
+            disabled={isLoadingFollow}
+            onClick={followingUserHandler}
+            variant={userData?.isFollowing ? 'outlined' : 'primary'}
+          >
+            {userData?.isFollowing ? t.buttons.unfollow : t.buttons.follow}
+          </Button>
+          <Button className={s.buttonSpacing} onClick={() => {}} variant={'secondary'}>
+            {t.buttons.sendMassage}
+          </Button>
+        </div>
+      )
+    }
+
+    if (isMyProfile && !isMobile) {
+      return (
+        <Button
+          as={Link}
+          className={s.settings}
+          href={routes.PROFILE_SETTINGS(profileId)}
+          variant={'secondary'}
+        >
+          {t.buttons.profileSettings}
+        </Button>
+      )
+    }
+
+    return null
+  }
 
   return (
     <header className={clsx(s.content, className)}>
       <ProfileHeader
-        avatarUrl={profile.avatars[0]?.url ? profile.avatars[0]?.url : ''}
-        description={profile.aboutMe}
-        followersCount={followers?.totalCount}
-        followingCount={following?.totalCount}
-        publicationsCount={posts?.totalCount}
-        userName={profile.userName}
+        avatarUrl={profileData?.avatars[0]?.url ?? ''}
+        description={profileData?.aboutMe}
+        followersCount={userData?.followersCount}
+        followingCount={userData?.followingCount}
+        publicationsCount={userData?.publicationsCount}
+        userName={profileData?.userName}
       >
-        {' '}
-        {isMyProfile && (
-          <Button
-            as={Link}
-            className={s.settings}
-            href={routes.PROFILE_SETTINGS}
-            variant={'secondary'}
-          >
-            {t.buttons.profileSettings}
-          </Button>
-        )}
+        {renderButtons()}
       </ProfileHeader>
     </header>
   )

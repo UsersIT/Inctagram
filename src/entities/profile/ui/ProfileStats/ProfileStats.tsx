@@ -22,15 +22,21 @@ export const ProfileStats = ({
   return (
     <div className={clsx(s.stats, className)}>
       <div>
-        <Typography variant={'bold-text-14'}>{followingCount}</Typography>
+        <Typography className={s.num} variant={'bold-text-14'}>
+          {followingCount}
+        </Typography>
         <Typography variant={'regular-text-14'}>{t.profile.following}</Typography>
       </div>
       <div>
-        <Typography variant={'bold-text-14'}>{followersCount}</Typography>
+        <Typography className={s.num} variant={'bold-text-14'}>
+          {followersCount}
+        </Typography>
         <Typography variant={'regular-text-14'}>{t.profile.followers}</Typography>
       </div>
       <div>
-        <Typography variant={'bold-text-14'}>{publicationsCount}</Typography>
+        <Typography className={s.num} variant={'bold-text-14'}>
+          {publicationsCount}
+        </Typography>
         <Typography variant={'regular-text-14'}>{t.profile.publications}</Typography>
       </div>
     </div>

@@ -1,32 +1,37 @@
 .list {
   display: grid;
-  grid-auto-rows: min-content;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(234px, 1fr));
   gap: 12px;
 
-  margin: 12px 0 0;
+  width: 100%;
+  margin: 0 auto 150px;
+  padding: 0;
+}
+
+.list-item {
+  aspect-ratio: 1 / 1; /* Квадратный формат */
+  width: 100%;
+  background-color: #ccc; /* Примерный цвет для тестирования */
 }
 
 @media screen and (width <= 1024px) {
   .list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(108px, 1fr));
     width: 90%;
+    margin: 0 auto 100px;
   }
 }
 
 @media screen and (width <= 768px) {
   .list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    width: 90%;
-    margin: 6px 0 0;
+    gap: 8px;
+    width: 100%;
+    margin: 0 auto 50px;
   }
 }
 
-
 @media screen and (width <= 576px) {
   .list {
-    gap: 4px;
-    padding: 0;
+    gap: 6px;
   }
 }

@@ -32,7 +32,7 @@ export const SubscriptionSelectionSection = () => {
     if (isError) {
       toast.error(t.errors.somethingWentWrong)
     }
-  }, [isError])
+  }, [isError, t.errors.somethingWentWrong])
 
   return (
     <section className={s.section}>
@@ -46,7 +46,7 @@ export const SubscriptionSelectionSection = () => {
             $10 {t.pages.accountManagement.per} 1 {t.pages.accountManagement.day}
           </RadioGroupItem>
           <RadioGroupItem value={'50-weekly'}>
-            $50 {t.pages.accountManagement.per} 7 {t.pages.accountManagement.week}
+            $50 {t.pages.accountManagement.per} {t.pages.accountManagement.week}
           </RadioGroupItem>
           <RadioGroupItem value={'100-monthly'}>
             $100 {t.pages.accountManagement.per} {t.pages.accountManagement.month}

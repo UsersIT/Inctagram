@@ -5,6 +5,9 @@
   width: 50%;
 }
 
+.num {
+  text-align: center;
+}
 
 @media screen and (width <= 768px) {
   .stats {
@@ -17,9 +20,15 @@
 
 @media screen and (width <= 576px) {
   .stats {
-    gap: 5px;
+    gap: 2px;
     width: 100%;
     margin: 5px;
     font-size: var(--font-size-xs);
+  }
+}
+
+@media screen and (width <= 375px) {
+  .stats {
+    margin: 0;
   }
 }

@@ -14,6 +14,7 @@ export const ru = {
     expandMenu: 'Развернуть меню',
     eyeIcon: 'Скрыть введённый пароль',
     eyeOffIcon: 'Показать введённый пароль',
+    follow: 'Подписаться',
     hide: 'Скрыть',
     hideUploadedPhotosList: 'Скрыть список загруженных фотографий',
     hideZoomSelector: 'Скрыть селектор масштабирования',
@@ -30,6 +31,7 @@ export const ru = {
     save: 'Сохранить',
     sendLink: 'Отправить ссылку',
     sendLinkAgain: 'Отправить ссылку повторно',
+    sendMassage: 'Написать сообщение',
     showMore: 'Показать ещё',
     showNextPhoto: 'Показать следующее фото',
     showPhoto: 'Показать фото',
@@ -38,6 +40,7 @@ export const ru = {
     showZoomSelector: 'Показать селектор масштабирования',
     signIn: 'Войти',
     signUp: 'Зарегистрироваться',
+    unfollow: 'Отписаться',
     uploadMore: 'Загрузить ещё',
   },
   calendar: {
@@ -155,6 +158,9 @@ export const ru = {
         'Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку снова.',
       warningTitle: 'Срок действия ссылки для проверки email истек.',
     },
+    home: {
+      title: 'Зарегистрировано пользователей:',
+    },
     policies: {
       policy: {
         childrenText: 'Наш Сервис не предназначен для лиц младше 13 лет ("Дети").',
@@ -230,6 +236,7 @@ export const ru = {
     followers: 'Подписчики',
     following: 'Подписки',
     logOutConfirmation: 'Вы действительно хотите выйти из своей учетной записи?',
+    noPublications: 'Публикаций пока нет!',
     publications: 'Публикации',
     success: 'Успешно!',
     updatedPhoto: 'Фотография профиля успешно обновлена!',

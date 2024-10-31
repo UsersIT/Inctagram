@@ -6,6 +6,7 @@ import {
   GetUserPostsParams,
   GetUserPostsResponse,
   GetUserPublicPostsArgs,
+  PostsResponseType,
 } from '../model/types/api'
 
 const postApi = baseApi.injectEndpoints({
@@ -14,6 +15,13 @@ const postApi = baseApi.injectEndpoints({
       query: ({ query, username }) => ({
         method: 'GET',
         url: `${apiEndpoints.posts.postsByUsername(username)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
+      }),
+    }),
+    getPublicPostById: builder.query<PostsResponseType, { postId: number }>({
+      providesTags: [],
+      query: ({ postId }) => ({
+        method: 'GET',
+        url: `${apiEndpoints.public.posts.postById}${postId}`,
       }),
     }),
     getUserPublicPosts: builder.query<GetPublicPostsResponse, GetUserPublicPostsArgs>({
@@ -31,4 +39,11 @@ const postApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetPostsQuery, useGetUserPublicPostsQuery } = postApi
+export const {
+  useGetPostsQuery,
+  useGetPublicPostByIdQuery,
+  useGetUserPublicPostsQuery,
+  util: { getRunningQueriesThunk },
+} = postApi
+
+export const { getPosts, getPublicPostById, getUserPublicPosts } = postApi.endpoints

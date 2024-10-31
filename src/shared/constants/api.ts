@@ -20,6 +20,7 @@ export const apiEndpoints = {
     updateTokens: '/v1/auth/update-tokens',
   },
   followingAndFollowers: {
+    following: 'v1/users/following',
     userFollowers: (username: string) => `/v1/users/${username}/followers`,
     userFollowing: (username: string) => `/v1/users/${username}/following`,
   },
@@ -41,7 +42,8 @@ export const apiEndpoints = {
     },
     user: {
       userProfileById: '/v1/public-user/profile/', // + `${profileId}`
-      usersCount: '/v1/public-user',
+      users: '/v1/users/',
+      usersCount: '/v1/public-user/',
     },
   },
   subscriptions: {

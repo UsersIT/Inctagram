@@ -34,6 +34,15 @@ export type LoginResponse = {
   accessToken: string
 }
 
+export type LoginByGoogleRequest = {
+  code: string
+}
+
+export type LoginByGoogleResponse = {
+  accessToken: string
+  email: string
+}
+
 export type MeResponse = {
   email: string
   isBlocked: boolean
