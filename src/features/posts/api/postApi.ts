@@ -1,3 +1,4 @@
+import { Post } from '@/src/entities/post'
 import { baseApi } from '@/src/shared/api/baseApi'
 import { apiEndpoints } from '@/src/shared/constants/api'
 
@@ -6,7 +7,6 @@ import {
   GetUserPostsParams,
   GetUserPostsResponse,
   GetUserPublicPostsArgs,
-  PostsResponseType,
 } from '../model/types/api'
 
 const postApi = baseApi.injectEndpoints({
@@ -17,15 +17,11 @@ const postApi = baseApi.injectEndpoints({
         url: `${apiEndpoints.posts.postsByUsername(username)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
       }),
     }),
-    getPublicPostById: builder.query<PostsResponseType, { postId: number }>({
-      providesTags: [],
-      query: ({ postId }) => ({
-        method: 'GET',
-        url: `${apiEndpoints.public.posts.postById}${postId}`,
-      }),
+    getPublicPostById: builder.query<Post, number>({
+      providesTags: (_, __, postId) => [{ id: postId, type: 'Post' }],
+      query: postId => apiEndpoints.public.posts.postById(postId),
     }),
     getUserPublicPosts: builder.query<GetPublicPostsResponse, GetUserPublicPostsArgs>({
-      providesTags: ['UserPosts'],
       query: args => ({
         method: 'GET',
         params: {

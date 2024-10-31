@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { CommentCard } from '@/src/entities/comment'
 import { useIntersection, useTranslation } from '@/src/shared/hooks'
-import { Typography } from '@/src/shared/ui'
+import { Time, Typography } from '@/src/shared/ui'
 
 import s from './PostComments.module.scss'
 
@@ -48,7 +48,7 @@ export const PostComments: React.FC<Props> = ({ postId }) => {
               <CommentCard
                 className={s.comment}
                 comment={comment}
-                // stats={<Time time={comment.createdAt} />}
+                stats={<Time time={comment.createdAt} />}
               />
             </li>
           ))}

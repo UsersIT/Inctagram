@@ -1,5 +1,4 @@
 import type { GetCommentsResponse, GetPublicCommentsArg } from '../model/types/api'
-import type { Post } from '@/src/entities/post'
 
 import { baseApi } from '@/src/shared/api/baseApi'
 import { apiEndpoints } from '@/src/shared/constants/api'
@@ -17,11 +16,7 @@ const publicPostApi = baseApi.injectEndpoints({
       merge: (currentCache, response, { arg }) => {
         const { pageNumber } = arg
 
-        if (pageNumber === DEFAULT_PAGE_NUMBER) {
-          return currentCache
-        }
-
-        if (response.items && response.items?.length > 0) {
+        if (pageNumber !== DEFAULT_PAGE_NUMBER && response.items && response.items?.length > 0) {
           currentCache.items?.push(...response.items)
         }
       },
@@ -33,17 +28,9 @@ const publicPostApi = baseApi.injectEndpoints({
         return endpointName
       },
     }),
-    getPublicPostById: builder.query<Post, number>({
-      providesTags: (result, error, postId) => [{ id: postId, type: 'Post' }],
-      query: postId => apiEndpoints.public.posts.postById(postId),
-    }),
   }),
 })
 
-export const {
-  useGetPublicCommentsByPostIdQuery,
-  useGetPublicPostByIdQuery,
-  util: { getRunningQueriesThunk },
-} = publicPostApi
+export const { useGetPublicCommentsByPostIdQuery } = publicPostApi
 
-export const { getPublicCommentsByPostId, getPublicPostById } = publicPostApi.endpoints
+export const { getPublicCommentsByPostId } = publicPostApi.endpoints

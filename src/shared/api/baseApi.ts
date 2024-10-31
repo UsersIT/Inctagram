@@ -83,5 +83,5 @@ export const baseApi = createApi({
     }
   },
   reducerPath: 'baseApi',
-  tagTypes: ['Me', 'UserPosts', 'Post'],
+  tagTypes: ['Me', 'Post'],
 })

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
+import { useGetPublicPostByIdQuery } from '@/src/features/posts'
 import { Heart, ImageIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import {
@@ -16,7 +17,6 @@ import { useRouter } from 'next/router'
 
 import s from './PublicPostModal.module.scss'
 
-import { useGetPublicPostByIdQuery } from '../../api/publicPost'
 import { PostComments } from '../PostComments/PostComments'
 import { PostDescription } from '../PostDescription/PostDescription'
 
@@ -25,33 +25,22 @@ type Props = {
 } & ModalProps
 
 export const PublicPostModal: React.FC<Props> = ({ postId, ...props }) => {
-  const [date, setDate] = useState('')
-
   const { t } = useTranslation()
   const router = useRouter()
 
-  const { data: post, isLoading: isLoadingPost } = useGetPublicPostByIdQuery(postId)
-
-  useEffect(() => {
-    if (post && router) {
-      const date = getFormattedDate(post.createdAt, router.locale as string)
-
-      setDate(date)
-    }
-  }, [post, router])
+  const { data: post, isLoading } = useGetPublicPostByIdQuery(postId)
 
   return (
-    <Modal size={'xlg'} {...props} className={s.modal} withoutHeader>
+    <Modal className={s.modal} {...props} size={'xlg'} withoutHeader>
       <div className={s.content}>
         <div className={s.sliderContainer}>
-          {!isLoadingPost && post && post.images.length ? (
+          {(isLoading || !post?.images.length) && <ImageIcon />}
+          {post && post.images?.length > 0 && (
             <Carousel
               buttonsClassName={s.sliderButtons}
               className={s.slider}
-              imagesUrl={post?.images as { url: string }[]}
+              imagesUrl={post.images as { url: string }[]}
             />
-          ) : (
-            <ImageIcon />
           )}
         </div>
         <header className={s.avatarContainer}>
@@ -68,7 +57,7 @@ export const PublicPostModal: React.FC<Props> = ({ postId, ...props }) => {
               userName={post.userName}
             />
           )}
-          <PostComments postId={postId} />
+          {post && <PostComments postId={postId} />}
           <ScrollBar orientation={'horizontal'} />
         </ScrollArea>
 
@@ -79,19 +68,19 @@ export const PublicPostModal: React.FC<Props> = ({ postId, ...props }) => {
               as={'span'}
               variant={'regular-text-14'}
             >
-              {post?.likesCount ?? ''}
+              {post?.likesCount ?? 0}
             </Typography>
             <span aria-hidden className={s.heart}>
               <Heart />
             </span>
           </div>
           <Typography
-            aria-label={`${t.time.postedOn} ${date}`}
+            aria-label={`${t.time.postedOn} ${post?.createdAt ? getFormattedDate(post.createdAt, router.locale as string) : ''}`}
             as={'small'}
             className={s.date}
             variant={'small-text'}
           >
-            {date}
+            {post?.createdAt ? getFormattedDate(post.createdAt, router.locale as string) : ''}
           </Typography>
         </div>
       </div>
