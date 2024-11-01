@@ -61,3 +61,16 @@
   }
 
 }
+
+.placeholderIcon {
+  display: grid;
+  place-items: center;
+
+  aspect-ratio: 1 / 1;
+  width: 100%;
+
+  color: var(--color-text-primary);
+
+  background-color: var(--color-dark-500);
+}
+

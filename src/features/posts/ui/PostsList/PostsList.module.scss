@@ -4,6 +4,7 @@
   gap: 12px;
 
   width: 100%;
+  max-width: 1024px;
   margin: 0 auto 150px;
   padding: 0;
 }
@@ -17,8 +18,8 @@
 @media screen and (width <= 1024px) {
   .list {
     grid-template-columns: repeat(3, minmax(108px, 1fr));
-    width: 90%;
     margin: 0 auto 100px;
+    padding: 20px;
   }
 }
 
