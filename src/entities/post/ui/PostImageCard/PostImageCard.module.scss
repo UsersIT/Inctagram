@@ -14,15 +14,13 @@
 }
 
 .img {
+  object-fit: cover;
   transition: all 0.2s linear;
-
-  objectFit: cover;
 
   &:hover {
     transform: scale(1.1, 1.1);
   }
 }
-
 
 @media screen and (width <= 768px) {
   .image {
