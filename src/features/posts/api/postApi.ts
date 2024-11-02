@@ -38,13 +38,6 @@ const postApi = baseApi.injectEndpoints({
         url: `${apiEndpoints.public.posts.allByUserIdWithPagination}${args.userId}/${args.endCursorPostId}`,
       }),
     }),
-    updatePostById: builder.mutation<void, { description: string; postId: number }>({
-      query: ({ description, postId }) => ({
-        body: { description },
-        method: 'PUT',
-        url: `${apiEndpoints.posts.posts}/${postId}`,
-      }),
-    }),
   }),
 })
 
@@ -53,7 +46,6 @@ export const {
   useGetPostsQuery,
   useGetPublicPostByIdQuery,
   useGetUserPublicPostsQuery,
-  useUpdatePostByIdMutation,
   util: { getRunningQueriesThunk },
 } = postApi
 

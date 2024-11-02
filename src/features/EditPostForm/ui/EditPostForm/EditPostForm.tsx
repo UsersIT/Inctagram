@@ -2,17 +2,18 @@ import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import {
-  CreatePostFormValues,
-  MAX_LENGTH,
-  createPostValidationSchema,
-} from '@/src/features/createPost/model/schemas/createPostValidationSchema'
-import { useUpdatePostByIdMutation } from '@/src/features/posts/api/postApi'
+import { useUpdatePostByIdMutation } from '@/src/features/EditPostForm/api/editPostApi'
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, ControlledTextArea, Typography } from '@/src/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './EditPostForm.module.scss'
+
+import {
+  CreatePostFormValues,
+  MAX_LENGTH,
+  createPostValidationSchema,
+} from '../../../createPost/model/schemas/createPostValidationSchema'
 
 type Props = {
   initialDescription: string
@@ -41,10 +42,10 @@ export const EditPostForm: React.FC<Props> = ({ initialDescription, onSuccess, p
 
   const onSubmit: SubmitHandler<CreatePostFormValues> = async data => {
     try {
-      const description = data.description || '' // Provide a default empty string if undefined
+      const description = data.description || ''
 
       await updatePostById({ description, postId }).unwrap()
-      onSuccess(description) // Pass the ensured string to onSuccess
+      onSuccess(description)
     } catch (err) {
       toast.error(t.errors.somethingWentWrong)
     }

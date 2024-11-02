@@ -103,6 +103,13 @@
   text-align: left;
 }
 
+@media screen and (width <= 1024px) {
+  .dots {
+    margin-right: 50px;
+
+  }
+}
+
 @media screen and (orientation: portrait) and (width < 768px) {
   .content {
     grid-template: "profile" min-content "carousel" min-content "likes" min-content "comments" auto/ 1fr;

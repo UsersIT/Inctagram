@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { EditPostForm } from '@/src/features/EditPostForm'
 import { useMeQuery } from '@/src/features/auth'
 import { useGetPublicPostByIdQuery } from '@/src/features/posts'
-import { EditPostForm } from '@/src/features/posts/ui/EditPostModal/EditPostForm'
 import { Dots, Edit, Heart, ImageIcon, Trash } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import {
@@ -10,17 +10,18 @@ import {
   Carousel,
   DropdownMenu,
   Modal,
-  ModalProps,
+  type ModalProps,
   ScrollArea,
   ScrollBar,
   Typography,
 } from '@/src/shared/ui'
 import { getFormattedDate } from '@/src/shared/utility'
-import { PostComments } from '@/src/widgets/public-post-modal/ui/PostComments/PostComments'
-import { PostDescription } from '@/src/widgets/public-post-modal/ui/PostDescription/PostDescription'
 import { useRouter } from 'next/router'
 
 import s from './PublicPostModal.module.scss'
+
+import { PostComments } from '../PostComments/PostComments'
+import { PostDescription } from '../PostDescription/PostDescription'
 
 type Props = {
   postId: number
