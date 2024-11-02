@@ -1,11 +1,13 @@
 import React from 'react'
 
+import { useMeQuery } from '@/src/features/auth'
 import { useGetPublicPostByIdQuery } from '@/src/features/posts'
-import { Heart, ImageIcon } from '@/src/shared/assets/icons'
+import { Dots, Edit, Heart, ImageIcon, Trash } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import {
   Avatar,
   Carousel,
+  DropdownMenu,
   Modal,
   type ModalProps,
   ScrollArea,
@@ -22,13 +24,23 @@ import { PostDescription } from '../PostDescription/PostDescription'
 
 type Props = {
   postId: number
+  profileId: number
 } & ModalProps
 
-export const PublicPostModal: React.FC<Props> = ({ postId, ...props }) => {
+export const PublicPostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false) // Новое состояние для окна редактирования
 
   const { data: post, isLoading } = useGetPublicPostByIdQuery(postId)
+  const { data: meData } = useMeQuery()
+
+  const isMyProfile = profileId === meData?.userId
+
+  const handleEditClick = () => {
+    setIsEditModalOpen(true) // Открываем модальное окно для редактирования
+  }
 
   return (
     <Modal className={s.modal} {...props} size={'xlg'} withoutHeader>
@@ -48,6 +60,21 @@ export const PublicPostModal: React.FC<Props> = ({ postId, ...props }) => {
           <Typography aria-label={post?.userName} as={'h3'} variant={'h3'}>
             {post?.userName || ''}
           </Typography>
+          {isMyProfile && (
+            <DropdownMenu
+              onOpenChange={setIsDropdownOpen}
+              open={isDropdownOpen}
+              style={{ left: '-60px', maxWidth: '180px' }}
+              trigger={<Dots className={s.dots} />}
+            >
+              <div className={s.menuItem} onClick={handleEditClick}>
+                <Edit /> {t.widgets.postModal.editPost}
+              </div>
+              <div className={s.menuItem}>
+                <Trash /> {t.widgets.postModal.deletePost}
+              </div>
+            </DropdownMenu>
+          )}
         </header>
         <ScrollArea className={s.scrollArea}>
           {post?.description && (
@@ -84,6 +111,17 @@ export const PublicPostModal: React.FC<Props> = ({ postId, ...props }) => {
           </Typography>
         </div>
       </div>
+
+      {/* Модальное окно для редактирования поста */}
+      <Modal
+        className={s.editModal}
+        onClose={() => setIsEditModalOpen(false)}
+        open={isEditModalOpen} // Указываем состояние для открытия окна
+        size={'md'}
+      >
+        <div>Здесь будет форма для редактирования поста</div>
+        {/* Включите форму и элементы управления для редактирования поста */}
+      </Modal>
     </Modal>
   )
 }

@@ -79,6 +79,30 @@
   color: var(--color-light-900);
 }
 
+.dots {
+  position: relative;
+  margin-left: auto;
+}
+
+.dots[data-state="open"] {
+  color: var(--color-accent-500);
+}
+
+.menuItem {
+  cursor: pointer;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  padding: 6px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+  text-align: left;
+}
+
 @media screen and (orientation: portrait) and (width < 768px) {
   .content {
     grid-template: "profile" min-content "carousel" min-content "likes" min-content "comments" auto/ 1fr;
@@ -108,6 +132,10 @@
   .avatarContainer {
     padding: 12px;
     border-bottom: none;
+  }
+
+  .dots{
+    margin-right: 30px;
   }
 }
 

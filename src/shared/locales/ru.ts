@@ -280,6 +280,8 @@ export const ru = {
     postModal: {
       comment: 'Комментирий',
       comments: 'Комментарии',
+      deletePost: 'Удалить пост',
+      editPost: 'Редактировать пост',
       likes: 'лайков',
       noComments: 'У этого поста пока нет комментариев.',
     },

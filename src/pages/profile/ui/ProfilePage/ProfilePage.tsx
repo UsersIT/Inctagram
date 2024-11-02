@@ -17,29 +17,35 @@ export const ProfilePage = () => {
   const { modal, post, profileId } = router.query
 
   useEffect(() => {
-    if (post && !meData) {
+    if (post) {
       setIsPublicPostModalOpen(true)
     }
-  }, [post, meData])
+  }, [post])
 
   const handleClosePublicPostModal = () => {
     setIsPublicPostModalOpen(false)
-    router.replace(routes.PROFILE(Number(profileId)))
+    router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
   }
 
   return (
     <div className={s.page}>
-      {modal && modal === 'create' && meData ? <PostCreator profileId={meData.userId} /> : null}
-      {post && !meData ? (
+      {modal === 'create' && meData && <PostCreator profileId={meData.userId} />}
+      {post && (
         <PublicPostModal
           onClose={handleClosePublicPostModal}
           open={isPublicPostModalOpen}
           postId={Number(post)}
+          profileId={Number(profileId)}
         />
-      ) : null}
+      )}
 
       <ProfileInfo profileId={Number(profileId)} />
-      <PostsList profileId={Number(profileId)} />
+      <PostsList
+        onOpenPost={postId =>
+          router.push(routes.POST(Number(profileId), Number(postId)), undefined, { shallow: true })
+        }
+        profileId={Number(profileId)}
+      />
     </div>
   )
 }

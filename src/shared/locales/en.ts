@@ -280,6 +280,8 @@ export const en: LocaleType = {
     postModal: {
       comment: 'Comment',
       comments: 'Comments',
+      deletePost: 'Delete post',
+      editPost: 'Edit post',
       likes: 'Likes',
       noComments: 'This post has no comments yet.',
     },
