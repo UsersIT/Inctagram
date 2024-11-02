@@ -31,6 +31,7 @@ export const en: LocaleType = {
     resendLink: 'Resend verification link',
     resendLinkRecovery: 'Resend link',
     save: 'Save',
+    saveChanges: 'Save Changes',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
     sendMassage: 'Send Massage',

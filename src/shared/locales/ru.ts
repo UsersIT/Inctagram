@@ -29,6 +29,7 @@ export const ru = {
     resendLink: 'Отправить повторно',
     resendLinkRecovery: 'Отправить ссылку повторно',
     save: 'Сохранить',
+    saveChanges: 'Сохранить изменения',
     sendLink: 'Отправить ссылку',
     sendLinkAgain: 'Отправить ссылку повторно',
     sendMassage: 'Написать сообщение',

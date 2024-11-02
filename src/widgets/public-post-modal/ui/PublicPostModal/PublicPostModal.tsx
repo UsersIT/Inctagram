@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useMeQuery } from '@/src/features/auth'
 import { useGetPublicPostByIdQuery } from '@/src/features/posts'
+import { EditPostForm } from '@/src/features/posts/ui/EditPostModal/EditPostForm'
 import { Dots, Edit, Heart, ImageIcon, Trash } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import {
@@ -9,18 +10,17 @@ import {
   Carousel,
   DropdownMenu,
   Modal,
-  type ModalProps,
+  ModalProps,
   ScrollArea,
   ScrollBar,
   Typography,
 } from '@/src/shared/ui'
 import { getFormattedDate } from '@/src/shared/utility'
+import { PostComments } from '@/src/widgets/public-post-modal/ui/PostComments/PostComments'
+import { PostDescription } from '@/src/widgets/public-post-modal/ui/PostDescription/PostDescription'
 import { useRouter } from 'next/router'
 
 import s from './PublicPostModal.module.scss'
-
-import { PostComments } from '../PostComments/PostComments'
-import { PostDescription } from '../PostDescription/PostDescription'
 
 type Props = {
   postId: number
@@ -31,27 +31,47 @@ export const PublicPostModal: React.FC<Props> = ({ postId, profileId, ...props }
   const { t } = useTranslation()
   const router = useRouter()
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = React.useState(false) // Новое состояние для окна редактирования
+  const [isEditMode, setIsEditMode] = React.useState(false)
+  const [postDescription, setPostDescription] = React.useState<string | undefined>(undefined)
 
   const { data: post, isLoading } = useGetPublicPostByIdQuery(postId)
   const { data: meData } = useMeQuery()
 
   const isMyProfile = profileId === meData?.userId
 
+  React.useEffect(() => {
+    if (post) {
+      setPostDescription(post.description)
+    }
+  }, [post])
+
   const handleEditClick = () => {
-    setIsEditModalOpen(true) // Открываем модальное окно для редактирования
+    setIsEditMode(true)
+    setIsDropdownOpen(false)
+  }
+
+  const handleSuccess = (newDescription: string) => {
+    setIsEditMode(false)
+    setPostDescription(newDescription)
   }
 
   return (
-    <Modal className={s.modal} {...props} size={'xlg'} withoutHeader>
+    <Modal
+      className={s.modal}
+      showCloseButton
+      title={t.widgets.postModal.editPost}
+      withoutHeader={!isEditMode}
+      {...props}
+      size={'xlg'}
+    >
       <div className={s.content}>
         <div className={s.sliderContainer}>
-          {(isLoading || !post?.images.length) && <ImageIcon />}
-          {post && post.images?.length > 0 && (
+          {(isLoading || !post?.images?.length) && <ImageIcon />}
+          {post?.images?.length && post.images.length > 0 && (
             <Carousel
               buttonsClassName={s.sliderButtons}
               className={s.slider}
-              imagesUrl={post.images as { url: string }[]}
+              imagesUrl={post.images}
             />
           )}
         </div>
@@ -60,7 +80,7 @@ export const PublicPostModal: React.FC<Props> = ({ postId, profileId, ...props }
           <Typography aria-label={post?.userName} as={'h3'} variant={'h3'}>
             {post?.userName || ''}
           </Typography>
-          {isMyProfile && (
+          {isMyProfile && !isEditMode && (
             <DropdownMenu
               onOpenChange={setIsDropdownOpen}
               open={isDropdownOpen}
@@ -76,52 +96,48 @@ export const PublicPostModal: React.FC<Props> = ({ postId, profileId, ...props }
             </DropdownMenu>
           )}
         </header>
-        <ScrollArea className={s.scrollArea}>
-          {post?.description && (
-            <PostDescription
-              className={s.description}
-              description={post.description}
-              userName={post.userName}
-            />
-          )}
-          {post && <PostComments postId={postId} />}
-          <ScrollBar orientation={'horizontal'} />
-        </ScrollArea>
-
-        <div className={s.stats}>
-          <div className={s.likes}>
-            <Typography
-              aria-label={`${post?.likesCount} ${t.widgets.postModal.likes}`}
-              as={'span'}
-              variant={'regular-text-14'}
-            >
-              {post?.likesCount ?? 0}
-            </Typography>
-            <span aria-hidden className={s.heart}>
-              <Heart />
-            </span>
-          </div>
-          <Typography
-            aria-label={`${t.time.postedOn} ${post?.createdAt ? getFormattedDate(post.createdAt, router.locale as string) : ''}`}
-            as={'small'}
-            className={s.date}
-            variant={'small-text'}
-          >
-            {post?.createdAt ? getFormattedDate(post.createdAt, router.locale as string) : ''}
-          </Typography>
-        </div>
+        {isEditMode ? (
+          <EditPostForm
+            initialDescription={postDescription || ''}
+            onSuccess={handleSuccess}
+            postId={postId}
+          />
+        ) : (
+          <ScrollArea className={s.scrollArea}>
+            {postDescription && (
+              <PostDescription
+                className={s.description}
+                description={postDescription}
+                userName={post?.userName ? post.userName : ''}
+              />
+            )}
+            {post && <PostComments postId={postId} />}
+            <ScrollBar orientation={'horizontal'} />
+            <div className={s.stats}>
+              <div className={s.likes}>
+                <Typography
+                  aria-label={`${post?.likesCount} ${t.widgets.postModal.likes}`}
+                  as={'span'}
+                  variant={'regular-text-14'}
+                >
+                  {post?.likesCount ?? 0}
+                </Typography>
+                <span aria-hidden className={s.heart}>
+                  <Heart />
+                </span>
+              </div>
+              <Typography
+                aria-label={`${t.time.postedOn} ${post?.createdAt ? getFormattedDate(post.createdAt, router.locale as string) : ''}`}
+                as={'small'}
+                className={s.date}
+                variant={'small-text'}
+              >
+                {post?.createdAt ? getFormattedDate(post.createdAt, router.locale as string) : ''}
+              </Typography>
+            </div>
+          </ScrollArea>
+        )}
       </div>
-
-      {/* Модальное окно для редактирования поста */}
-      <Modal
-        className={s.editModal}
-        onClose={() => setIsEditModalOpen(false)}
-        open={isEditModalOpen} // Указываем состояние для открытия окна
-        size={'md'}
-      >
-        <div>Здесь будет форма для редактирования поста</div>
-        {/* Включите форму и элементы управления для редактирования поста */}
-      </Modal>
     </Modal>
   )
 }

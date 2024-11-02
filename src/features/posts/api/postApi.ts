@@ -11,6 +11,12 @@ import {
 
 const postApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    deletePostById: builder.mutation<void, { postId: number }>({
+      query: ({ postId }) => ({
+        method: 'DELETE',
+        url: `${apiEndpoints.posts.posts}/${postId}`,
+      }),
+    }),
     getPosts: builder.query<GetUserPostsResponse, GetUserPostsParams>({
       query: ({ query, username }) => ({
         method: 'GET',
@@ -32,13 +38,22 @@ const postApi = baseApi.injectEndpoints({
         url: `${apiEndpoints.public.posts.allByUserIdWithPagination}${args.userId}/${args.endCursorPostId}`,
       }),
     }),
+    updatePostById: builder.mutation<void, { description: string; postId: number }>({
+      query: ({ description, postId }) => ({
+        body: { description },
+        method: 'PUT',
+        url: `${apiEndpoints.posts.posts}/${postId}`,
+      }),
+    }),
   }),
 })
 
 export const {
+  useDeletePostByIdMutation,
   useGetPostsQuery,
   useGetPublicPostByIdQuery,
   useGetUserPublicPostsQuery,
+  useUpdatePostByIdMutation,
   util: { getRunningQueriesThunk },
 } = postApi
 
