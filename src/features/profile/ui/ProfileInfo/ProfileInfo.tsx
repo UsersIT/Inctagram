@@ -80,9 +80,9 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
       <ProfileHeader
         avatarUrl={profileData?.avatars[0]?.url ?? ''}
         description={profileData?.aboutMe}
-        followersCount={userData?.followersCount}
-        followingCount={userData?.followingCount}
-        publicationsCount={userData?.publicationsCount}
+        followersCount={profileData?.userMetadata.followers}
+        followingCount={profileData?.userMetadata.following}
+        publicationsCount={profileData?.userMetadata.publications}
         userName={profileData?.userName}
       >
         {renderButtons()}

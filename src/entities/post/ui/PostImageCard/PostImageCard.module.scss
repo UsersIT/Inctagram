@@ -14,15 +14,13 @@
 }
 
 .img {
+  object-fit: cover;
   transition: all 0.2s linear;
-
-  objectFit: cover;
 
   &:hover {
     transform: scale(1.1, 1.1);
   }
 }
-
 
 @media screen and (width <= 768px) {
   .image {
@@ -61,3 +59,16 @@
   }
 
 }
+
+.placeholderIcon {
+  display: grid;
+  place-items: center;
+
+  aspect-ratio: 1 / 1;
+  width: 100%;
+
+  color: var(--color-text-primary);
+
+  background-color: var(--color-dark-500);
+}
+

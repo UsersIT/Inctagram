@@ -59,6 +59,11 @@ export type GetPublicUserProfileByIdResponse = {
   aboutMe: string
   avatars: ImageType[]
   id: number
+  userMetadata: {
+    followers: number
+    following: number
+    publications: number
+  }
   userName: string
 }
 
