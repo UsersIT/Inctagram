@@ -67,24 +67,6 @@ export type GetPublicUserProfileByIdResponse = {
   userName: string
 }
 
-type GetUsersResponseItems = Omit<GetProfileResponse, 'aboutMe' | 'city' | 'dateOfBirth'>
-
-export type GetUsersResponse = {
-  items: GetUsersResponseItems[]
-  nextCursor: number
-  page: number
-  pageSize: number
-  pagesCount: number
-  prevCursor: number
-  totalCount: number
-}
-
-export type GetUsersArgsType = {
-  cursor: number
-  pageNumber?: number
-  pageSize?: number
-  search?: string
-}
 export type GetUserResponse = Omit<GetProfileResponse, 'createdAt'> & {
   followersCount: number
   followingCount: number

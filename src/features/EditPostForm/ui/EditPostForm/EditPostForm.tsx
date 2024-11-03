@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useUpdatePostByIdMutation } from '@/src/features/EditPostForm/api/editPostApi'
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, ControlledTextArea, Typography } from '@/src/shared/ui'
+import eventEmitter from '@/src/shared/utility/EventEmitter'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './EditPostForm.module.scss'
@@ -46,6 +47,7 @@ export const EditPostForm: React.FC<Props> = ({ initialDescription, onSuccess, p
 
       await updatePostById({ description, postId }).unwrap()
       onSuccess(description)
+      eventEmitter.emit('postEdit')
     } catch (err) {
       toast.error(t.errors.somethingWentWrong)
     }
