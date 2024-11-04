@@ -19,13 +19,14 @@
 .textarea {
   resize: none;
 
- overflow: hidden;
+  overflow: auto;
 
   width: 100%;
-  min-height: 40px;
   padding: 6px 12px;
 
   color: var(--color-text-primary);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 
   background-color: var(--color-dark-500);
   border: 1px solid var(--color-dark-100);
@@ -37,7 +38,7 @@
     border-color 0.2s ease-in;
 
   &::placeholder {
-    font-size: var(--font-size-m);
+    font-size: var(--font-size-m) !important;
     line-height: var(--line-height-m);
     color: var(--color-light-900);
   }

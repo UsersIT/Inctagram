@@ -18,8 +18,6 @@ $color-bg-element: var(--color-dark-300);
   left: 50%;
   transform: translate(-50%, -50%);
 
-  overflow: auto;
-
   max-height: calc(100% - 32px);
 
   background-color: $color-bg-element;
@@ -117,4 +115,41 @@ $color-bg-element: var(--color-dark-300);
 .previousButton {
   padding: 0;
   color: var(--color-text-primary);
+}
+
+.closeButtonOut {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 200;
+  top: -40px;
+  right: -40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  color: var(--color-light-100);
+
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+
+  transition: $transition-duration-basic background-color;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-light-100);
+    background-color: $color-modal-element-hover;
+    outline: none;
+  }
+
+  @media screen and (width <= 1048px) {
+    top: 4px;
+    right: 4px;
+  }
 }

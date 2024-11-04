@@ -3,7 +3,8 @@ import type {
   GetFollowersOrFollowingResponse,
   GetFollowersOrFollowingResponseParams,
   GetProfileResponse,
-  UserProfile,
+  GetPublicUserProfileByIdResponse,
+  GetUserResponse,
 } from '../model/types/api'
 
 import { GeneralInfoFormValues } from '@/src/features/profile/model/schemas/generalInfoValidationSchema'
@@ -33,6 +34,14 @@ const profileApi = baseApi.injectEndpoints({
         url: apiEndpoints.profile.avatar,
       }),
     }),
+    followingUser: builder.mutation<any, { selectedUserId: number }>({
+      invalidatesTags: [],
+      query: body => ({
+        body,
+        method: 'POST',
+        url: `${apiEndpoints.followingAndFollowers.following}`,
+      }),
+    }),
     getFollowers: builder.query<
       GetFollowersOrFollowingResponse,
       GetFollowersOrFollowingResponseParams
@@ -57,11 +66,21 @@ const profileApi = baseApi.injectEndpoints({
         url: apiEndpoints.profile.profile,
       }),
     }),
-    getPublicUserProfileById: builder.query<UserProfile, { profileId: number }>({
+    getPublicUserProfileById: builder.query<
+      GetPublicUserProfileByIdResponse,
+      { profileId: number }
+    >({
       providesTags: [],
       query: ({ profileId }) => ({
         method: 'GET',
-        url: `${apiEndpoints.public.user.userProfileById}${profileId}`,
+        url: `${apiEndpoints.public.user.userProfileById}${Number(profileId)}`,
+      }),
+    }),
+    getUser: builder.query<GetUserResponse, { userName: string | undefined }>({
+      providesTags: [],
+      query: ({ userName }) => ({
+        method: 'GET',
+        url: `${apiEndpoints.public.user.users}${userName}`,
       }),
     }),
     updateProfile: builder.mutation<void, Partial<GeneralInfoFormValues>>({
@@ -103,10 +122,15 @@ const profileApi = baseApi.injectEndpoints({
 
 export const {
   useDeleteAvatarMutation,
+  useFollowingUserMutation,
   useGetFollowersQuery,
   useGetFollowingQuery,
   useGetProfileQuery,
+  useGetPublicUserProfileByIdQuery,
+  useGetUserQuery,
   useLazyGetProfileQuery,
   useUpdateProfileMutation,
   useUploadAvatarMutation,
 } = profileApi
+
+export const { getPublicUserProfileById } = profileApi.endpoints

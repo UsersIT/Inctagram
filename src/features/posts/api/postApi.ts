@@ -1,3 +1,4 @@
+import { Post } from '@/src/entities/post'
 import { baseApi } from '@/src/shared/api/baseApi'
 import { apiEndpoints } from '@/src/shared/constants/api'
 
@@ -16,8 +17,11 @@ const postApi = baseApi.injectEndpoints({
         url: `${apiEndpoints.posts.postsByUsername(username)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
       }),
     }),
+    getPublicPostById: builder.query<Post, number>({
+      providesTags: (_, __, postId) => [{ id: postId, type: 'Post' }],
+      query: postId => apiEndpoints.public.posts.postById(postId),
+    }),
     getUserPublicPosts: builder.query<GetPublicPostsResponse, GetUserPublicPostsArgs>({
-      providesTags: ['UserPosts'],
       query: args => ({
         method: 'GET',
         params: {
@@ -31,4 +35,11 @@ const postApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetPostsQuery, useGetUserPublicPostsQuery } = postApi
+export const {
+  useGetPostsQuery,
+  useGetPublicPostByIdQuery,
+  useGetUserPublicPostsQuery,
+  util: { getRunningQueriesThunk },
+} = postApi
+
+export const { getPosts, getPublicPostById, getUserPublicPosts } = postApi.endpoints

@@ -1,0 +1,158 @@
+.container {
+  display: grid;
+  grid-template: auto / auto 1fr;
+  grid-template-areas:
+    "avatar username . settingsButton"
+    "avatar wrapper wrapper wrapper"
+    "avatar aboutMe aboutMe aboutMe";
+  gap: 20px 38px;
+
+  margin-bottom: 48px;
+}
+
+.avatar {
+  grid-area: avatar;
+  object-fit: cover;
+}
+
+.username {
+  grid-area: username;
+  align-self: center;
+}
+
+.settingsButton {
+  grid-area: settingsButton;
+  align-self: center;
+}
+
+
+.wrapper {
+  display: flex;
+  grid-area: wrapper;
+  gap: 80px;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  font-size: var(--font-size-s);
+  list-style: none;
+
+  & .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: var(--line-height-m);
+
+    & .count {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}
+
+.aboutMe {
+  overflow: hidden;
+  display: -webkit-box;
+  grid-area: aboutMe;
+
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media screen and (width <= 576px) {
+  .container {
+    grid-template:
+      "avatar"
+      "username"
+      "settingsButton"
+      "wrapper"
+      "aboutMe";
+    grid-template-areas:
+      "avatar"
+      "username"
+      "settingsButton"
+      "wrapper"
+      "aboutMe";
+  }
+
+  .wrapper {
+    gap: 20px;
+  }
+
+  .aboutMe {
+    overflow: visible;
+    display: block;
+
+    word-break: break-word;
+    white-space: normal;
+
+    -webkit-box-orient: unset;
+    -webkit-line-clamp: unset;
+  }
+}
+
+@media screen and (width <= 768px) {
+  .container {
+    grid-template-areas:
+      'avatar username'
+      'avatar wrapper'
+      'avatar aboutMe'
+      'buttonSettings.';
+    grid-template-rows: 36px min-content auto;
+  }
+
+  .wrapper {
+    gap: 15px;
+    justify-content: space-between;
+  }
+
+  .buttonSettings {
+    text-align: center !important;
+  }
+}
+
+@media screen and (width <= 576px) {
+  .container {
+    grid-template-areas:
+      "avatar"
+      "username"
+      "settingsButton"
+      "wrapper"
+      "aboutMe";
+    grid-template-rows: auto;
+    row-gap: 10px;
+    place-items: center center;
+
+    margin-bottom: 30px;
+  }
+
+  .avatar {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .username {
+    font-size: var(--font-size-m);
+    line-height: var(--line-height-m);
+  }
+
+  .wrapper {
+    gap: 10px;
+    width: 100%;
+
+    & .item {
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  .aboutMe {
+    font-size: var(--font-size-s);
+    line-height: var(--line-height-m);
+  }
+
+}
+
+
