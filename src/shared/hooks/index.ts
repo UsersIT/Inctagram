@@ -1,4 +1,5 @@
 export { useDebouncedValue } from './useDebouncedValue'
 export { useInfiniteScroll } from './useInfiniteScroll'
+export { useIntersection } from './useIntersection'
 export { useMediaQuery } from './useMediaQuery'
 export { useTranslation } from './useTranslataion'

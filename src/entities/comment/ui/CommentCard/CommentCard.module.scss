@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.comment {
+  display: flex;
+  flex-shrink: 1;
+  gap: 12px;
+}
+
+.content {
+  display: inline;
+}
+
+.stats {
+  margin-top: 5px;
+}

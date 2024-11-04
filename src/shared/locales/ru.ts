@@ -6,6 +6,7 @@ export const ru = {
     backToSignIn: 'Вернуться ко входу',
     backToSignUp: 'Вернуться к регистрации',
     cancelButtonTitle: 'Нет',
+    close: 'Закрыть',
     closeSearchFieldIcon: 'Удалить введённый поисковый запрос',
     confirmButtonTitle: 'Да',
     createNewPassword: 'Создать новый пароль',
@@ -247,6 +248,9 @@ export const ru = {
     generalInformation: 'Основная информация',
     myPayments: 'Мои платежи',
   },
+  time: {
+    postedOn: 'Опубликовано',
+  },
   validation: {
     ageRestriction: 'Пользователь младше 13 лет не может создать профиль!',
     cityNotFound: 'Город не найден.',
@@ -272,6 +276,12 @@ export const ru = {
     linkExpiredLayout: {
       text: 'Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку снова.',
       title: 'Срок действия ссылки для проверки email истек.',
+    },
+    postModal: {
+      comment: 'Комментирий',
+      comments: 'Комментарии',
+      likes: 'лайков',
+      noComments: 'У этого поста пока нет комментариев.',
     },
   },
 }

@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react'
 
-import { PostImageCard } from '@/src/entities/post'
+import { type Post, PostImageCard } from '@/src/entities/post'
+import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
 import { useInfiniteScroll } from '@/src/shared/hooks/useInfiniteScroll'
 import { ScrollArea, ScrollBar, Spinner, Typography } from '@/src/shared/ui'
 import eventEmitter from '@/src/shared/utility/EventEmitter'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './PostsList.module.scss'
 
 import { useGetUserPublicPostsQuery } from '../../api/postApi'
 import { transformPosts } from '../../model/helpers/transformPosts'
-import { Post } from '../../model/types/api'
 
 type Props = {
   className?: string
-  postId: null | number
   profileId: number
 }
 
-export const PostsList = ({ className, postId, profileId }: Props) => {
+export const PostsList = ({ className, profileId }: Props) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMorePosts, setHasMorePosts] = useState(true)
   const { t } = useTranslation()
+  const router = useRouter()
 
   const { data: newPosts, isFetching } = useGetUserPublicPostsQuery(
     {
@@ -84,6 +85,7 @@ export const PostsList = ({ className, postId, profileId }: Props) => {
               alt={post.description || 'No description available'}
               height={228}
               key={post.id}
+              onOpenModal={() => router.push(routes.POST(profileId, post.id))}
               src={
                 post.images && post.images.length
                   ? post.images[0].url

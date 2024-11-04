@@ -37,7 +37,8 @@ export const apiEndpoints = {
     posts: {
       allByUserIdWithPagination: '/v1/public-posts/user/', // + `${userId}/${endCursorpostId}`
       allWithPagination: '/v1/public-posts/all/', // + `${endCursorpostId}`
-      postById: '/v1/public-posts/', // + `${postId}`
+      comments: (postId: number) => `/v1/public-posts/${postId}/comments/`,
+      postById: (postId: number) => `/v1/public-posts/${postId}`,
     },
     user: {
       userProfileById: '/v1/public-user/profile/', // + `${profileId}`
