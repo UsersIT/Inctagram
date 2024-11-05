@@ -2,6 +2,7 @@ import type { Comment } from '../../model/types/comment'
 
 import React from 'react'
 
+import { Heart } from '@/src/shared/assets/icons'
 import { Avatar, Typography } from '@/src/shared/ui'
 import clsx from 'clsx'
 

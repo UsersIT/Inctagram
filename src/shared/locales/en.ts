@@ -80,6 +80,7 @@ export const en: LocaleType = {
     photoUpdateError: 'Error updating profile photo. Please try again!',
     somethingWentWrong:
       'Something went wrong. Please check your internet connection and try again!',
+    updateLikeError: 'Failed to update like status',
   },
   label: {
     aboutMe: 'About Me',
@@ -279,8 +280,12 @@ export const en: LocaleType = {
       title: 'Email verification link expired.',
     },
     postModal: {
+      answer: 'Answer',
       comment: 'Comment',
       comments: 'Comments',
+      confirmClose: 'Close post',
+      confirmCloseMessage:
+        'Do you really want to close the edition of the publication? If you close changes won’t be saved',
       deletePost: 'Delete post',
       editPost: 'Edit post',
       likes: 'Likes',
