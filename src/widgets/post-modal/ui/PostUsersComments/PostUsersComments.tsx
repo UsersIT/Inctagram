@@ -1,22 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { CommentCard } from '@/src/entities/comment'
-import { Heart, HeartOutline } from '@/src/shared/assets/icons'
+import { Heart } from '@/src/shared/assets/icons'
 import { useIntersection, useTranslation } from '@/src/shared/hooks'
-import { Time, Typography } from '@/src/shared/ui'
+import { Spinner, Time, Typography } from '@/src/shared/ui'
 import { useGetCommentsQuery } from '@/src/widgets/post-modal/api/userPostApi'
 
 import s from './PostUsersComments.module.scss'
 
 type Props = {
   postId: number
+  refetchTrigger: boolean
 }
 
-export const PostUsersComments: React.FC<Props> = ({ postId }) => {
+export const PostUsersComments: React.FC<Props> = ({ postId, refetchTrigger }) => {
   const [pageNumber, setPageNumber] = useState(1)
   const { t } = useTranslation()
 
-  const { data: comments, isFetching: isLoadingComments } = useGetCommentsQuery({
+  const {
+    data: comments,
+    isFetching: isLoadingComments,
+    refetch,
+  } = useGetCommentsQuery({
     pageNumber,
     pageSize: 10,
     postId,
@@ -38,6 +43,10 @@ export const PostUsersComments: React.FC<Props> = ({ postId }) => {
     hasMoreComments
   )
 
+  useEffect(() => {
+    refetch()
+  }, [refetch, refetchTrigger])
+
   return (
     <div className={s.container}>
       {comments?.items && comments.items.length > 0 ? (
@@ -55,7 +64,6 @@ export const PostUsersComments: React.FC<Props> = ({ postId }) => {
                 comment={comment}
                 likeToggle={
                   <Typography aria-hidden as={'span'} className={s.heart} onClick={() => {}}>
-                    {/* { <Heart /> : <HeartOutline />}*/}
                     <Heart />
                   </Typography>
                 }
@@ -79,10 +87,11 @@ export const PostUsersComments: React.FC<Props> = ({ postId }) => {
           {t.widgets.postModal.noComments}
         </Typography>
       )}
+
       {isLoadingComments && (
-        <Typography as={'p'} className={s.loading} variant={'regular-text-14'}>
-          {t.widgets.postModal.editPost}
-        </Typography>
+        <div className={s.loadingContainer}>
+          <Spinner />
+        </div>
       )}
     </div>
   )

@@ -2,6 +2,7 @@ import { GetUserPostsResponse } from '@/src/features/posts/model/types/api'
 import { baseApi } from '@/src/shared/api/baseApi'
 import { apiEndpoints } from '@/src/shared/constants/api'
 import {
+  CommentsResponseType,
   GetCommentsParams,
   GetCommentsResponse,
   GetUserPostsParams,
@@ -9,6 +10,13 @@ import {
 
 const userPostApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    addComment: builder.mutation<CommentsResponseType, { content: string; postId: number }>({
+      query: ({ postId, ...body }) => ({
+        body,
+        method: 'POST',
+        url: `v1/posts/${postId}/comments`,
+      }),
+    }),
     deletePostById: builder.mutation<void, { postId: number }>({
       query: ({ postId }) => ({
         method: 'DELETE',
@@ -62,6 +70,7 @@ const userPostApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useAddCommentMutation,
   useDeletePostByIdMutation,
   useGetCommentsQuery,
   useGetPostsQuery,

@@ -1,6 +1,6 @@
 import type { Comment } from '@/src/entities/comment'
 
-import { GetAllPublicPostsArgs } from '@/src/features/posts/model/types/api'
+import { GetAllPublicPostsArgs, ImageType } from '@/src/features/posts/model/types/api'
 
 export type GetCommentsParams = {
   pageNumber?: number // Optional
@@ -19,4 +19,16 @@ export type GetCommentsResponse = {
 export type GetUserPostsParams = {
   query?: GetAllPublicPostsArgs
   username: string
+}
+
+export type CommentsResponseType = {
+  content: string
+  createdAt: Date
+  from: {
+    avatars: ImageType[]
+    id: number
+    username: string
+  }
+  id: number
+  postId: number
 }

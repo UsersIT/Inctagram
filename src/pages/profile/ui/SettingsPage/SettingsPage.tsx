@@ -1,4 +1,5 @@
 import { SettingsAccountManagementTab } from '@/src/pages/profile/ui/SettingsAccountManagmentTab/SettingsAccountManagementTab'
+import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
 import { Tabs, TabsContent, TabsList, TabsTrigger, Typography } from '@/src/shared/ui'
 import { SettingsGeneralInfo } from '@/src/widgets/settings-general-info'
@@ -15,7 +16,7 @@ export const SettingsPage = () => {
   const handleTabChange = (value: string) => {
     router.push(
       {
-        pathname: router.pathname,
+        pathname: routes.PROFILE_SETTINGS(Number(router.query.profileId)),
         query: value === 'general-info' ? null : { tab: value },
       },
       undefined,

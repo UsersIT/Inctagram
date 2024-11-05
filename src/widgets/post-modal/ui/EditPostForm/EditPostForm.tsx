@@ -19,7 +19,7 @@ type Props = {
   initialDescription: string
   onSuccess: (newDescription: string) => void
   postId: number
-  setHasUnsavedChanges: (hasUnsaved: boolean) => void // Добавлено для отслеживания изменений
+  setHasUnsavedChanges: (hasUnsaved: boolean) => void
 }
 
 export const EditPostForm: React.FC<Props> = ({
@@ -58,10 +58,9 @@ export const EditPostForm: React.FC<Props> = ({
     }
   }
 
-  // Отслеживание изменений в текстовой области
   useEffect(() => {
     setHasUnsavedChanges(watchedDescription !== initialDescription)
-  }, [watchedDescription, initialDescription, setHasUnsavedChanges])
+  }, [initialDescription, setHasUnsavedChanges, watchedDescription])
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
@@ -79,7 +78,12 @@ export const EditPostForm: React.FC<Props> = ({
       </div>
       <Button
         className={s.formButton}
-        disabled={isPostLoading || !isValid}
+        disabled={
+          isPostLoading ||
+          !isValid ||
+          !watchedDescription ||
+          watchedDescription === initialDescription
+        }
         isLoading={isPostLoading}
         type={'submit'}
       >

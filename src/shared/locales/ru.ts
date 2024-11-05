@@ -280,6 +280,7 @@ export const ru = {
       title: 'Срок действия ссылки для проверки email истек.',
     },
     postModal: {
+      addComment: 'Добавить комментарий',
       answer: 'Ответить',
       comment: 'Комментaрий',
       comments: 'Комментарии',
@@ -290,6 +291,7 @@ export const ru = {
       editPost: 'Редактировать пост',
       likes: 'лайков',
       noComments: 'У этого поста пока нет комментариев.',
+      publish: 'Опубликовать',
     },
   },
 }

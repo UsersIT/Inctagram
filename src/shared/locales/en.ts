@@ -280,6 +280,7 @@ export const en: LocaleType = {
       title: 'Email verification link expired.',
     },
     postModal: {
+      addComment: 'Add a comment',
       answer: 'Answer',
       comment: 'Comment',
       comments: 'Comments',
@@ -290,6 +291,7 @@ export const en: LocaleType = {
       editPost: 'Edit post',
       likes: 'Likes',
       noComments: 'This post has no comments yet.',
+      publish: 'Publish',
     },
   },
 }
