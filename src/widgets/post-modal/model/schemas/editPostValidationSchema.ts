@@ -12,4 +12,4 @@ export const editPostValidationSchema = (t: LocaleType) =>
       .optional(),
   })
 
-export type CreatePostFormValues = z.infer<ReturnType<typeof editPostValidationSchema>>
+export type EditPostValidationSchemaType = z.infer<ReturnType<typeof editPostValidationSchema>>

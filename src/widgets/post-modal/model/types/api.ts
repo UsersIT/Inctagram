@@ -3,15 +3,15 @@ import type { Comment } from '@/src/entities/comment'
 import { GetAllPublicPostsArgs, ImageType } from '@/src/features/posts/model/types/api'
 
 export type GetCommentsParams = {
-  pageNumber?: number // Optional
-  pageSize?: number // Optional
+  pageNumber?: number
+  pageSize?: number
   postId: number
-  sortBy?: string // Optional
-  sortDirection?: 'asc' | 'desc' // Optional, default is 'desc'
+  sortBy?: string
+  sortDirection?: 'asc' | 'desc'
 }
 
 export type GetCommentsResponse = {
-  items: Comment[] // Use the Comment type here
+  items: Comment[]
   pageSize: number
   totalCount: number
 }

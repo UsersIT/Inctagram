@@ -36,3 +36,9 @@
   margin: 0 5px;
   color: var(--color-light-900);
 }
+
+@media screen and (width <= 1024px) {
+  .comments {
+    gap: 5px;
+  }
+}

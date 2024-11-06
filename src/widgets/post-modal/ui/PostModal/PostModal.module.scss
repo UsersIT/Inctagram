@@ -47,69 +47,6 @@
   place-items: center;
 }
 
-.stats  {
-  padding: 0.7rem 1.5rem;
-  border-top: 1px solid var(--color-dark-100);
-
-  .likeSaveSetBlock {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.2rem;
-
-    .likeAndSet {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-  }
-
-.heart svg{
-  width: 24px;
-  height: 24px;
-}
-
-  .viewsAndCount {
-    display: flex;
-    gap: 1.45rem;
-
-    .views {
-      display: flex;
-      align-items: center;
-
-      .view {
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-right: -0.7rem;
-
-        background-color: var(--color-dark-100);
-        border-radius: 50%;
-      }
-    }
-
-    .count {
-      display: flex;
-      gap: 5px;
-    }
-  }
-}
-
-
-.likes {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.heart {
-  display: flex;
-  color: var(--color-danger-500);
-}
-
-.date {
-  color: var(--color-light-900);
-}
-
 .dots {
   position: relative;
   margin-left: auto;
@@ -135,20 +72,7 @@
 }
 
 .bottomContent {
-  display: flex;
   grid-area: addComments;
-  align-items: center;
-  justify-content: space-between;
-
-  height: 60px;
-  padding: 0.7rem 1.5rem;
-
-  border-top: 1px solid var(--color-dark-100);
-
-  .addComment {
-    flex-grow: 1;
-    border: none;
-  }
 }
 
 
@@ -175,15 +99,6 @@
     padding: 0 12px 6px;
   }
 
-  .stats {
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-
-    padding: 12px;
-
-    border-top: none;
-  }
 
   .avatarContainer {
     padding: 12px;
@@ -193,6 +108,7 @@
   .dots{
     margin-right: 30px;
   }
+
 }
 
 @media screen and (orientation: landscape) and (height <= 640px) {
@@ -202,9 +118,8 @@
     background-color: var(--color-dark-500);
   }
 
-  .scrollArea,
-  .stats {
-    padding: 12px;
+  .scrollArea {
+  padding: 12px;
   }
 
   .sliderContainer {
@@ -212,15 +127,8 @@
   }
 
   .sliderButtons {
-    width: 36px !important;
-    height: 36px !important;
-  }
-
-  .stats {
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-    border-top: 1px solid var(--color-dark-100);
+    width: 36px;
+    height: 36px;
   }
 
   .avatarContainer {
@@ -228,19 +136,7 @@
     border-bottom: 1px solid var(--color-dark-100);
   }
 
-  .comments {
-    gap: 12px;
-  }
 
-  .comment {
-    h3 {
-      font-size: var(--font-size-s);
-    }
-
-    p {
-      font-size: var(--font-size-xs);
-    }
-  }
 }
 
 @media screen and (orientation: landscape) and (height <= 450px) {

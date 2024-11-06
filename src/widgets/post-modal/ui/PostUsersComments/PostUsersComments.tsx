@@ -4,9 +4,10 @@ import { CommentCard } from '@/src/entities/comment'
 import { Heart } from '@/src/shared/assets/icons'
 import { useIntersection, useTranslation } from '@/src/shared/hooks'
 import { Spinner, Time, Typography } from '@/src/shared/ui'
-import { useGetCommentsQuery } from '@/src/widgets/post-modal/api/userPostApi'
 
 import s from './PostUsersComments.module.scss'
+
+import { useGetCommentsQuery } from './../../api/userPostApi'
 
 type Props = {
   postId: number

@@ -2,18 +2,19 @@ import React, { useEffect } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { CreatePostFormValues } from '@/src/features/createPost/model/schemas/createPostValidationSchema'
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, ControlledTextArea, Typography } from '@/src/shared/ui'
 import eventEmitter from '@/src/shared/utility/EventEmitter'
-import { useUpdatePostByIdMutation } from '@/src/widgets/post-modal/api/userPostApi'
-import {
-  MAX_LENGTH,
-  editPostValidationSchema,
-} from '@/src/widgets/post-modal/model/schemas/editPostValidationSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './EditPostForm.module.scss'
+
+import { useUpdatePostByIdMutation } from './../../api/userPostApi'
+import {
+  EditPostValidationSchemaType,
+  MAX_LENGTH,
+  editPostValidationSchema,
+} from './../../model/schemas/editPostValidationSchema'
 
 type Props = {
   initialDescription: string
@@ -34,7 +35,7 @@ export const EditPostForm: React.FC<Props> = ({
     formState: { isValid },
     handleSubmit,
     watch,
-  } = useForm<CreatePostFormValues>({
+  } = useForm<EditPostValidationSchemaType>({
     defaultValues: {
       description: initialDescription,
     },
@@ -46,7 +47,7 @@ export const EditPostForm: React.FC<Props> = ({
 
   const [updatePostById, { isLoading: isPostLoading }] = useUpdatePostByIdMutation()
 
-  const onSubmit: SubmitHandler<CreatePostFormValues> = async data => {
+  const onSubmit: SubmitHandler<EditPostValidationSchemaType> = async data => {
     try {
       const description = data.description || ''
 
