@@ -102,6 +102,12 @@ export const en: LocaleType = {
     settings: 'Profile Settings',
     statistics: 'Statistics',
   },
+  notifications: {
+    new: 'New',
+    newNotification: 'New notification',
+    noNotifications: 'No notifications yet.',
+    title: 'Notifications',
+  },
   pages: {
     accountManagement: {
       accountType: 'Account Type',

@@ -101,6 +101,12 @@ export const ru = {
     settings: 'Настройки',
     statistics: 'Статистика',
   },
+  notifications: {
+    new: 'Новое',
+    newNotification: 'Новое уведомление',
+    noNotifications: 'Уведомлений пока нет.',
+    title: 'Уведомления',
+  },
   pages: {
     accountManagement: {
       accountType: 'Тип аккаунта',
