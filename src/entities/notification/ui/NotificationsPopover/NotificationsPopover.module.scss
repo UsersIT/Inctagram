@@ -1,0 +1,51 @@
+.root {
+  padding-right: 0;
+}
+
+.content {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  width: 334px;
+  height: 420px;
+
+  h2 {
+    margin-right: 20px;
+    padding-bottom: 12px;
+
+    font-size: 16px;
+    font-weight: var(--font-weight-medium);
+    line-height: 24px;
+    color: var(--color-text-primary);
+
+    border-bottom: 1px solid var(--color-dark-100);
+  }
+
+  @media screen and (height <= 520px) {
+    height: 320px;
+  }
+
+  @media screen and (height <= 412px) {
+    height: 286px;
+  }
+}
+
+.empty {
+  height: fit-content;
+}
+
+.noNotifications {
+  padding: 16px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.scrollArea {
+  padding-right: 8px;
+}
+
+.notification:not(:last-child) {
+  margin-right: 8px;
+  border-bottom: 1px solid var(--color-dark-100);
+}

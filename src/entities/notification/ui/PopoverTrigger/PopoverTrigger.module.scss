@@ -1,0 +1,40 @@
+.notificationsBtn {
+  position: relative;
+  padding: 6px 8px;
+  color: var(--color-text-primary);
+
+  &:hover {
+    color: var(--color-text-primary);
+
+    svg path {
+      fill: var(--color-accent-500);
+      transition: fill 0.3s ease;
+    }
+  }
+
+  &.filled {
+    color: var(--color-accent-500);
+  }
+}
+
+.notificationCount {
+  position: absolute;
+  z-index: 10;
+  bottom: 50%;
+  left: 50%;
+
+  display: flex;
+  display: inline-block;
+  align-items: center;
+
+  padding: 2px 4px;
+
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+
+  &.notificationCountVisible {
+    background-color: var(--color-danger-500);
+    border-radius: 50%;
+  }
+}
