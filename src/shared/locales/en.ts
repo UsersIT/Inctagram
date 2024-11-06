@@ -77,6 +77,7 @@ export const en: LocaleType = {
     imageSize: (imageSizeInMB: number) => `Image size must be less than ${imageSizeInMB} MB!`,
     imageType: 'The format of the uploaded photo must be PNG and JPEG!',
     photoUpdateError: 'Error updating profile photo. Please try again!',
+    selectFile: 'Please select a file!',
     somethingWentWrong:
       'Something went wrong. Please check your internet connection and try again!',
   },
