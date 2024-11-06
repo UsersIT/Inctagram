@@ -9,13 +9,13 @@
   animation: rotate 1.2s linear infinite;
 
   &::before {
-    content: '';
+    content: "";
 
     position: absolute;
     inset: 0;
 
     border: 4px solid;
-    border-color: inherit;
+    border-color: var(--color-accent-500);
     border-radius: 50%;
 
     animation: prix-clip-fix 2s linear infinite;
