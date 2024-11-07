@@ -1,8 +1,14 @@
+import { LocaleType } from '@/src/shared/locales/ru'
 import { z } from 'zod'
 
-export const addCommentValidationSchema = (t: any) =>
+export const MAX_LENGTH = 300
+
+export const addCommentValidationSchema = (t: LocaleType) =>
   z.object({
-    comment: z.string().min(1, t.errors.required).max(300, t.errors.maxLength),
+    description: z
+      .string()
+      .trim()
+      .max(MAX_LENGTH, { message: t.validation.maxLength(MAX_LENGTH) }),
   })
 
 export type AddCommentFormValues = z.infer<ReturnType<typeof addCommentValidationSchema>>

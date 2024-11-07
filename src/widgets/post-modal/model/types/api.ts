@@ -1,6 +1,6 @@
 import type { Comment } from '@/src/entities/comment'
 
-import { GetAllPublicPostsArgs, ImageType } from '@/src/features/posts/model/types/api'
+import { GetAllPublicPostsArgs, ImageType } from '@/src/features/posts'
 
 export type GetCommentsParams = {
   pageNumber?: number

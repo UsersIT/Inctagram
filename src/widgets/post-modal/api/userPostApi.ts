@@ -1,12 +1,13 @@
-import { GetUserPostsResponse } from '@/src/features/posts/model/types/api'
+import { GetUserPostsResponse } from '@/src/features/posts'
 import { baseApi } from '@/src/shared/api/baseApi'
 import { apiEndpoints } from '@/src/shared/constants/api'
+
 import {
   CommentsResponseType,
   GetCommentsParams,
   GetCommentsResponse,
   GetUserPostsParams,
-} from '@/src/widgets/post-modal/model/types/api'
+} from './../model/types/api'
 
 const userPostApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -14,7 +15,7 @@ const userPostApi = baseApi.injectEndpoints({
       query: ({ postId, ...body }) => ({
         body,
         method: 'POST',
-        url: `v1/posts/${postId}/comments`,
+        url: `${apiEndpoints.posts.comments(postId)}`,
       }),
     }),
     deletePostById: builder.mutation<void, { postId: number }>({
@@ -24,25 +25,16 @@ const userPostApi = baseApi.injectEndpoints({
       }),
     }),
     getComments: builder.query<GetCommentsResponse, GetCommentsParams>({
-      query: ({ pageNumber, pageSize, postId, sortBy, sortDirection }) => {
-        const params = new URLSearchParams()
-
-        if (pageSize) {
-          params.append('pageSize', pageSize.toString())
-        }
-        if (pageNumber) {
-          params.append('pageNumber', pageNumber.toString())
-        }
-        if (sortBy) {
-          params.append('sortBy', sortBy)
-        }
-        if (sortDirection) {
-          params.append('sortDirection', sortDirection)
-        }
-
+      query: ({
+        pageNumber,
+        pageSize = 10,
+        postId,
+        sortBy = 'createdAt',
+        sortDirection = 'desc',
+      }) => {
         return {
-          method: 'GET',
-          url: `${apiEndpoints.posts.posts}/${postId}/comments?${params.toString()}`,
+          params: { pageNumber, pageSize, sortBy, sortDirection },
+          url: `${apiEndpoints.posts.comments(postId)}`,
         }
       },
     }),
@@ -56,7 +48,7 @@ const userPostApi = baseApi.injectEndpoints({
       query: ({ likeStatus, postId }) => ({
         body: { likeStatus },
         method: 'PUT',
-        url: `${apiEndpoints.posts.posts}/${postId}/like-status`,
+        url: `${apiEndpoints.posts.likeStatus(postId)}`,
       }),
     }),
     updatePostById: builder.mutation<void, { description: string; postId: number }>({

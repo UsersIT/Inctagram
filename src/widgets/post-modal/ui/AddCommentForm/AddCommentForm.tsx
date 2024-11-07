@@ -29,18 +29,20 @@ export const AddCommentForm: React.FC<Props> = ({ onCommentAdded, postId }) => {
     watch,
   } = useForm<AddCommentFormValues>({
     defaultValues: {
-      comment: '',
+      description: '',
     },
     mode: 'onChange',
     resolver: zodResolver(addCommentValidationSchema(t)),
   })
 
-  const watchedComment = watch('comment')
+  const watchedComment = watch('description')
   const [addComment, { isLoading: isCommentLoading }] = useAddCommentMutation()
 
   const onSubmit: SubmitHandler<AddCommentFormValues> = async data => {
     try {
-      await addComment({ content: data.comment, postId }).unwrap()
+      const content = data.description === undefined ? '' : data.description
+
+      await addComment({ content, postId }).unwrap()
       onCommentAdded()
       reset()
     } catch (error) {
@@ -54,7 +56,7 @@ export const AddCommentForm: React.FC<Props> = ({ onCommentAdded, postId }) => {
         className={s.addComment}
         control={control}
         height={'60px'}
-        name={'comment'}
+        name={'description'}
         placeholder={t.widgets.postModal.addComment}
       />
       <Button

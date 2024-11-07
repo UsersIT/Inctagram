@@ -51,14 +51,13 @@ export const PostUsersComments: React.FC<Props> = ({ postId, refetchTrigger }) =
   return (
     <div className={s.container}>
       {comments?.items && comments.items.length > 0 ? (
-        <ul aria-label={t.widgets.postModal.comments} className={s.comments} role={'list'}>
+        <ul aria-label={t.widgets.postModal.comments} className={s.comments}>
           {comments.items.map((comment, idx) => (
             <Typography
               aria-label={`${t.widgets.postModal.comment} ${idx + 1}`}
               as={'li'}
               key={comment.id}
               ref={idx === comments.items.length - 1 ? lastCommentRef : null}
-              role={'list-item'}
             >
               <CommentCard
                 className={s.comment}

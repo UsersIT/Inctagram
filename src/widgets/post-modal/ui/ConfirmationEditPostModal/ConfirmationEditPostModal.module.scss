@@ -1,7 +1,7 @@
 .conteiner {
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Выравнивание по правому краю */
+  align-items: flex-end;
 
   width: calc(100% - 24px);
   padding: 20px;
@@ -15,16 +15,16 @@
 }
 
 .btnConteiner {
-  display: block; /* По умолчанию - блочный */
+  display: block;
 }
 
 .btn {
   width: 96px;
-  margin: 10px 24px; /* Отступ между кнопками */
+  margin: 10px 24px;
   margin-right: 0;
 }
 
-@media screen and (width <= 576px) { /* Измените width на max-width */
+@media screen and (width <= 576px) {
   .conteiner {
     align-items: center;
     width: calc(100% - 15px);
@@ -37,13 +37,13 @@
   
   .btnConteiner {
     display: flex;
-    flex-direction: column; /* Вертикальное расположение кнопок */
-    align-items: center; /* Выравнивание кнопок по левому краю */
-    width: 100%; /* Занять всю ширину */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .btn {
-    width: calc(100% - 15px); /* Ширина кнопок для мобильной версии */
+    width: calc(100% - 15px);
     margin: 10px 0;
   }
 }

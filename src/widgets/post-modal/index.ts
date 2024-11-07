@@ -1,1 +1,1 @@
-export { PostModal } from '@/src/widgets/post-modal/ui/PostModal/PostModal'
+export { PostModal } from './ui/PostModal/PostModal'
