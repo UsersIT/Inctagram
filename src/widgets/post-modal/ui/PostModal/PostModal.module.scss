@@ -1,7 +1,7 @@
 .content {
   overflow: hidden;
   display: grid;
-  grid-template: "carousel profile" min-content "carousel comments" 1fr "carousel likes" min-content / 1fr 1fr;
+  grid-template: "carousel profile" min-content "carousel comments" 1fr "carousel likes"  "carousel addComments" min-content / 1fr 1fr;
 
   width: 100%;
   height: 562px;
@@ -31,14 +31,7 @@
 }
 
 .avatarContainer {
-  display: flex;
   grid-area: profile;
-  gap: 12px;
-  align-items: center;
-
-  padding: 12px 24px;
-
-  border-bottom: 1px solid var(--color-dark-100);
 }
 
 .scrollArea {
@@ -54,29 +47,40 @@
   place-items: center;
 }
 
-.stats {
-  display: flex;
-  grid-area: likes;
-  flex-direction: column;
-
-  padding: 12px 24px 26px;
-
-  border-top: 1px solid var(--color-dark-100);
+.dots {
+  position: relative;
+  margin-left: auto;
 }
 
-.likes {
+.dots[data-state="open"] {
+  color: var(--color-accent-500);
+}
+
+.menuItem {
+  cursor: pointer;
+
   display: flex;
-  gap: 4px;
+  gap: 8px;
   align-items: center;
+
+  padding: 6px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
+  text-align: left;
 }
 
-.heart {
-  display: flex;
-  color: var(--color-danger-500);
+.bottomContent {
+  grid-area: addComments;
 }
 
-.date {
-  color: var(--color-light-900);
+
+@media screen and (width <= 1024px) {
+  .dots {
+    margin-right: 50px;
+
+  }
 }
 
 @media screen and (orientation: portrait) and (width < 768px) {
@@ -95,20 +99,16 @@
     padding: 0 12px 6px;
   }
 
-  .stats {
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-
-    padding: 12px;
-
-    border-top: none;
-  }
 
   .avatarContainer {
     padding: 12px;
     border-bottom: none;
   }
+
+  .dots{
+    margin-right: 30px;
+  }
+
 }
 
 @media screen and (orientation: landscape) and (height <= 640px) {
@@ -118,9 +118,8 @@
     background-color: var(--color-dark-500);
   }
 
-  .scrollArea,
-  .stats {
-    padding: 12px;
+  .scrollArea {
+  padding: 12px;
   }
 
   .sliderContainer {
@@ -128,15 +127,8 @@
   }
 
   .sliderButtons {
-    width: 36px !important;
-    height: 36px !important;
-  }
-
-  .stats {
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
-    border-top: 1px solid var(--color-dark-100);
+    width: 36px;
+    height: 36px;
   }
 
   .avatarContainer {
@@ -144,19 +136,7 @@
     border-bottom: 1px solid var(--color-dark-100);
   }
 
-  .comments {
-    gap: 12px;
-  }
 
-  .comment {
-    h3 {
-      font-size: var(--font-size-s);
-    }
-
-    p {
-      font-size: var(--font-size-xs);
-    }
-  }
 }
 
 @media screen and (orientation: landscape) and (height <= 450px) {

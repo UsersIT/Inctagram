@@ -43,7 +43,7 @@ export const PostComments: React.FC<Props> = ({ postId }) => {
               aria-label={`${t.widgets.postModal.comment} ${idx + 1}`}
               key={comment.id}
               ref={idx === comments?.items!.length - 1 ? lastCommentRef : null}
-              role={'listitem'}
+              role={'list-item'}
             >
               <CommentCard
                 className={s.comment}
