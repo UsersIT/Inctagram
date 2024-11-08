@@ -31,7 +31,6 @@ export const en: LocaleType = {
     resendLink: 'Resend verification link',
     resendLinkRecovery: 'Resend link',
     save: 'Save',
-    saveChanges: 'Save Changes',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
     sendMassage: 'Send Massage',
@@ -81,7 +80,6 @@ export const en: LocaleType = {
     selectFile: 'Please select a file!',
     somethingWentWrong:
       'Something went wrong. Please check your internet connection and try again!',
-    updateLikeError: 'Failed to update like status',
   },
   label: {
     aboutMe: 'About Me',
@@ -287,18 +285,10 @@ export const en: LocaleType = {
       title: 'Email verification link expired.',
     },
     postModal: {
-      addComment: 'Add a comment',
-      answer: 'Answer',
       comment: 'Comment',
       comments: 'Comments',
-      confirmClose: 'Close post',
-      confirmCloseMessage:
-        'Do you really want to close the edition of the publication? If you close changes won’t be saved',
-      deletePost: 'Delete post',
-      editPost: 'Edit post',
       likes: 'Likes',
       noComments: 'This post has no comments yet.',
-      publish: 'Publish',
     },
   },
 }

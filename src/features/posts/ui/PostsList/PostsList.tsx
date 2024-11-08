@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 import { type Post, PostImageCard } from '@/src/entities/post'
+import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
 import { useInfiniteScroll } from '@/src/shared/hooks/useInfiniteScroll'
 import { ScrollArea, ScrollBar, Spinner, Typography } from '@/src/shared/ui'
 import eventEmitter from '@/src/shared/utility/EventEmitter'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 
 import s from './PostsList.module.scss'
 
@@ -14,15 +16,15 @@ import { transformPosts } from '../../model/helpers/transformPosts'
 
 type Props = {
   className?: string
-  onOpenPost: (postId: number) => void
   profileId: number
 }
 
-export const PostsList = ({ className, onOpenPost, profileId }: Props) => {
+export const PostsList = ({ className, profileId }: Props) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMorePosts, setHasMorePosts] = useState(true)
   const { t } = useTranslation()
+  const router = useRouter()
 
   const { data: newPosts, isFetching } = useGetUserPublicPostsQuery(
     {
@@ -35,6 +37,7 @@ export const PostsList = ({ className, onOpenPost, profileId }: Props) => {
     { skip: !profileId || !hasMorePosts }
   )
 
+  // Очищаем посты при изменении profileId
   useEffect(() => {
     setPosts([])
     setHasMorePosts(true)
@@ -58,17 +61,10 @@ export const PostsList = ({ className, onOpenPost, profileId }: Props) => {
       setPosts([])
     }
 
-    const handlePostEdited = () => {
-      setHasMorePosts(true)
-      setPosts([])
-    }
-
     eventEmitter.on('postCreated', handlePostCreated)
-    eventEmitter.on('postEdit', handlePostEdited)
 
     return () => {
       eventEmitter.off('postCreated', handlePostCreated)
-      eventEmitter.off('postEdit', handlePostEdited)
     }
   }, [])
 
@@ -89,8 +85,12 @@ export const PostsList = ({ className, onOpenPost, profileId }: Props) => {
               alt={post.description || 'No description available'}
               height={228}
               key={post.id}
-              onOpenModal={() => onOpenPost(post.id)}
-              src={post.images?.[0]?.url || 'https://placehold.co/300x300?text=No+Image'}
+              onOpenModal={() => router.push(routes.POST(profileId, post.id))}
+              src={
+                post.images && post.images.length
+                  ? post.images[0].url
+                  : 'https://placehold.co/300x300?text=No+Image'
+              }
               width={234}
             />
           ))}

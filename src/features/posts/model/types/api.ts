@@ -31,3 +31,8 @@ export type GetPublicPostsResponse = {
   totalCount: number
   totalUsers: number
 }
+
+export type GetUserPostsParams = {
+  query?: GetAllPublicPostsArgs
+  username: string
+}

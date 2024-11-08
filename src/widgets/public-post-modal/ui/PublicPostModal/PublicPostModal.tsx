@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { PostDescription } from '@/src/entities/post'
 import { useGetPublicPostByIdQuery } from '@/src/features/posts'
 import { Heart, ImageIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
@@ -19,6 +18,7 @@ import { useRouter } from 'next/router'
 import s from './PublicPostModal.module.scss'
 
 import { PostComments } from '../PostComments/PostComments'
+import { PostDescription } from '../PostDescription/PostDescription'
 
 type Props = {
   postId: number

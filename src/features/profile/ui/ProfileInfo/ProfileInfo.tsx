@@ -78,20 +78,12 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
   return (
     <header className={clsx(s.content, className)}>
       <ProfileHeader
-        avatarUrl={
-          isMyProfile ? userData?.avatars[0]?.url ?? '' : profileData?.avatars[0]?.url ?? ''
-        }
-        description={isMyProfile ? userData?.aboutMe : profileData?.aboutMe}
-        followersCount={
-          isMyProfile ? userData?.followersCount : profileData?.userMetadata.followers
-        }
-        followingCount={
-          isMyProfile ? userData?.followingCount : profileData?.userMetadata.following
-        }
-        publicationsCount={
-          isMyProfile ? userData?.publicationsCount : profileData?.userMetadata.publications
-        }
-        userName={isMyProfile ? userData?.userName : profileData?.userName}
+        avatarUrl={profileData?.avatars[0]?.url ?? ''}
+        description={profileData?.aboutMe}
+        followersCount={profileData?.userMetadata.followers}
+        followingCount={profileData?.userMetadata.following}
+        publicationsCount={profileData?.userMetadata.publications}
+        userName={profileData?.userName}
       >
         {renderButtons()}
       </ProfileHeader>
