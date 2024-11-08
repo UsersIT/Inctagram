@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 
 import s from './SettingsPage.module.scss'
 
+import { SettingsAccountManagementTab } from '../SettingsAccountManagmentTab/SettingsAccountManagementTab'
+
 export const SettingsPage = () => {
   const { t } = useTranslation()
   const router = useRouter()

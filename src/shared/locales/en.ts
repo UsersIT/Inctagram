@@ -78,6 +78,7 @@ export const en: LocaleType = {
     imageSize: (imageSizeInMB: number) => `Image size must be less than ${imageSizeInMB} MB!`,
     imageType: 'The format of the uploaded photo must be PNG and JPEG!',
     photoUpdateError: 'Error updating profile photo. Please try again!',
+    selectFile: 'Please select a file!',
     somethingWentWrong:
       'Something went wrong. Please check your internet connection and try again!',
     updateLikeError: 'Failed to update like status',
@@ -103,6 +104,12 @@ export const en: LocaleType = {
     search: 'Search',
     settings: 'Profile Settings',
     statistics: 'Statistics',
+  },
+  notifications: {
+    new: 'New',
+    newNotification: 'New notification',
+    noNotifications: 'No notifications yet.',
+    title: 'Notifications',
   },
   pages: {
     accountManagement: {

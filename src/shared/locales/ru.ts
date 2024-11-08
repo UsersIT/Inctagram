@@ -77,6 +77,7 @@ export const ru = {
       `Размер фотографии должен быть менее ${imageSizeInMB} MB!`,
     imageType: 'Формат загруженной фотографии должен быть PNG или JPEG!',
     photoUpdateError: 'Ошибка при обновлении фотографии профиля. Пожалуйста, попробуйте снова!',
+    selectFile: 'Пожалуйста, выберите файл!',
     somethingWentWrong:
       'Что-то пошло не так. Пожалуйста, проверьте Ваше интернет-соединение и попробуйте снова!',
     updateLikeError: 'Не удалось обновить статус «Нравится»',
@@ -102,6 +103,12 @@ export const ru = {
     search: 'Поиск',
     settings: 'Настройки',
     statistics: 'Статистика',
+  },
+  notifications: {
+    new: 'Новое',
+    newNotification: 'Новое уведомление',
+    noNotifications: 'Уведомлений пока нет.',
+    title: 'Уведомления',
   },
   pages: {
     accountManagement: {

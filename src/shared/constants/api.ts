@@ -24,6 +24,10 @@ export const apiEndpoints = {
     userFollowers: (username: string) => `/v1/users/${username}/followers`,
     userFollowing: (username: string) => `/v1/users/${username}/following`,
   },
+  notifications: {
+    markAsRead: '/v1/notifications/mark-as-read',
+    notifications: '/v1/notifications/', // + `${cursor}` for GET or `${id}` for DELETE,
+  },
   posts: {
     comments: (postId: number) => `/v1/posts/${postId}/comments`,
     image: '/v1/posts/image',
