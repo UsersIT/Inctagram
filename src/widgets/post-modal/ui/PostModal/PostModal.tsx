@@ -34,7 +34,13 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   const [shouldRefetchComments, setShouldRefetchComments] = useState(false)
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
 
-  const { data: post, isLoading, refetch } = useGetPublicPostByIdQuery(postId)
+  const {
+    data: post,
+    isLoading,
+    refetch,
+  } = useGetPublicPostByIdQuery(postId, {
+    skip: !postId,
+  })
   const { data: meData } = useMeQuery()
   const [updateLikeStatus] = useUpdateLikeStatusMutation()
   const [deletePost] = useDeletePostByIdMutation()
@@ -66,7 +72,9 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   }
 
   const handleClose = () => {
-    if (isEditMode && hasUnsavedChanges) {
+    if (isEditMode && !hasUnsavedChanges) {
+      setIsEditMode(false)
+    } else if (isEditMode && hasUnsavedChanges) {
       setShowConfirmation(true)
     } else {
       props.onClose?.()
@@ -76,7 +84,6 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   const confirmClose = () => {
     setShowConfirmation(false)
     setIsEditMode(false)
-    props.onClose?.()
   }
 
   const cancelClose = () => {
@@ -132,9 +139,14 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
     setShowDeleteConfirmation(false)
     try {
       await deletePost({ postId }).unwrap()
+      props.onClose?.()
     } catch (error) {
       toast.error(t.errors.errorWord)
     }
+  }
+  const onCloseDelete = () => {
+    setShowDeleteConfirmation(false)
+    setIsDropdownOpen(false)
   }
 
   return (
@@ -202,7 +214,7 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
       />
       <DeleteConfirmationModal
         isOpen={showDeleteConfirmation}
-        onClose={() => setShowDeleteConfirmation(false)}
+        onClose={onCloseDelete}
         onConfirm={confirmDelete}
       />
     </>

@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, Modal, Typography } from '@/src/shared/ui'
 
-import s from '@/src/widgets/post-modal/ui/ConfirmationEditPostModal/ConfirmationEditPostModal.module.scss'
+import s from './DeleteConfirmationModal.module.scss'
 
 type DeleteConfirmationModalProps = {
   isOpen: boolean
