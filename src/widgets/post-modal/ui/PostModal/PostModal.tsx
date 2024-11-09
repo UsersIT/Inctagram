@@ -7,10 +7,11 @@ import { useGetPublicPostByIdQuery } from '@/src/features/posts'
 import { ImageIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import { Carousel, Modal, type ModalProps, ScrollArea, ScrollBar } from '@/src/shared/ui'
+import { DeleteConfirmationModal } from '@/src/widgets/post-modal/ui/DeleteConfirmationModal/DeleteConfirmationModal'
 
 import s from './PostModal.module.scss'
 
-import { useUpdateLikeStatusMutation } from './../../api/userPostApi'
+import { useDeletePostByIdMutation, useUpdateLikeStatusMutation } from './../../api/userPostApi'
 import { AddCommentForm } from './../AddCommentForm/AddCommentForm'
 import { ConfirmationEditPostModal } from './../ConfirmationEditPostModal/ConfirmationEditPostModal'
 import { EditPostForm } from './../EditPostForm/EditPostForm'
@@ -31,10 +32,12 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [shouldRefetchComments, setShouldRefetchComments] = useState(false)
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
 
   const { data: post, isLoading, refetch } = useGetPublicPostByIdQuery(postId)
   const { data: meData } = useMeQuery()
   const [updateLikeStatus] = useUpdateLikeStatusMutation()
+  const [deletePost] = useDeletePostByIdMutation()
   const isMyProfile = profileId === meData?.userId
 
   useEffect(() => {
@@ -63,10 +66,9 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   }
 
   const handleClose = () => {
-    if (hasUnsavedChanges) {
+    if (isEditMode && hasUnsavedChanges) {
       setShowConfirmation(true)
     } else {
-      setIsEditMode(false)
       props.onClose?.()
     }
   }
@@ -122,6 +124,19 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
     setShouldRefetchComments(prev => !prev)
   }
 
+  const handleDeleteClick = () => {
+    setShowDeleteConfirmation(true)
+  }
+
+  const confirmDelete = async () => {
+    setShowDeleteConfirmation(false)
+    try {
+      await deletePost({ postId }).unwrap()
+    } catch (error) {
+      toast.error(t.errors.errorWord)
+    }
+  }
+
   return (
     <>
       <Modal
@@ -149,6 +164,7 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
             isDropdownOpen={isDropdownOpen}
             isEditMode={isEditMode}
             isMyProfile={isMyProfile}
+            onDeleteClick={handleDeleteClick}
             onDropdownOpenChange={setIsDropdownOpen}
             onEditClick={handleEditClick}
             userName={postData?.userName || ''}
@@ -183,6 +199,11 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
         isOpen={showConfirmation}
         onClose={cancelClose}
         onConfirm={confirmClose}
+      />
+      <DeleteConfirmationModal
+        isOpen={showDeleteConfirmation}
+        onClose={() => setShowDeleteConfirmation(false)}
+        onConfirm={confirmDelete}
       />
     </>
   )

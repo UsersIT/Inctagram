@@ -294,11 +294,11 @@ export const en: LocaleType = {
       confirmClose: 'Close post',
       confirmCloseMessage:
         'Do you really want to close the edition of the publication? If you close changes won’t be saved',
+      confirmDelete: 'Are you sure you want to delete this post?',
       deletePost: 'Delete post',
       editPost: 'Edit post',
       likes: 'Likes',
       noComments: 'This post has no comments yet.',
-      publish: 'Publish',
     },
   },
 }

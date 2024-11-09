@@ -1,4 +1,3 @@
-import { SettingsAccountManagementTab } from '@/src/pages/profile/ui/SettingsAccountManagmentTab/SettingsAccountManagementTab'
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
 import { Tabs, TabsContent, TabsList, TabsTrigger, Typography } from '@/src/shared/ui'
