@@ -1,5 +1,6 @@
-import type { ComponentProps, FC } from 'react'
+import React from 'react'
 
+import { NotificationsPopover } from '@/src/entities/notification'
 import { LanguageSwitcher } from '@/src/features/language-switcher'
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
@@ -13,9 +14,9 @@ import { HeaderPopover } from '../HeaderPopover/HeaderPopover'
 type Props = {
   isAuth: boolean
   isLoading: boolean
-} & ComponentProps<'header'>
+} & React.ComponentProps<'header'>
 
-export const Header: FC<Props> = ({ isAuth, isLoading }) => {
+export const Header: React.FC<Props> = ({ isAuth, isLoading }) => {
   const { t } = useTranslation()
 
   return (
@@ -26,6 +27,7 @@ export const Header: FC<Props> = ({ isAuth, isLoading }) => {
 
       {!isLoading && (
         <div className={s.actions}>
+          {isAuth && <NotificationsPopover />}
           <LanguageSwitcher />
           <HeaderPopover isAuth={isAuth} />
           {!isAuth && (

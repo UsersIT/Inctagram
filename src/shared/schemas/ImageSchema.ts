@@ -5,10 +5,15 @@ export const imageSchema = (t: LocaleType, imageSizeInMB = 10) => {
   const imageSize = imageSizeInMB * Math.pow(1024, 2)
 
   return z
-    .object({
-      size: z.number(),
-      type: z.string(),
-    })
+    .object(
+      {
+        size: z.number(),
+        type: z.string(),
+      },
+      {
+        required_error: t.errors.selectFile,
+      }
+    )
     .refine(file => file.size <= imageSize, {
       message: t.errors.imageSize(imageSizeInMB),
     })

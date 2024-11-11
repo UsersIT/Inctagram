@@ -70,6 +70,7 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
       await postDraftStorage.removeDraft()
     }
   }
+
   const handleNextStep = () => {
     setStep(prev => {
       if (prev === 3) {

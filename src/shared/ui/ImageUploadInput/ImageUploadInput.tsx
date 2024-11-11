@@ -20,7 +20,7 @@ export const ImageUploadInput = forwardRef<ElementRef<'input'>, ImageUploadInput
         const file = e.target.files[0]
         const validationResult = schema.safeParse(file)
 
-        if (validationResult.success) {
+        if (file && validationResult.success) {
           setFile(file)
         } else {
           if (!validationResult.success) {

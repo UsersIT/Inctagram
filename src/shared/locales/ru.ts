@@ -29,6 +29,7 @@ export const ru = {
     resendLink: 'Отправить повторно',
     resendLinkRecovery: 'Отправить ссылку повторно',
     save: 'Сохранить',
+    saveChanges: 'Сохранить изменения',
     sendLink: 'Отправить ссылку',
     sendLinkAgain: 'Отправить ссылку повторно',
     sendMassage: 'Написать сообщение',
@@ -76,8 +77,10 @@ export const ru = {
       `Размер фотографии должен быть менее ${imageSizeInMB} MB!`,
     imageType: 'Формат загруженной фотографии должен быть PNG или JPEG!',
     photoUpdateError: 'Ошибка при обновлении фотографии профиля. Пожалуйста, попробуйте снова!',
+    selectFile: 'Пожалуйста, выберите файл!',
     somethingWentWrong:
       'Что-то пошло не так. Пожалуйста, проверьте Ваше интернет-соединение и попробуйте снова!',
+    updateLikeError: 'Не удалось обновить статус «Нравится»',
   },
   label: {
     aboutMe: 'О себе',
@@ -100,6 +103,12 @@ export const ru = {
     search: 'Поиск',
     settings: 'Настройки',
     statistics: 'Статистика',
+  },
+  notifications: {
+    new: 'Новое',
+    newNotification: 'Новое уведомление',
+    noNotifications: 'Уведомлений пока нет.',
+    title: 'Уведомления',
   },
   pages: {
     accountManagement: {
@@ -278,10 +287,18 @@ export const ru = {
       title: 'Срок действия ссылки для проверки email истек.',
     },
     postModal: {
-      comment: 'Комментирий',
+      addComment: 'Добавить комментарий...',
+      answer: 'Ответить',
+      comment: 'Комментaрий',
       comments: 'Комментарии',
+      confirmClose: 'Закрыть пост',
+      confirmCloseMessage:
+        'Вы действительно хотите закрыть редактирование поста? При закрытии изменения не сохраняются',
+      deletePost: 'Удалить пост',
+      editPost: 'Редактировать пост',
       likes: 'лайков',
       noComments: 'У этого поста пока нет комментариев.',
+      publish: 'Опубликовать',
     },
   },
 }

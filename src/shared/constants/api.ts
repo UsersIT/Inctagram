@@ -24,8 +24,14 @@ export const apiEndpoints = {
     userFollowers: (username: string) => `/v1/users/${username}/followers`,
     userFollowing: (username: string) => `/v1/users/${username}/following`,
   },
+  notifications: {
+    markAsRead: '/v1/notifications/mark-as-read',
+    notifications: '/v1/notifications/', // + `${cursor}` for GET or `${id}` for DELETE,
+  },
   posts: {
+    comments: (postId: number) => `/v1/posts/${postId}/comments`,
     image: '/v1/posts/image',
+    likeStatus: (postId: number) => `/v1/posts/${postId}/like-status`,
     posts: '/v1/posts',
     postsByUsername: (username: string) => `/v1/posts/${username}`,
   },
