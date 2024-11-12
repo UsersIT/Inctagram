@@ -7,6 +7,7 @@ import { useGetPublicPostByIdQuery } from '@/src/features/posts'
 import { ImageIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import { Carousel, Modal, type ModalProps, ScrollArea, ScrollBar } from '@/src/shared/ui'
+import eventEmitter from '@/src/shared/utility/EventEmitter'
 import { DeleteConfirmationModal } from '@/src/widgets/post-modal/ui/DeleteConfirmationModal/DeleteConfirmationModal'
 
 import s from './PostModal.module.scss'
@@ -139,6 +140,7 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
     setShowDeleteConfirmation(false)
     try {
       await deletePost({ postId }).unwrap()
+      eventEmitter.emit('postDeleted')
       props.onClose?.()
     } catch (error) {
       toast.error(t.errors.errorWord)

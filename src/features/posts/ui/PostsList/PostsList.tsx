@@ -63,14 +63,21 @@ export const PostsList = ({ className, onOpenPost, profileId }: Props) => {
       setPosts([])
     }
 
+    const handlePostDeleted = () => {
+      setHasMorePosts(true)
+      setPosts([])
+    }
+
     eventEmitter.on('postCreated', handlePostCreated)
     eventEmitter.on('postEdit', handlePostEdited)
+    eventEmitter.on('postDeleted', handlePostDeleted)
 
     return () => {
       eventEmitter.off('postCreated', handlePostCreated)
       eventEmitter.off('postEdit', handlePostEdited)
+      eventEmitter.off('postDeleted', handlePostDeleted)
     }
-  }, [])
+  }, [newPosts, posts])
 
   const loadMoreHandler = () => {
     if (!loadingMore && hasMorePosts) {
