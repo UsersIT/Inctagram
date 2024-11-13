@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { LocaleType } from '@/src/shared/locales/ru'
 
 export const en: LocaleType = {
