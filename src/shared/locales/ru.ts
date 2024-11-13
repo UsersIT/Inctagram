@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export const ru = {
   buttons: {
     apply: 'Применить',
