@@ -13,7 +13,7 @@ import s from './ProfilePage.module.scss'
 
 export const ProfilePage = () => {
   const [isPublicPostModalOpen, setIsPublicPostModalOpen] = useState(false)
-  const [isPostModalOpen, setIsPostModalOpen] = useState(false) // Добавлено состояние для PostModal
+  const [isPostModalOpen, setIsPostModalOpen] = useState(false)
   const { data: meData } = useMeQuery()
   const router = useRouter()
   const { modal, post, profileId } = router.query
@@ -56,7 +56,6 @@ export const ProfilePage = () => {
         />
       ) : null}
 
-      {/* Изменено для использования состояния isPostModalOpen */}
       <PostModal
         onClose={handleClosePostModal}
         open={isPostModalOpen}
@@ -65,10 +64,7 @@ export const ProfilePage = () => {
       />
 
       <ProfileInfo profileId={Number(profileId)} />
-      <PostsList
-        onOpenPost={handleOpenPost} // Обновленный обработчик открытия поста
-        profileId={Number(profileId)}
-      />
+      <PostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} />
     </div>
   )
 }

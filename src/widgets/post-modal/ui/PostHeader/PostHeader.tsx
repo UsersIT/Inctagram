@@ -13,6 +13,7 @@ type PostHeaderProps = {
   isDropdownOpen: boolean
   isEditMode: boolean
   isMyProfile: boolean
+  onDeleteClick: () => void
   onDropdownOpenChange: (open: boolean) => void
   onEditClick: () => void
   userName: string
@@ -24,6 +25,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
   isDropdownOpen,
   isEditMode,
   isMyProfile,
+  onDeleteClick,
   onDropdownOpenChange,
   onEditClick,
   userName,
@@ -46,7 +48,7 @@ export const PostHeader: React.FC<PostHeaderProps> = ({
           <span className={s.menuItem} onClick={onEditClick}>
             <Edit /> {t.widgets.postModal.editPost}
           </span>
-          <span className={clsx(s.menuItem)}>
+          <span className={clsx(s.menuItem)} onClick={onDeleteClick}>
             <Trash /> {t.widgets.postModal.deletePost}
           </span>
         </DropdownMenu>

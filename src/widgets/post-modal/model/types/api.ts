@@ -32,3 +32,7 @@ export type CommentsResponseType = {
   id: number
   postId: number
 }
+
+export type UploadIdType = {
+  uploadId: string
+}

@@ -7,6 +7,7 @@ import {
   GetCommentsParams,
   GetCommentsResponse,
   GetUserPostsParams,
+  UploadIdType,
 } from './../model/types/api'
 
 const userPostApi = baseApi.injectEndpoints({
@@ -22,6 +23,13 @@ const userPostApi = baseApi.injectEndpoints({
       query: ({ postId }) => ({
         method: 'DELETE',
         url: `${apiEndpoints.posts.posts}/${postId}`,
+      }),
+    }),
+    deletePostImage: builder.mutation<void, UploadIdType>({
+      invalidatesTags: [],
+      query: ({ uploadId }) => ({
+        method: 'DELETE',
+        url: `v1/posts/image/${uploadId}`,
       }),
     }),
     getComments: builder.query<GetCommentsResponse, GetCommentsParams>({
@@ -64,6 +72,7 @@ const userPostApi = baseApi.injectEndpoints({
 export const {
   useAddCommentMutation,
   useDeletePostByIdMutation,
+  useDeletePostImageMutation,
   useGetCommentsQuery,
   useGetPostsQuery,
   useUpdateLikeStatusMutation,
