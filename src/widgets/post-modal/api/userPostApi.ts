@@ -20,6 +20,10 @@ const userPostApi = baseApi.injectEndpoints({
       }),
     }),
     deletePostById: builder.mutation<void, { postId: number }>({
+      invalidatesTags: (result, error, { postId }) => [
+        { id: postId, type: 'Post' },
+        { id: 'LIST', type: 'Post' },
+      ],
       query: ({ postId }) => ({
         method: 'DELETE',
         url: `${apiEndpoints.posts.posts}/${postId}`,
@@ -47,11 +51,20 @@ const userPostApi = baseApi.injectEndpoints({
       },
     }),
     getPosts: builder.query<GetUserPostsResponse, GetUserPostsParams>({
+      providesTags: result =>
+        result?.items
+          ? [
+              { id: 'LIST', type: 'Post' as const },
+              ...result.items.map(post => ({ id: post.id, type: 'Post' as const })),
+            ]
+          : [{ id: 'LIST', type: 'Post' as const }],
+
       query: ({ query, username }) => ({
         method: 'GET',
         url: `${apiEndpoints.posts.postsByUsername(username)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
       }),
     }),
+
     updateLikeStatus: builder.mutation<void, { likeStatus: string; postId: number }>({
       query: ({ likeStatus, postId }) => ({
         body: { likeStatus },

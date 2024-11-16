@@ -3,18 +3,21 @@ import { toast } from 'react-toastify'
 
 import { type Post, PostDescription } from '@/src/entities/post'
 import { useMeQuery } from '@/src/features/auth'
-import { useGetPublicPostByIdQuery } from '@/src/features/posts'
 import { ImageIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import { Carousel, Modal, type ModalProps, ScrollArea, ScrollBar } from '@/src/shared/ui'
-import eventEmitter from '@/src/shared/utility/EventEmitter'
-import { DeleteConfirmationModal } from '@/src/widgets/post-modal/ui/DeleteConfirmationModal/DeleteConfirmationModal'
+import { eventEmitter } from '@/src/shared/utility'
 
 import s from './PostModal.module.scss'
 
-import { useDeletePostByIdMutation, useUpdateLikeStatusMutation } from './../../api/userPostApi'
+import {
+  useDeletePostByIdMutation,
+  useGetPostsQuery,
+  useUpdateLikeStatusMutation,
+} from './../../api/userPostApi'
 import { AddCommentForm } from './../AddCommentForm/AddCommentForm'
 import { ConfirmationEditPostModal } from './../ConfirmationEditPostModal/ConfirmationEditPostModal'
+import { DeleteConfirmationModal } from './../DeleteConfirmationModal/DeleteConfirmationModal'
 import { EditPostForm } from './../EditPostForm/EditPostForm'
 import { PostHeader } from './../PostHeader/PostHeader'
 import { PostStats } from './../PostStats/PostStats'
@@ -23,9 +26,10 @@ import { PostUsersComments } from './../PostUsersComments/PostUsersComments'
 type Props = {
   postId: number
   profileId: number
+  username: string
 } & ModalProps
 
-export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
+export const PostModal: React.FC<Props> = ({ postId, profileId, username, ...props }) => {
   const { t } = useTranslation()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -35,13 +39,10 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
   const [shouldRefetchComments, setShouldRefetchComments] = useState(false)
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
 
-  const {
-    data: post,
-    isLoading,
-    refetch,
-  } = useGetPublicPostByIdQuery(postId, {
-    skip: !postId,
-  })
+  const { data: postsResponse, isLoading, refetch } = useGetPostsQuery({ username })
+
+  const post = postsResponse?.items.find(item => item.id === postId)
+
   const { data: meData } = useMeQuery()
   const [updateLikeStatus] = useUpdateLikeStatusMutation()
   const [deletePost] = useDeletePostByIdMutation()
@@ -146,6 +147,7 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, ...props }) => {
       toast.error(t.errors.errorWord)
     }
   }
+
   const onCloseDelete = () => {
     setShowDeleteConfirmation(false)
     setIsDropdownOpen(false)

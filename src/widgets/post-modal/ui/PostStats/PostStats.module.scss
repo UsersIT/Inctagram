@@ -17,8 +17,10 @@ max-height: 110px;
   }
 
   .heart svg{
+    display: flex;
     width: 24px;
     height: 24px;
+    color: var(--color-danger-500);
   }
 
   .viewsAndCount {
@@ -41,7 +43,13 @@ max-height: 110px;
 
     .count {
       display: flex;
-      gap: 5px;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .heartCount {
+      display: flex;
+      color: var(--color-danger-500);
     }
   }
 }
@@ -50,11 +58,6 @@ max-height: 110px;
   display: flex;
   gap: 4px;
   align-items: center;
-}
-
-.heart {
-  display: flex;
-  color: var(--color-danger-500);
 }
 
 .date {
@@ -79,6 +82,4 @@ max-height: 110px;
 .message {
   display: block !important;
 }
-
-
 }

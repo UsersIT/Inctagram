@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { useMeQuery } from '@/src/features/auth'
 import { PostCreator } from '@/src/features/createPost'
-import { PostsList } from '@/src/features/posts'
-import { ProfileInfo } from '@/src/features/profile'
+import { PostsList, PublicPostsList } from '@/src/features/posts'
+import { ProfileInfo, useGetPublicUserProfileByIdQuery } from '@/src/features/profile'
 import { routes } from '@/src/shared/constants/routes'
 import { PostModal } from '@/src/widgets/post-modal'
 import { PublicPostModal } from '@/src/widgets/public-post-modal'
@@ -17,6 +17,8 @@ export const ProfilePage = () => {
   const { data: meData } = useMeQuery()
   const router = useRouter()
   const { modal, post, profileId } = router.query
+  const { data: profileData } = useGetPublicUserProfileByIdQuery({ profileId: Number(profileId) })
+  const userName = profileData?.userName || ''
 
   useEffect(() => {
     if (post) {
@@ -29,19 +31,19 @@ export const ProfilePage = () => {
     router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
   }
 
+  const handleOpenPost = (post: number) => {
+    if (meData) {
+      setIsPostModalOpen(true)
+      router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
+    } else {
+      setIsPublicPostModalOpen(true)
+      router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
+    }
+  }
+
   const handleClosePostModal = () => {
     setIsPostModalOpen(false)
     router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
-  }
-
-  const handleOpenPost = (postId: number) => {
-    if (meData) {
-      setIsPostModalOpen(true)
-      router.push(routes.POST(Number(profileId), Number(postId)), undefined, { shallow: true })
-    } else {
-      setIsPublicPostModalOpen(true)
-      router.push(routes.POST(Number(profileId), Number(postId)), undefined, { shallow: true })
-    }
   }
 
   return (
@@ -61,10 +63,20 @@ export const ProfilePage = () => {
         open={isPostModalOpen}
         postId={Number(post)}
         profileId={Number(profileId)}
+        username={userName}
       />
 
-      <ProfileInfo profileId={Number(profileId)} />
-      <PostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} />
+      <ProfileInfo
+        profileData={profileData ? profileData : null}
+        profileId={Number(profileId)}
+        userName={userName}
+      />
+
+      {meData ? (
+        <PostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} username={userName} />
+      ) : (
+        <PublicPostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} />
+      )}
     </div>
   )
 }

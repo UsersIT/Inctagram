@@ -1,32 +1,48 @@
+import { useEffect } from 'react'
+
 import { ProfileHeader } from '@/src/entities/profile'
 import { useMeQuery } from '@/src/features/auth'
 import { routes } from '@/src/shared/constants/routes'
 import { useMediaQuery, useTranslation } from '@/src/shared/hooks'
 import { Button } from '@/src/shared/ui'
+import { eventEmitter } from '@/src/shared/utility'
 import clsx from 'clsx'
 import Link from 'next/link'
 
 import s from './ProfileInfo.module.scss'
 
-import {
-  useFollowingUserMutation,
-  useGetPublicUserProfileByIdQuery,
-  useGetUserQuery,
-} from '../../api/profileApi'
+import { useFollowingUserMutation, useGetUserQuery } from '../../api/profileApi'
+import { type GetPublicUserProfileByIdResponse } from './../../model/types/api'
 
 type Props = {
   className?: string
+  profileData: GetPublicUserProfileByIdResponse | null
   profileId: number
+  userName: string
 }
 
-export const ProfileInfo = ({ className, profileId }: Props) => {
-  const { data: profileData } = useGetPublicUserProfileByIdQuery({ profileId })
-  const { data: userData, isSuccess } = useGetUserQuery(
-    { userName: profileData?.userName },
-    { skip: !profileData?.userName }
-  )
+export const ProfileInfo = ({ className, profileData, profileId, userName }: Props) => {
+  const { data: userData, isSuccess, refetch } = useGetUserQuery({ userName }, { skip: !userName })
   const [followUser, { isLoading: isLoadingFollow }] = useFollowingUserMutation()
-  const { data: me } = useMeQuery(undefined)
+  const { data: meData } = useMeQuery(undefined)
+
+  useEffect(() => {
+    const emitterPostCreated = () => {
+      refetch()
+    }
+
+    const emitterPostDeleted = () => {
+      refetch()
+    }
+
+    eventEmitter.on('postCreated', emitterPostCreated)
+    eventEmitter.on('postDeleted', emitterPostDeleted)
+
+    return () => {
+      eventEmitter.off('postCreated', emitterPostCreated)
+      eventEmitter.off('postDeleted', emitterPostDeleted)
+    }
+  }, [refetch])
 
   const { t } = useTranslation()
   const isMobile = useMediaQuery('(max-width: 576px)')
@@ -35,7 +51,7 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
     return null
   }
 
-  const isMyProfile = me?.userId === profileId
+  const isMyProfile = meData?.userId === profileId
 
   const followingUserHandler = () => {
     followUser({ selectedUserId: profileId })
@@ -82,14 +98,10 @@ export const ProfileInfo = ({ className, profileId }: Props) => {
           isMyProfile ? userData?.avatars[0]?.url ?? '' : profileData?.avatars[0]?.url ?? ''
         }
         description={isMyProfile ? userData?.aboutMe : profileData?.aboutMe}
-        followersCount={
-          isMyProfile ? userData?.followersCount : profileData?.userMetadata.followers
-        }
-        followingCount={
-          isMyProfile ? userData?.followingCount : profileData?.userMetadata.following
-        }
+        followersCount={meData ? userData?.followersCount : profileData?.userMetadata.followers}
+        followingCount={meData ? userData?.followingCount : profileData?.userMetadata.following}
         publicationsCount={
-          isMyProfile ? userData?.publicationsCount : profileData?.userMetadata.publications
+          meData ? userData?.publicationsCount : profileData?.userMetadata.publications
         }
         userName={isMyProfile ? userData?.userName : profileData?.userName}
       >
