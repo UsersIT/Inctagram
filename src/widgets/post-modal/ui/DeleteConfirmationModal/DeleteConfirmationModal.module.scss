@@ -1,0 +1,54 @@
+.conteiner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: calc(100% - 24px);
+  padding: 24px;
+
+}
+
+.modalText {
+  font-size: 16px;
+  line-height: var(--line-height-m);
+}
+
+.btnConteiner {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 24px 24px 0;
+
+}
+
+.btn {
+  width: 96px;
+  margin: 12px 24px;
+  margin-right: 0;
+}
+
+@media screen and (width <= 576px) {
+  .conteiner {
+    align-items: center;
+    width: calc(100% - 15px);
+    margin: 0 auto;
+  }
+
+  .modalText {
+    text-align: center;
+  }
+
+  .btnConteiner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    padding: 0 ;
+
+  }
+
+  .btn {
+    width: calc(100% - 15px);
+    margin: 10px 0;
+  }
+}

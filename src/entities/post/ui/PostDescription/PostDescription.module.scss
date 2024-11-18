@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+}
+
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+
+  text-overflow: ellipsis;
+  white-space: pre-line;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  span {
+    margin-right: 4px;
+  }
+}
+
+.expand {
+  display: block;
+}
+
+.showMoreButton {
+  background: transparent;
+  border: 1px solid transparent;
+
+  &:focus-visible {
+    border-color: var(--color-outline-focus);
+    outline: none;
+  }
+}

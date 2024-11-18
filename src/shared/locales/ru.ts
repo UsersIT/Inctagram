@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 export const ru = {
   buttons: {
     apply: 'Применить',
@@ -6,13 +7,15 @@ export const ru = {
     backToSignIn: 'Вернуться ко входу',
     backToSignUp: 'Вернуться к регистрации',
     cancelButtonTitle: 'Нет',
+    close: 'Закрыть',
     closeSearchFieldIcon: 'Удалить введённый поисковый запрос',
     confirmButtonTitle: 'Да',
     createNewPassword: 'Создать новый пароль',
-    deletePhoto: 'Удалить фото',
     expandMenu: 'Развернуть меню',
     eyeIcon: 'Скрыть введённый пароль',
     eyeOffIcon: 'Показать введённый пароль',
+    follow: 'Подписаться',
+    hide: 'Скрыть',
     hideUploadedPhotosList: 'Скрыть список загруженных фотографий',
     hideZoomSelector: 'Скрыть селектор масштабирования',
     imageUploader: 'Загрузить с устройства',
@@ -26,15 +29,18 @@ export const ru = {
     resendLink: 'Отправить повторно',
     resendLinkRecovery: 'Отправить ссылку повторно',
     save: 'Сохранить',
+    saveChanges: 'Сохранить изменения',
     sendLink: 'Отправить ссылку',
     sendLinkAgain: 'Отправить ссылку повторно',
+    sendMassage: 'Написать сообщение',
+    showMore: 'Показать ещё',
     showNextPhoto: 'Показать следующее фото',
     showPhoto: 'Показать фото',
     showPreviousPhoto: 'Показать предыдущее фото',
     showUploadedPhotosList: 'Показать список загруженных фотографий',
     showZoomSelector: 'Показать селектор масштабирования',
-    signIn: 'Войти',
     signUp: 'Зарегистрироваться',
+    unfollow: 'Отписаться',
     uploadMore: 'Загрузить ещё',
   },
   calendar: {
@@ -70,8 +76,10 @@ export const ru = {
       `Размер фотографии должен быть менее ${imageSizeInMB} MB!`,
     imageType: 'Формат загруженной фотографии должен быть PNG или JPEG!',
     photoUpdateError: 'Ошибка при обновлении фотографии профиля. Пожалуйста, попробуйте снова!',
+    selectFile: 'Пожалуйста, выберите файл!',
     somethingWentWrong:
       'Что-то пошло не так. Пожалуйста, проверьте Ваше интернет-соединение и попробуйте снова!',
+    updateLikeError: 'Не удалось обновить статус «Нравится»',
   },
   label: {
     aboutMe: 'О себе',
@@ -94,6 +102,12 @@ export const ru = {
     search: 'Поиск',
     settings: 'Настройки',
     statistics: 'Статистика',
+  },
+  notifications: {
+    new: 'Новое',
+    newNotification: 'Новое уведомление',
+    noNotifications: 'Уведомлений пока нет.',
+    title: 'Уведомления',
   },
   pages: {
     accountManagement: {
@@ -155,6 +169,9 @@ export const ru = {
       warningText:
         'Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку снова.',
       warningTitle: 'Срок действия ссылки для проверки email истек.',
+    },
+    home: {
+      title: 'Зарегистрировано пользователей:',
     },
     policies: {
       policy: {
@@ -231,8 +248,8 @@ export const ru = {
     followers: 'Подписчики',
     following: 'Подписки',
     logOutConfirmation: 'Вы действительно хотите выйти из своей учетной записи?',
+    noPublications: 'Публикаций пока нет!',
     publications: 'Публикации',
-    success: 'Успешно!',
     updatedPhoto: 'Фотография профиля успешно обновлена!',
     updatedProfile: 'Профиль успешно обновлен!',
   },
@@ -241,6 +258,9 @@ export const ru = {
     devices: 'Устройства',
     generalInformation: 'Основная информация',
     myPayments: 'Мои платежи',
+  },
+  time: {
+    postedOn: 'Опубликовано',
   },
   validation: {
     ageRestriction: 'Пользователь младше 13 лет не может создать профиль!',
@@ -267,6 +287,19 @@ export const ru = {
     linkExpiredLayout: {
       text: 'Похоже, срок действия ссылки для проверки истек. Не волнуйтесь, мы можем отправить ссылку снова.',
       title: 'Срок действия ссылки для проверки email истек.',
+    },
+    postModal: {
+      addComment: 'Добавить комментарий...',
+      answer: 'Ответить',
+      comment: 'Комментaрий',
+      comments: 'Комментарии',
+      confirmClose: 'Закрыть пост',
+      confirmCloseMessage: 'Вы точно хотите закрыть редактирование поста? Изменения не сохраняются',
+      confirmDelete: 'Вы уверены, что хотите удалить этот пост?',
+      deletePost: 'Удалить пост',
+      editPost: 'Редактировать пост',
+      likes: 'лайков',
+      noComments: 'У этого поста пока нет комментариев.',
     },
   },
 }

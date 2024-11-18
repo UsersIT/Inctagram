@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { LocaleType } from '@/src/shared/locales/ru'
 
 export const en: LocaleType = {
@@ -8,13 +9,15 @@ export const en: LocaleType = {
     backToSignIn: 'Back to Sign In',
     backToSignUp: 'Back to Sign Up',
     cancelButtonTitle: 'No',
+    close: 'Close',
     closeSearchFieldIcon: 'Delete the entered search query',
     confirmButtonTitle: 'Yes',
     createNewPassword: 'Create new password',
-    deletePhoto: 'Delete photo',
     expandMenu: 'Expand menu',
     eyeIcon: 'Hide the entered password',
     eyeOffIcon: 'Show the entered password',
+    follow: 'Follow',
+    hide: 'Hide',
     hideUploadedPhotosList: 'Hide uploaded photos list',
     hideZoomSelector: 'Hide zoom selector',
     imageUploader: 'Download from device',
@@ -28,15 +31,18 @@ export const en: LocaleType = {
     resendLink: 'Resend verification link',
     resendLinkRecovery: 'Resend link',
     save: 'Save',
+    saveChanges: 'Save Changes',
     sendLink: 'Send Link',
     sendLinkAgain: 'Send Link Again',
+    sendMassage: 'Send Massage',
+    showMore: 'Show more',
     showNextPhoto: 'Show next photo',
     showPhoto: 'Show photo',
     showPreviousPhoto: 'Show previous photo',
     showUploadedPhotosList: 'Show uploaded photos list',
     showZoomSelector: 'Show zoom selector',
-    signIn: 'Sign In',
     signUp: 'Sign Up',
+    unfollow: 'Unfollow',
     uploadMore: 'Upload more',
   },
   calendar: {
@@ -71,8 +77,10 @@ export const en: LocaleType = {
     imageSize: (imageSizeInMB: number) => `Image size must be less than ${imageSizeInMB} MB!`,
     imageType: 'The format of the uploaded photo must be PNG and JPEG!',
     photoUpdateError: 'Error updating profile photo. Please try again!',
+    selectFile: 'Please select a file!',
     somethingWentWrong:
       'Something went wrong. Please check your internet connection and try again!',
+    updateLikeError: 'Failed to update like status',
   },
   label: {
     aboutMe: 'About Me',
@@ -95,6 +103,12 @@ export const en: LocaleType = {
     search: 'Search',
     settings: 'Profile Settings',
     statistics: 'Statistics',
+  },
+  notifications: {
+    new: 'New',
+    newNotification: 'New notification',
+    noNotifications: 'No notifications yet.',
+    title: 'Notifications',
   },
   pages: {
     accountManagement: {
@@ -157,6 +171,9 @@ export const en: LocaleType = {
       warningText:
         'Looks like the verification link has expired. Not to worry, we can send the link again.',
       warningTitle: 'Email verification link expired.',
+    },
+    home: {
+      title: 'Registered users:',
     },
     policies: {
       policy: {
@@ -231,8 +248,8 @@ export const en: LocaleType = {
     followers: 'Followers',
     following: 'Following',
     logOutConfirmation: 'Are you really want to log out of your account?',
+    noPublications: 'There are no publications yet!',
     publications: 'Publications',
-    success: 'Success!',
     updatedPhoto: 'Profile photo has been updated successfully!',
     updatedProfile: 'Profile updated successfully!',
   },
@@ -241,6 +258,9 @@ export const en: LocaleType = {
     devices: 'Devices',
     generalInformation: 'General Information',
     myPayments: 'My payments',
+  },
+  time: {
+    postedOn: 'Posted on',
   },
   validation: {
     ageRestriction: 'A user under 13 cannot create profile!',
@@ -267,6 +287,20 @@ export const en: LocaleType = {
     linkExpiredLayout: {
       text: 'Looks like the verification link has expired. Not to worry, we can send the link again.',
       title: 'Email verification link expired.',
+    },
+    postModal: {
+      addComment: 'Add a comment',
+      answer: 'Answer',
+      comment: 'Comment',
+      comments: 'Comments',
+      confirmClose: 'Close post',
+      confirmCloseMessage:
+        'Do you really want to close the edition of the publication? If you close changes won’t be saved',
+      confirmDelete: 'Are you sure you want to delete this post?',
+      deletePost: 'Delete post',
+      editPost: 'Edit post',
+      likes: 'Likes',
+      noComments: 'This post has no comments yet.',
     },
   },
 }

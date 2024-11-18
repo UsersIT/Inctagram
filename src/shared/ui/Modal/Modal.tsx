@@ -29,6 +29,7 @@ export type ModalProps = {
   showPreviousButton?: boolean
   size?: ModalSize
   title?: string
+  withoutHeader?: boolean
 } & ComponentProps<'div'>
 
 const dropIn = {
@@ -67,6 +68,7 @@ export const Modal: FC<ModalProps> = props => {
     showPreviousButton = false,
     size = 'md',
     title,
+    withoutHeader = false,
   } = props
 
   const { t } = useTranslation()
@@ -99,33 +101,46 @@ export const Modal: FC<ModalProps> = props => {
             </DialogOverlay>
             <DialogContent asChild className={classNames.content} forceMount>
               <motion.div animate={'visible'} exit={'exit'} initial={'hidden'} variants={dropIn}>
-                <header className={classNames.header}>
-                  {showPreviousButton && (
-                    <Button
-                      className={s.previousButton}
-                      onClick={onPreviousButton}
-                      variant={'text'}
-                    >
-                      <ArrowIosBack />
-                    </Button>
-                  )}
+                {!withoutHeader && (
+                  <header className={classNames.header}>
+                    {showPreviousButton && (
+                      <Button
+                        aria-label={t.buttons.back}
+                        className={s.previousButton}
+                        onClick={onPreviousButton}
+                        variant={'text'}
+                      >
+                        <ArrowIosBack />
+                      </Button>
+                    )}
 
-                  <DialogTitle asChild>
-                    <h2 className={classNames.title}>{title}</h2>
-                  </DialogTitle>
+                    <DialogTitle asChild>
+                      <h2 className={classNames.title}>{title}</h2>
+                    </DialogTitle>
 
-                  {showCloseButton && (
-                    <DialogClose className={classNames.closeButton}>
-                      <Close />
-                    </DialogClose>
-                  )}
-                  {showNextButton && (
-                    <Button className={s.nextButton} onClick={onNextButton} variant={'text'}>
-                      {t.buttons.next}
-                    </Button>
-                  )}
-                </header>
+                    {showCloseButton && (
+                      <DialogClose aria-label={t.buttons.close} className={classNames.closeButton}>
+                        <Close />
+                      </DialogClose>
+                    )}
+                    {showNextButton && (
+                      <Button className={s.nextButton} onClick={onNextButton} variant={'text'}>
+                        {t.buttons.next}
+                      </Button>
+                    )}
+                  </header>
+                )}
                 <div className={classNames.contentBox}>{children}</div>
+                {withoutHeader && (
+                  <Button
+                    aria-label={t.buttons.close}
+                    className={s.closeButtonOut}
+                    onClick={handleModalClosed}
+                    variant={'text'}
+                  >
+                    <Close />
+                  </Button>
+                )}
               </motion.div>
             </DialogContent>
           </DialogPortal>

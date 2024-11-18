@@ -17,7 +17,7 @@ export const RegistrationPage = () => {
 
   useEffect(() => {
     if (meData) {
-      router.push(routes.PROFILE)
+      router.push(routes.PROFILE(meData.userId))
     }
   }, [meData, router])
 
@@ -41,7 +41,7 @@ export const RegistrationPage = () => {
           {t.pages.registration.signInSuggestion}
         </Typography>
         <Button as={Link} className={s.signInLink} fullWidth href={routes.LOGIN} variant={'text'}>
-          {t.buttons.signIn}
+          {t.buttons.login}
         </Button>
       </Card>
     </div>

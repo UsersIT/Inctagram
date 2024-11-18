@@ -13,7 +13,6 @@ export type TextAreaProps = {
   isRequired?: boolean
   label?: string
   maxLength?: number
-  maxRows?: number
   width?: string
 } & ComponentPropsWithoutRef<'textarea'>
 
@@ -27,9 +26,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       label,
       id = label,
       maxLength,
-      maxRows = 6,
       onChange,
-      rows = 1,
+      rows = 6,
       ...rest
     },
     ref: Ref<HTMLTextAreaElement>
@@ -54,14 +52,6 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       }
     }
 
-    const autoResize = (e: ChangeEvent<HTMLTextAreaElement>) => {
-      e.target.style.height = 'auto'
-      const rowHeight = 24
-      const maxHeight = maxRows * rowHeight
-
-      e.target.style.height = `${Math.min(e.target.scrollHeight, maxHeight)}px`
-    }
-
     return (
       <div className={classes.container}>
         {label && (
@@ -76,13 +66,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           maxLength={maxLength}
           onChange={e => {
             handleChange(e)
-            autoResize(e)
           }}
           ref={ref}
           rows={rows}
           style={{
             height: rest.height,
-            maxHeight: `${maxRows * 24}px`,
             width: rest.width || '100%',
           }}
           {...rest}

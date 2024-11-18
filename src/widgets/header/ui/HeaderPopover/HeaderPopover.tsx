@@ -1,6 +1,6 @@
 import { type ComponentProps, type FC, useEffect, useState } from 'react'
 
-import { LogoutButton } from '@/src/features/auth'
+import { LogoutButton, useMeQuery } from '@/src/features/auth'
 import { BookmarkOutline, SettingsOutline, TrendingUp } from '@/src/shared/assets/icons'
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
@@ -15,6 +15,7 @@ type Props = {
 
 export const HeaderPopover: FC<Props> = ({ isAuth }) => {
   const { t } = useTranslation()
+  const { data: meData } = useMeQuery(undefined, { skip: !isAuth })
   const router = useRouter()
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
@@ -37,7 +38,12 @@ export const HeaderPopover: FC<Props> = ({ isAuth }) => {
   const authContent = (
     <ul className={s.menu} role={'menu'}>
       <li className={s.item} role={'menuitem'}>
-        <Button as={Link} className={s.link} href={routes.PROFILE_SETTINGS} variant={'text'}>
+        <Button
+          as={Link}
+          className={s.link}
+          href={routes.PROFILE_SETTINGS(meData?.userId as number)}
+          variant={'text'}
+        >
           <SettingsOutline />
           <Typography as={'span'}>{t.navigation.settings}</Typography>
         </Button>

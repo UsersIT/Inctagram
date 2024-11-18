@@ -1,4 +1,6 @@
+export { eventEmitter } from './EventEmitter'
 export { capitalizeFirstLetter } from './capitalizeFirstLetter'
 export { createPluralize } from './createPluralize'
 export { type CroppedArea, getCroppedImageBlob } from './getCroppedImageBlob'
+export { getFormattedDate } from './getFormattedDate'
 export { getMinAgeDate } from './getMinAgeDate'

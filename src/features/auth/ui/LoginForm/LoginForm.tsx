@@ -39,7 +39,7 @@ export const LoginForm: FC<ComponentProps<'form'>> = () => {
       .unwrap()
       .then(() => {
         triggerMeRequest()
-        void push(routes.PROFILE)
+        //void push(routes.PROFILE)
       })
       .catch(res => {
         if (res.status === 400) {
@@ -86,7 +86,7 @@ export const LoginForm: FC<ComponentProps<'form'>> = () => {
           isLoading={isLoading}
           type={'submit'}
         >
-          {t.buttons.signIn}
+          {t.buttons.login}
         </Button>
       </div>
     </form>

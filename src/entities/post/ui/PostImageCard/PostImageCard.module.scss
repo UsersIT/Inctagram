@@ -14,15 +14,13 @@
 }
 
 .img {
+  object-fit: cover;
   transition: all 0.2s linear;
-
-  objectFit: cover;
 
   &:hover {
     transform: scale(1.1, 1.1);
   }
 }
-
 
 @media screen and (width <= 768px) {
   .image {
@@ -39,12 +37,38 @@
 @media screen and (width <= 576px) {
   .image {
     width: 100%;
+    height: 126px;
+  }
+
+  .img {
+    width: 100%;
+    height: 126px;
+  }
+
+}
+
+@media screen and (width <= 390px) {
+  .image {
+    width: 100%;
     height: 108px;
   }
 
-  .img{
- width: 100%;
+  .img {
+    width: 100%;
     height: 108px;
   }
 
 }
+
+.placeholderIcon {
+  display: grid;
+  place-items: center;
+
+  aspect-ratio: 1 / 1;
+  width: 100%;
+
+  color: var(--color-text-primary);
+
+  background-color: var(--color-dark-500);
+}
+

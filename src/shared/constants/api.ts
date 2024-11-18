@@ -20,11 +20,18 @@ export const apiEndpoints = {
     updateTokens: '/v1/auth/update-tokens',
   },
   followingAndFollowers: {
+    following: 'v1/users/following',
     userFollowers: (username: string) => `/v1/users/${username}/followers`,
     userFollowing: (username: string) => `/v1/users/${username}/following`,
   },
+  notifications: {
+    markAsRead: '/v1/notifications/mark-as-read',
+    notifications: '/v1/notifications/', // + `${cursor}` for GET or `${id}` for DELETE,
+  },
   posts: {
+    comments: (postId: number) => `/v1/posts/${postId}/comments`,
     image: '/v1/posts/image',
+    likeStatus: (postId: number) => `/v1/posts/${postId}/like-status`,
     posts: '/v1/posts',
     postsByUsername: (username: string) => `/v1/posts/${username}`,
   },
@@ -36,11 +43,13 @@ export const apiEndpoints = {
     posts: {
       allByUserIdWithPagination: '/v1/public-posts/user/', // + `${userId}/${endCursorpostId}`
       allWithPagination: '/v1/public-posts/all/', // + `${endCursorpostId}`
-      postById: '/v1/public-posts/', // + `${postId}`
+      comments: (postId: number) => `/v1/public-posts/${postId}/comments/`,
+      postById: (postId: number) => `/v1/public-posts/${postId}`,
     },
     user: {
       userProfileById: '/v1/public-user/profile/', // + `${profileId}`
-      usersCount: '/v1/public-user',
+      users: '/v1/users/',
+      usersCount: '/v1/public-user/',
     },
   },
   subscriptions: {

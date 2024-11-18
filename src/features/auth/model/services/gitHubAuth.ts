@@ -1,7 +1,7 @@
-export function gitHubAuth() {
-  const REDIRECT_URL = `http://localhost:3000/auth/github`
+import { BASE_API_URL, BASE_URL, apiEndpoints } from '@/src/shared/constants/api'
 
-  const url = `https://inctagram.work/api/v1/auth/github/login?redirect_uri=${REDIRECT_URL}`
+export function gitHubAuth() {
+  const url = `${BASE_API_URL}${apiEndpoints.auth.github}?redirect_url=${BASE_URL}`
 
   window.location.assign(url)
 }
