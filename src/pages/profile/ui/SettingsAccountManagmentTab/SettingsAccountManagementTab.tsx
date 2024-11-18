@@ -1,6 +1,10 @@
 import { useLayoutEffect, useState } from 'react'
 
-import { SubscriptionSelectionSection } from '@/src/features/subscribeToBusinessAccount'
+import {
+  CurrentSubscriptionSection,
+  SubscriptionSelection,
+  useGetCurrentPaymentSubscriptionsQuery,
+} from '@/src/features/businessAccountSubscription'
 import { useTranslation } from '@/src/shared/hooks'
 import { Card, Dialog, RadioGroupItem, RadioGroupRoot, Typography } from '@/src/shared/ui'
 import { useRouter } from 'next/router'
@@ -10,6 +14,7 @@ import s from './SettingsAccountManagementTab.module.scss'
 type SelectedAccountType = 'business' | 'personal'
 
 export const SettingsAccountManagementTab = () => {
+  const { data: currentPaymentSubscriptions, isLoading } = useGetCurrentPaymentSubscriptionsQuery()
   const [selectedAccountType, setSelectedAccountType] = useState<SelectedAccountType>('personal')
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -25,7 +30,11 @@ export const SettingsAccountManagementTab = () => {
       setSuccess(false)
       setIsDialogOpen(true)
     }
-  }, [router])
+
+    if (!isLoading && currentPaymentSubscriptions?.data?.length) {
+      setSelectedAccountType('business')
+    }
+  }, [currentPaymentSubscriptions?.data?.length, isLoading, router])
 
   const handleCloseDialog = () => {
     const { pathname, query } = router
@@ -56,6 +65,8 @@ export const SettingsAccountManagementTab = () => {
           ? t.pages.accountManagement.successMessage
           : t.pages.accountManagement.errorMessage}
       </Dialog>
+
+      {selectedAccountType === 'business' && <CurrentSubscriptionSection />}
       <section className={s.section}>
         <Typography variant={'h3'}>{t.pages.accountManagement.accountType}:</Typography>
         <Card className={s.card}>
@@ -68,7 +79,7 @@ export const SettingsAccountManagementTab = () => {
           </RadioGroupRoot>
         </Card>
       </section>
-      {selectedAccountType === 'business' && <SubscriptionSelectionSection />}
+      {selectedAccountType === 'business' && <SubscriptionSelection />}
     </div>
   )
 }
