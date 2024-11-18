@@ -51,8 +51,11 @@ export const PostStats: React.FC<PostStatsProps> = ({ postData, toggleLike }) =>
             as={'span'}
             variant={'regular-text-14'}
           >
-            {postData?.likesCount} &quot;{t.widgets.postModal.likes}&quot;
+            {postData?.likesCount}
           </Typography>
+          <span aria-hidden className={s.heartCount}>
+            <Heart />
+          </span>
         </div>
       </div>
       <Typography

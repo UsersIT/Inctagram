@@ -7,7 +7,6 @@ import {
   GetCommentsParams,
   GetCommentsResponse,
   GetUserPostsParams,
-  UploadIdType,
 } from './../model/types/api'
 
 const userPostApi = baseApi.injectEndpoints({
@@ -20,16 +19,13 @@ const userPostApi = baseApi.injectEndpoints({
       }),
     }),
     deletePostById: builder.mutation<void, { postId: number }>({
+      invalidatesTags: (result, error, { postId }) => [
+        { id: postId, type: 'Post' },
+        { id: 'LIST', type: 'Post' },
+      ],
       query: ({ postId }) => ({
         method: 'DELETE',
         url: `${apiEndpoints.posts.posts}/${postId}`,
-      }),
-    }),
-    deletePostImage: builder.mutation<void, UploadIdType>({
-      invalidatesTags: [],
-      query: ({ uploadId }) => ({
-        method: 'DELETE',
-        url: `v1/posts/image/${uploadId}`,
       }),
     }),
     getComments: builder.query<GetCommentsResponse, GetCommentsParams>({
@@ -47,11 +43,20 @@ const userPostApi = baseApi.injectEndpoints({
       },
     }),
     getPosts: builder.query<GetUserPostsResponse, GetUserPostsParams>({
+      providesTags: result =>
+        result?.items
+          ? [
+              { id: 'LIST', type: 'Post' as const },
+              ...result.items.map(post => ({ id: post.id, type: 'Post' as const })),
+            ]
+          : [{ id: 'LIST', type: 'Post' as const }],
+
       query: ({ query, username }) => ({
         method: 'GET',
         url: `${apiEndpoints.posts.postsByUsername(username)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
       }),
     }),
+
     updateLikeStatus: builder.mutation<void, { likeStatus: string; postId: number }>({
       query: ({ likeStatus, postId }) => ({
         body: { likeStatus },
@@ -72,7 +77,6 @@ const userPostApi = baseApi.injectEndpoints({
 export const {
   useAddCommentMutation,
   useDeletePostByIdMutation,
-  useDeletePostImageMutation,
   useGetCommentsQuery,
   useGetPostsQuery,
   useUpdateLikeStatusMutation,

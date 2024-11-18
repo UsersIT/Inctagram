@@ -41,7 +41,7 @@ export const RegistrationPage = () => {
           {t.pages.registration.signInSuggestion}
         </Typography>
         <Button as={Link} className={s.signInLink} fullWidth href={routes.LOGIN} variant={'text'}>
-          {t.buttons.signIn}
+          {t.buttons.login}
         </Button>
       </Card>
     </div>

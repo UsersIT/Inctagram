@@ -5,11 +5,11 @@ import { toast } from 'react-toastify'
 
 import { routes } from '@/src/shared/constants/routes'
 import { useTranslation } from '@/src/shared/hooks'
-import { LocaleType } from '@/src/shared/locales/ru'
+import { type LocaleType } from '@/src/shared/locales/ru'
 import { imageSchema } from '@/src/shared/schemas/ImageSchema'
 import { postDraftStorage } from '@/src/shared/storage'
 import { Button, ImageUploader, Modal } from '@/src/shared/ui'
-import eventEmitter from '@/src/shared/utility/EventEmitter'
+import { eventEmitter } from '@/src/shared/utility'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 

@@ -4,14 +4,14 @@ import { toast } from 'react-toastify'
 
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, ControlledTextArea, Typography } from '@/src/shared/ui'
-import eventEmitter from '@/src/shared/utility/EventEmitter'
+import { eventEmitter } from '@/src/shared/utility'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './EditPostForm.module.scss'
 
 import { useUpdatePostByIdMutation } from './../../api/userPostApi'
 import {
-  EditPostValidationSchemaType,
+  type EditPostValidationSchemaType,
   MAX_LENGTH,
   editPostValidationSchema,
 } from './../../model/schemas/editPostValidationSchema'

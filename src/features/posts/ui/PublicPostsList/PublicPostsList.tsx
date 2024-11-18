@@ -3,35 +3,35 @@ import React, { useEffect, useState } from 'react'
 import { type Post, PostImageCard } from '@/src/entities/post'
 import { useInfiniteScroll, useTranslation } from '@/src/shared/hooks'
 import { ScrollArea, ScrollBar, Spinner, Typography } from '@/src/shared/ui'
-import { eventEmitter } from '@/src/shared/utility'
 import clsx from 'clsx'
 
-import s from './PostsList.module.scss'
+import s from './PublicPostsList.module.scss'
 
+import { useGetUserPublicPostsQuery } from '../../api/postApi'
 import { transformPosts } from '../../model/helpers/transformPosts'
-import { type GetUserPostsResponse } from './../../model/types/api'
 
 type Props = {
   className?: string
-  isFetching: boolean
   onOpenPost: (postId: number) => void
-  postsResponse: GetUserPostsResponse
   profileId: number
-  refetch: () => void
 }
 
-export const PostsList = ({
-  className,
-  isFetching,
-  onOpenPost,
-  postsResponse,
-  profileId,
-  refetch,
-}: Props) => {
+export const PublicPostsList = ({ className, onOpenPost, profileId }: Props) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMorePosts, setHasMorePosts] = useState(true)
   const { t } = useTranslation()
+
+  const { data: postsResponse, isFetching } = useGetUserPublicPostsQuery(
+    {
+      endCursorPostId: posts.length ? posts[posts.length - 1].id : 0,
+      pageSize: 8,
+      sortBy: 'createdAt',
+      sortDirection: 'desc',
+      userId: profileId,
+    },
+    { skip: !profileId || !hasMorePosts }
+  )
 
   useEffect(() => {
     setPosts([])
@@ -50,33 +50,6 @@ export const PostsList = ({
     }
   }, [postsResponse])
 
-  useEffect(() => {
-    const emitterPostCreated = () => {
-      setPosts([])
-      refetch()
-    }
-
-    const emitterPostEdited = () => {
-      setHasMorePosts(true)
-      setPosts([])
-    }
-
-    const emitterPostDeleted = () => {
-      setPosts([])
-      refetch()
-    }
-
-    eventEmitter.on('postCreated', emitterPostCreated)
-    eventEmitter.on('postEdit', emitterPostEdited)
-    eventEmitter.on('postDeleted', emitterPostDeleted)
-
-    return () => {
-      eventEmitter.off('postCreated', emitterPostCreated)
-      eventEmitter.off('postEdit', emitterPostEdited)
-      eventEmitter.off('postDeleted', emitterPostDeleted)
-    }
-  }, [refetch])
-
   const loadMoreHandler = () => {
     if (!loadingMore && hasMorePosts) {
       setLoadingMore(true)
@@ -87,7 +60,7 @@ export const PostsList = ({
 
   return (
     <ScrollArea className={s.scrollArea}>
-      <div className={clsx(s.list, className)}>
+      <div className={clsx(s.postList, className)}>
         {posts.map(post => (
           <PostImageCard
             alt={post.description || 'No description available'}

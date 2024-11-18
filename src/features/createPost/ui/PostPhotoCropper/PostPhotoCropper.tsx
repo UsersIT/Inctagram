@@ -1,8 +1,7 @@
 import type { AspectRatio, PostImageType } from '../../model/types/postImage'
 
-import React, { use, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Cropper, { type Point } from 'react-easy-crop'
-import { set } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import {
@@ -236,10 +235,10 @@ export const PostPhotoCropper: React.FC<Props> = props => {
                       src={croppedPhotoUrl as string}
                     />
                     <button
-                      aria-label={`${t.buttons.deletePhoto} ${idx + 1}`}
+                      aria-label={`${t.profile.deletePhoto} ${idx + 1}`}
                       className={clsx(s.iconButton, s.imageDeleteButton)}
                       onClick={() => handleDeletePhoto(id)}
-                      title={t.buttons.deletePhoto}
+                      title={t.profile.deletePhoto}
                     >
                       <Close aria-hidden height={12} viewBox={'0 0 24 24'} width={12} />
                     </button>
