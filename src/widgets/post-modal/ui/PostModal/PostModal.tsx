@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 
 import { type Post, PostDescription } from '@/src/entities/post'
 import { useMeQuery } from '@/src/features/auth'
+import { type GetUserPostsResponse } from '@/src/features/posts'
 import { ImageIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import { Carousel, Modal, type ModalProps, ScrollArea, ScrollBar } from '@/src/shared/ui'
@@ -10,11 +11,7 @@ import { eventEmitter } from '@/src/shared/utility'
 
 import s from './PostModal.module.scss'
 
-import {
-  useDeletePostByIdMutation,
-  useGetPostsQuery,
-  useUpdateLikeStatusMutation,
-} from './../../api/userPostApi'
+import { useDeletePostByIdMutation, useUpdateLikeStatusMutation } from './../../api/userPostApi'
 import { AddCommentForm } from './../AddCommentForm/AddCommentForm'
 import { ConfirmationEditPostModal } from './../ConfirmationEditPostModal/ConfirmationEditPostModal'
 import { DeleteConfirmationModal } from './../DeleteConfirmationModal/DeleteConfirmationModal'
@@ -24,12 +21,21 @@ import { PostStats } from './../PostStats/PostStats'
 import { PostUsersComments } from './../PostUsersComments/PostUsersComments'
 
 type Props = {
+  isLoading: boolean
   postId: number
+  postsResponse: GetUserPostsResponse
   profileId: number
-  username: string
+  refetch: () => void
 } & ModalProps
 
-export const PostModal: React.FC<Props> = ({ postId, profileId, username, ...props }) => {
+export const PostModal: React.FC<Props> = ({
+  isLoading,
+  postId,
+  postsResponse,
+  profileId,
+  refetch,
+  ...props
+}) => {
   const { t } = useTranslation()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isEditMode, setIsEditMode] = useState(false)
@@ -38,8 +44,6 @@ export const PostModal: React.FC<Props> = ({ postId, profileId, username, ...pro
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [shouldRefetchComments, setShouldRefetchComments] = useState(false)
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
-
-  const { data: postsResponse, isLoading, refetch } = useGetPostsQuery({ username })
 
   const post = postsResponse?.items.find(item => item.id === postId)
 

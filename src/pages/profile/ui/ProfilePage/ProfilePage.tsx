@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 
 import { useMeQuery } from '@/src/features/auth'
 import { PostCreator } from '@/src/features/createPost'
-import { PostsList, PublicPostsList } from '@/src/features/posts'
+import { type GetUserPostsResponse, PostsList, PublicPostsList } from '@/src/features/posts'
 import { ProfileInfo, useGetPublicUserProfileByIdQuery } from '@/src/features/profile'
 import { routes } from '@/src/shared/constants/routes'
-import { PostModal } from '@/src/widgets/post-modal'
+import { PostModal, useGetPostsQuery } from '@/src/widgets/post-modal'
 import { PublicPostModal } from '@/src/widgets/public-post-modal'
 import { useRouter } from 'next/router'
 
@@ -19,6 +19,18 @@ export const ProfilePage = () => {
   const { modal, post, profileId } = router.query
   const { data: profileData } = useGetPublicUserProfileByIdQuery({ profileId: Number(profileId) })
   const userName = profileData?.userName || ''
+  const {
+    data: postsResponse,
+    isFetching,
+    isLoading,
+    refetch,
+  } = useGetPostsQuery({ username: userName }, { skip: !userName })
+
+  const defaultPostsResponse: GetUserPostsResponse = {
+    items: [],
+    pageSize: 0,
+    totalCount: 0,
+  }
 
   useEffect(() => {
     if (post) {
@@ -59,11 +71,13 @@ export const ProfilePage = () => {
       ) : null}
 
       <PostModal
+        isLoading={isLoading}
         onClose={handleClosePostModal}
         open={isPostModalOpen}
         postId={Number(post)}
+        postsResponse={postsResponse || defaultPostsResponse}
         profileId={Number(profileId)}
-        username={userName}
+        refetch={refetch}
       />
 
       <ProfileInfo
@@ -73,7 +87,13 @@ export const ProfilePage = () => {
       />
 
       {meData ? (
-        <PostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} username={userName} />
+        <PostsList
+          isFetching={isFetching}
+          onOpenPost={handleOpenPost}
+          postsResponse={postsResponse || defaultPostsResponse}
+          profileId={Number(profileId)}
+          refetch={refetch}
+        />
       ) : (
         <PublicPostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} />
       )}

@@ -1,30 +1,37 @@
 import React, { useEffect, useState } from 'react'
 
-import { Post, PostImageCard } from '@/src/entities/post'
+import { type Post, PostImageCard } from '@/src/entities/post'
 import { useInfiniteScroll, useTranslation } from '@/src/shared/hooks'
 import { ScrollArea, ScrollBar, Spinner, Typography } from '@/src/shared/ui'
 import { eventEmitter } from '@/src/shared/utility'
-import { useGetPostsQuery } from '@/src/widgets/post-modal'
 import clsx from 'clsx'
 
 import s from './PostsList.module.scss'
 
 import { transformPosts } from '../../model/helpers/transformPosts'
+import { type GetUserPostsResponse } from './../../model/types/api'
 
 type Props = {
   className?: string
+  isFetching: boolean
   onOpenPost: (postId: number) => void
+  postsResponse: GetUserPostsResponse
   profileId: number
-  username: string
+  refetch: () => void
 }
 
-export const PostsList = ({ className, onOpenPost, profileId, username }: Props) => {
+export const PostsList = ({
+  className,
+  isFetching,
+  onOpenPost,
+  postsResponse,
+  profileId,
+  refetch,
+}: Props) => {
   const [posts, setPosts] = useState<Post[]>([])
   const [loadingMore, setLoadingMore] = useState(false)
   const [hasMorePosts, setHasMorePosts] = useState(true)
   const { t } = useTranslation()
-
-  const { data: postsList, isFetching, refetch } = useGetPostsQuery({ username })
 
   useEffect(() => {
     setPosts([])
@@ -32,16 +39,16 @@ export const PostsList = ({ className, onOpenPost, profileId, username }: Props)
   }, [profileId])
 
   useEffect(() => {
-    if (postsList && postsList.items.length > 0) {
-      const transformedPosts = transformPosts(postsList.items)
+    if (postsResponse && postsResponse.items.length > 0) {
+      const transformedPosts = transformPosts(postsResponse.items)
 
       setPosts(prevPosts => [...prevPosts, ...transformedPosts])
       setLoadingMore(false)
-    } else if (postsList && postsList.items.length === 0) {
+    } else if (postsResponse && postsResponse.items.length === 0) {
       setHasMorePosts(false)
       setLoadingMore(false)
     }
-  }, [postsList])
+  }, [postsResponse])
 
   useEffect(() => {
     const emitterPostCreated = () => {
