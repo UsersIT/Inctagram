@@ -51,29 +51,17 @@ export const PostsList = ({
   }, [postsResponse])
 
   useEffect(() => {
-    const emitterPostCreated = () => {
+    const updatePostsLists = () => {
       setPosts([])
       refetch()
     }
 
-    const emitterPostEdited = () => {
-      setPosts([])
-      refetch()
-    }
-
-    const emitterPostDeleted = () => {
-      setPosts([])
-      refetch()
-    }
-
-    eventEmitter.on('postCreated', emitterPostCreated)
-    eventEmitter.on('postEdit', emitterPostEdited)
-    eventEmitter.on('postDeleted', emitterPostDeleted)
+    eventEmitter.on('postCreated', updatePostsLists)
+    eventEmitter.on('postDeleted', updatePostsLists)
 
     return () => {
-      eventEmitter.off('postCreated', emitterPostCreated)
-      eventEmitter.off('postEdit', emitterPostEdited)
-      eventEmitter.off('postDeleted', emitterPostDeleted)
+      eventEmitter.off('postCreated', updatePostsLists)
+      eventEmitter.off('postDeleted', updatePostsLists)
     }
   }, [refetch])
 
