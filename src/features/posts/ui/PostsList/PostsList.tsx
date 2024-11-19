@@ -57,8 +57,8 @@ export const PostsList = ({
     }
 
     const emitterPostEdited = () => {
-      setHasMorePosts(true)
       setPosts([])
+      refetch()
     }
 
     const emitterPostDeleted = () => {
