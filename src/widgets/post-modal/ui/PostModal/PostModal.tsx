@@ -116,7 +116,6 @@ export const PostModal: React.FC<Props> = ({
     })
     try {
       await updateLikeStatus({ likeStatus: newStatus, postId }).unwrap()
-      refetch()
     } catch (error) {
       toast.error(t.errors.updateLikeError)
       setPostData(prev => {
