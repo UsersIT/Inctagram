@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 
 import { useMeQuery } from '@/src/features/auth'
 import { PostCreator } from '@/src/features/createPost'
-import { type GetUserPostsResponse, PostsList, PublicPostsList } from '@/src/features/posts'
-import { ProfileInfo, useGetPublicUserProfileByIdQuery } from '@/src/features/profile'
+import { PostsList } from '@/src/features/posts'
+import { ProfileInfo } from '@/src/features/profile'
 import { routes } from '@/src/shared/constants/routes'
-import { PostModal, useGetPostsQuery } from '@/src/widgets/post-modal'
+import { PostModal } from '@/src/widgets/post-modal'
 import { PublicPostModal } from '@/src/widgets/public-post-modal'
 import { useRouter } from 'next/router'
 
@@ -17,20 +17,6 @@ export const ProfilePage = () => {
   const { data: meData } = useMeQuery()
   const router = useRouter()
   const { modal, post, profileId } = router.query
-  const { data: profileData } = useGetPublicUserProfileByIdQuery({ profileId: Number(profileId) })
-  const userName = profileData?.userName || ''
-  const {
-    data: postsResponse,
-    isFetching,
-    isLoading,
-    refetch,
-  } = useGetPostsQuery({ username: userName }, { skip: !userName })
-
-  const defaultPostsResponse: GetUserPostsResponse = {
-    items: [],
-    pageSize: 0,
-    totalCount: 0,
-  }
 
   useEffect(() => {
     if (post) {
@@ -43,19 +29,19 @@ export const ProfilePage = () => {
     router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
   }
 
-  const handleOpenPost = (post: number) => {
-    if (meData) {
-      setIsPostModalOpen(true)
-      router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
-    } else {
-      setIsPublicPostModalOpen(true)
-      router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
-    }
-  }
-
   const handleClosePostModal = () => {
     setIsPostModalOpen(false)
     router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
+  }
+
+  const handleOpenPost = (postId: number) => {
+    if (meData) {
+      setIsPostModalOpen(true)
+      router.push(routes.POST(Number(profileId), Number(postId)), undefined, { shallow: true })
+    } else {
+      setIsPublicPostModalOpen(true)
+      router.push(routes.POST(Number(profileId), Number(postId)), undefined, { shallow: true })
+    }
   }
 
   return (
@@ -71,32 +57,14 @@ export const ProfilePage = () => {
       ) : null}
 
       <PostModal
-        isLoading={isLoading}
         onClose={handleClosePostModal}
         open={isPostModalOpen}
         postId={Number(post)}
-        postsResponse={postsResponse || defaultPostsResponse}
         profileId={Number(profileId)}
-        refetch={refetch}
       />
 
-      <ProfileInfo
-        profileData={profileData ? profileData : null}
-        profileId={Number(profileId)}
-        userName={userName}
-      />
-
-      {meData ? (
-        <PostsList
-          isFetching={isFetching}
-          onOpenPost={handleOpenPost}
-          postsResponse={postsResponse || defaultPostsResponse}
-          profileId={Number(profileId)}
-          refetch={refetch}
-        />
-      ) : (
-        <PublicPostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} />
-      )}
+      <ProfileInfo profileId={Number(profileId)} />
+      <PostsList onOpenPost={handleOpenPost} profileId={Number(profileId)} />
     </div>
   )
 }

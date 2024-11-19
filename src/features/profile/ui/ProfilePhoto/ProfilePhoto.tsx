@@ -24,7 +24,7 @@ export const ProfilePhoto: React.FC<Props> = ({ className, photoUrlFromServer, r
     try {
       await deleteAvatar().unwrap()
       await refetch()
-      toast.success(t.pages.accountManagement.success)
+      toast.success(t.profile.success)
     } catch (error) {
       toast.error(t.errors.errorWord)
     }
@@ -45,7 +45,7 @@ export const ProfilePhoto: React.FC<Props> = ({ className, photoUrlFromServer, r
       setIsLocalUpload(false)
     } catch (error) {
       toast.error(t.errors.photoUpdateError)
-      setIsLocalUpload(false)
+      setIsLocalUpload(false) // Добавлено, чтобы сбросить состояние загрузки в случае ошибки
     }
   }
 

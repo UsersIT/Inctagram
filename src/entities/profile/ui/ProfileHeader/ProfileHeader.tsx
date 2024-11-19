@@ -1,11 +1,10 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
+import { ProfileStats } from '@/src/entities/profile/ui/ProfileStats/ProfileStats'
 import { Avatar, Typography } from '@/src/shared/ui'
 import clsx from 'clsx'
 
 import s from './ProfileHeader.module.scss'
-
-import { ProfileStats } from './../ProfileStats/ProfileStats'
 
 type Props = {
   avatarUrl?: string
@@ -31,7 +30,7 @@ export const ProfileHeader = ({
   return (
     <header className={clsx(s.header, className)}>
       <Avatar circle className={s.avatar} url={avatarUrl} />
-      <Typography as={'h2'} className={s.name} variant={'h1'}>
+      <Typography as={'h2'} className={s.name} variant={'large'}>
         {userName && userName.length > 15 ? userName.slice(0, 15) + '...' : userName}
       </Typography>
       <div className={s.btn}>{children}</div>

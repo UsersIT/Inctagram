@@ -10,9 +10,9 @@
 }
 
 .list-item {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1; /* Квадратный формат */
   width: 100%;
-  background-color: #ccc;
+  background-color: #ccc; /* Примерный цвет для тестирования */
 }
 
 @media screen and (width <= 1024px) {

@@ -48,11 +48,9 @@ export const PostUsersComments: React.FC<Props> = ({ postId, refetchTrigger }) =
     refetch()
   }, [refetch, refetchTrigger])
 
-  const noComments = !isLoadingComments && (!comments?.items || comments.items.length === 0)
-
   return (
     <div className={s.container}>
-      {comments?.items && comments.items.length > 0 && (
+      {comments?.items && comments.items.length > 0 ? (
         <ul aria-label={t.widgets.postModal.comments} className={s.comments}>
           {comments.items.map((comment, idx) => (
             <Typography
@@ -84,9 +82,7 @@ export const PostUsersComments: React.FC<Props> = ({ postId, refetchTrigger }) =
             </Typography>
           ))}
         </ul>
-      )}
-
-      {noComments && (
+      ) : (
         <Typography as={'p'} className={s.noComments} variant={'regular-text-14'}>
           {t.widgets.postModal.noComments}
         </Typography>

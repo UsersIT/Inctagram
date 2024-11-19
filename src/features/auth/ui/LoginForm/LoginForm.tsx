@@ -86,7 +86,7 @@ export const LoginForm: FC<ComponentProps<'form'>> = () => {
           isLoading={isLoading}
           type={'submit'}
         >
-          {t.buttons.login}
+          {t.buttons.signIn}
         </Button>
       </div>
     </form>

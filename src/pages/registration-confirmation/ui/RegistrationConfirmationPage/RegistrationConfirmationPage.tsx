@@ -51,7 +51,7 @@ export const RegistrationConfirmationPage = () => {
           </Typography>
 
           <Button as={Link} className={s.signInLink} href={routes.LOGIN}>
-            {t.buttons.login}
+            {t.buttons.signIn}
           </Button>
 
           <span className={s.iconSuccess}>
