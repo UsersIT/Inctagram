@@ -113,12 +113,16 @@ export const en: LocaleType = {
   pages: {
     accountManagement: {
       accountType: 'Account Type',
+      autoRenew: 'Auto-Renewal',
       backToPayment: 'Back to Payment',
       business: 'Business',
+      currentSubscription: 'Current Subscription',
       day: 'day',
       error: 'Error',
       errorMessage: 'Transaction failed! Please try again',
+      expireAt: 'Expire at',
       month: 'month',
+      nextPayment: 'Next payment',
       ok: 'Ok',
       or: 'Or',
       per: 'per',

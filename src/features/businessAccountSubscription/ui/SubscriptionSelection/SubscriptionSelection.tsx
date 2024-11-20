@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-import { useSubscribeMutation } from '@/src/features/subscribeToBusinessAccount/api/subscribeApi'
-import { PaymentMethod } from '@/src/features/subscribeToBusinessAccount/model/types/api'
+import { useSubscribeMutation } from '@/src/features/businessAccountSubscription/api/subscriptionApi'
+import { PaymentMethod } from '@/src/features/businessAccountSubscription/model/types/api'
 import { PayPalIcon, StripeIcon } from '@/src/shared/assets/icons'
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, Card, RadioGroupItem, RadioGroupRoot, Typography } from '@/src/shared/ui'
 
-import s from './SubscriptionSelectionSection.module.scss'
+import s from './SubscriptionSelection.module.scss'
 
 type SelectedSubscription = '10-day' | '50-weekly' | '100-monthly'
 
-export const SubscriptionSelectionSection = () => {
+export const SubscriptionSelection = () => {
   const [selectedSubscription, setSelectedSubscription] = useState<SelectedSubscription>('10-day')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod | null>(null)
   const { t } = useTranslation()
@@ -73,13 +73,6 @@ export const SubscriptionSelectionSection = () => {
         >
           <StripeIcon />
         </Button>
-        {/*<Card className={s.paymentMethodCard} onClick={() => handlePay('paypal')}>*/}
-        {/*  <PayPalIcon />*/}
-        {/*</Card>*/}
-        {/*<Typography>{t.pages.accountManagement.or}</Typography>*/}
-        {/*<Card className={s.paymentMethodCard} onClick={() => handlePay('stripe')}>*/}
-        {/*  <StripeIcon />*/}
-        {/*</Card>*/}
       </div>
     </section>
   )

@@ -112,12 +112,16 @@ export const ru = {
   pages: {
     accountManagement: {
       accountType: 'Тип аккаунта',
+      autoRenew: 'Авто-продление',
       backToPayment: 'Вернуться к оплате',
       business: 'Бизнес',
+      currentSubscription: 'Текущая подписка',
       day: 'день',
       error: 'Ошибка',
       errorMessage: 'Транзакция не удалась! Попробуйте еще раз',
+      expireAt: 'Действительна до',
       month: 'месяц',
+      nextPayment: 'Следующая оплата',
       ok: 'Ок',
       or: 'Или',
       per: 'в',

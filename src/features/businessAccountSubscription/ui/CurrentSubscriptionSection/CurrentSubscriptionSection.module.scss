@@ -1,0 +1,20 @@
+.section {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  gap: 3rem;
+  padding: 12px 16px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.muted {
+  color: var(--color-light-900);
+}
