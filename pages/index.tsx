@@ -1,20 +1,23 @@
 import type { NextPageWithLayout } from '@/src/shared/types/next'
+import type { GetStaticProps } from 'next'
 
 import { withRootLayout } from '@/src/app/layouts/RootLayout/RootLayout'
-import { wrapper } from '@/src/app/providers/store'
-import { HomePage, getAllPosts, getRunningQueriesThunk } from '@/src/pages/home'
+import { PublicPage, type PublicPageProps, getPublicPosts } from '@/src/pages/public'
 
-export const getStaticProps = wrapper.getStaticProps(store => async () => {
-  store.dispatch(getAllPosts.initiate())
-  await Promise.all(store.dispatch(getRunningQueriesThunk()))
+export const getStaticProps: GetStaticProps<PublicPageProps> = async () => {
+  const { data } = await getPublicPosts()
 
   return {
-    props: {},
+    props: {
+      posts: data.items,
+      totalUsers: data.totalUsers,
+    },
     revalidate: 60,
   }
-})
-const Page: NextPageWithLayout = () => {
-  return <HomePage />
+}
+
+const Page: NextPageWithLayout<PublicPageProps> = ({ posts, totalUsers }) => {
+  return <PublicPage posts={posts} totalUsers={totalUsers} />
 }
 
 export default withRootLayout(Page)
