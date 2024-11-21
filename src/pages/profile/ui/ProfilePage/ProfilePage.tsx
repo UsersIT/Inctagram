@@ -40,7 +40,7 @@ export const ProfilePage = () => {
 
   const handleClosePublicPostModal = () => {
     setIsPublicPostModalOpen(false)
-    router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
+    router.push(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
   }
 
   const handleOpenPost = (post: number) => {
@@ -55,12 +55,12 @@ export const ProfilePage = () => {
 
   const handleClosePostModal = () => {
     setIsPostModalOpen(false)
-    router.replace(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
+    router.push(routes.PROFILE(Number(profileId)), undefined, { shallow: true })
   }
 
   return (
     <div className={s.page}>
-      {modal && modal === 'create' && meData ? <PostCreator profileId={meData.userId} /> : null}
+      {modal && modal === 'create' && !!meData && <PostCreator profileId={meData.userId} />}
 
       {post && !meData ? (
         <PublicPostModal
