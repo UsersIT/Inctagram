@@ -37,8 +37,9 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   const [isDraftUsed, setIsDraftUsed] = useState(false)
   const { draft, isDraftOpeningError, showOpenDraftButton } = useDraft()
 
-  const handleProcessingFinished = (images: PostImageType[]) => {
-    setImages(images)
+  const redirectToProfile = () => {
+    router.push(routes.PROFILE(profileId))
+    revokeObjectUrls(images)
   }
 
   const handleSetPhoto = (photo: File) => {
@@ -51,9 +52,7 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
   const handleCloseCreatePost = () => {
     if (step === 0) {
       setIsOpen(false)
-
-      router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
-      revokeObjectUrls(images)
+      redirectToProfile()
     } else {
       setShowCloseModal(true)
     }
@@ -61,11 +60,8 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
 
   const handlePostCreationSuccess = async () => {
     eventEmitter.emit('postCreated')
-
     setIsOpen(false)
-
-    router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
-    revokeObjectUrls(images)
+    redirectToProfile()
     if (isDraftUsed) {
       await postDraftStorage.removeDraft()
     }
@@ -99,9 +95,7 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
 
       await postDraftStorage.saveDraft(blobs)
       setShowCloseModal(false)
-
-      router.push(profileId ? routes.PROFILE(profileId) : routes.HOME)
-      revokeObjectUrls(images)
+      redirectToProfile()
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)
@@ -154,17 +148,14 @@ export const PostCreator = ({ profileId }: { profileId: number }) => {
           {step === 1 && (
             <div className={s.cropperContainer}>
               <PostPhotoCropper
-                onCroppingFinished={handleProcessingFinished}
+                onCroppingFinished={setImages}
                 onLastPhotoDeleted={handleLastPhotoDeleted}
                 uploadedImages={images}
               />
             </div>
           )}
           {step === 2 && (
-            <PostPhotoFilterSelect
-              croppedImages={images}
-              onApplyingFiltersFinished={handleProcessingFinished}
-            />
+            <PostPhotoFilterSelect croppedImages={images} onApplyingFiltersFinished={setImages} />
           )}
           {step === 3 && (
             <PostPublicationForm images={images} onSuccess={handlePostCreationSuccess} />
