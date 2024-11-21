@@ -6,7 +6,7 @@ import { GetNotificationsArg, GetNotificationsResponse, MarkAsReadArg } from '..
 import { NotificationType } from '../model/types/notification'
 
 const EVENT = 'NOTIFICATION'
-const PAGE_SIZE = 12
+const PAGE_SIZE = 5
 
 export const notificationsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -14,7 +14,11 @@ export const notificationsApi = baseApi.injectEndpoints({
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg
       },
-      merge: (currentCache, response) => {
+      merge: (currentCache, response, { arg }) => {
+        if (!arg.cursor) {
+          return currentCache
+        }
+
         if (response.items && response.items?.length > 0) {
           currentCache.items?.push(...response.items)
         }
@@ -23,7 +27,11 @@ export const notificationsApi = baseApi.injectEndpoints({
         const socket = getSocket()
         const listener = (data: NotificationType) => {
           updateCachedData(draft => {
-            draft.items?.unshift(data)
+            const existingIds = new Set(draft.items?.map(item => item.id))
+
+            if (!existingIds.has(data.id)) {
+              draft.items?.unshift(data)
+            }
           })
         }
 
@@ -39,8 +47,8 @@ export const notificationsApi = baseApi.injectEndpoints({
         socket.off(EVENT, listener)
       },
       query: ({ cursor, pageSize = PAGE_SIZE }) => ({
-        params: { pageSize, sortBy: 'notifyAt', sortDirection: 'desc' },
-        url: `${apiEndpoints.notifications.notifications}${cursor ?? ''}`,
+        params: { cursor, pageSize, sortBy: 'id', sortDirection: 'desc' },
+        url: `${apiEndpoints.notifications.notifications}${cursor || ''}`,
       }),
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName
@@ -49,13 +57,14 @@ export const notificationsApi = baseApi.injectEndpoints({
     markAsRead: builder.mutation<void, MarkAsReadArg>({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const patchResult = dispatch(
-          notificationsApi.util.updateQueryData('getNotifications', { cursor: null }, draft => {
+          notificationsApi.util.updateQueryData('getNotifications', {}, draft => {
             arg.ids.forEach(id => {
               const notification = draft.items?.find(item => item.id === id)
 
               if (notification) {
                 notification.isRead = true
               }
+              draft.notReadCount = 0
             })
           })
         )

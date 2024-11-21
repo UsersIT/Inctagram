@@ -9,13 +9,13 @@ import s from './PopoverTrigger.module.scss'
 
 type Props = {
   className?: string
-  count: null | number
+  count: number
   isOpen: boolean
 } & React.ComponentPropsWithoutRef<'button'>
 
 export const PopoverTrigger: React.FC<Props> = forwardRef<React.ElementRef<'button'>, Props>(
   ({ className, count, isOpen, ...rest }, ref) => {
-    const displayedCount = count === null || isOpen ? '' : count
+    const displayCount = count > 0 && !isOpen
 
     const { t } = useTranslation()
 
@@ -28,14 +28,7 @@ export const PopoverTrigger: React.FC<Props> = forwardRef<React.ElementRef<'butt
         {...rest}
       >
         {isOpen ? <BellFilled /> : <BellOutline />}
-        <span
-          className={clsx(
-            s.notificationCount,
-            Boolean(displayedCount) && s.notificationCountVisible
-          )}
-        >
-          {displayedCount}
-        </span>
+        {displayCount && <span className={s.notificationCount}>{count}</span>}
       </Button>
     )
   }
