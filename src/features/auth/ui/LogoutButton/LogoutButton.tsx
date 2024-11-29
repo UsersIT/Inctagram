@@ -75,7 +75,7 @@ export const LogoutButton = ({ className, ...rest }: Props) => {
         onClose={handleDialogOpen}
         onConfirm={handleLogout}
         open={openDialog}
-        title={'Log Out'}
+        title={t.buttons.logout}
       >
         <Typography variant={'regular-text-16'}>
           {t.profile.logOutConfirmation}

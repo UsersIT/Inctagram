@@ -13,13 +13,12 @@ import { PopoverTrigger } from '../PopoverTrigger/PopoverTrigger'
 
 export const NotificationsPopover = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [cursor, setCursor] = useState<null | number>(null)
+  const [cursor, setCursor] = useState<number | undefined>()
   const { t } = useTranslation()
 
   const { data, isLoading } = useGetNotificationsQuery({ cursor })
-  const [markAsRead] = useMarkAsReadMutation()
 
-  const unreadCount = data?.items?.filter(item => !item.isRead).length || null
+  const [markAsRead] = useMarkAsReadMutation()
 
   const handleMarkAsRead = async () => {
     if (data?.items) {
@@ -58,7 +57,7 @@ export const NotificationsPopover = () => {
       onOpenChange={setIsOpen}
       open={isOpen}
       sideOffset={0}
-      trigger={<PopoverTrigger count={unreadCount} isOpen={isOpen} />}
+      trigger={<PopoverTrigger count={data ? data.notReadCount : 0} isOpen={isOpen} />}
     >
       <div className={contentClassName}>
         <Typography className={s.title} variant={'h2'}>

@@ -4,6 +4,7 @@ import { clsx } from 'clsx'
 
 import s from './Dialog.module.scss'
 
+import { useTranslation } from '../../hooks'
 import { Button } from '../Button/Button'
 import { Modal, ModalProps } from '../Modal/Modal'
 
@@ -28,16 +29,18 @@ export const Dialog = (props: DialogProps) => {
     buttonsContainerClassName = '',
     buttonsJustify = 'flex-end',
     buttonsOrder = 'confirm-to-cancel',
-    cancelButtonTitle = 'No',
+    cancelButtonTitle,
     children,
     confirmButtonFullWidth = false,
-    confirmButtonTitle = 'Yes',
+    confirmButtonTitle,
     onCancel,
     onConfirm,
     showCancelButton = true,
     showConfirmButton = true,
     ...rest
   } = props
+
+  const { t } = useTranslation()
 
   const isConfirmFirst = buttonsOrder === 'confirm-to-cancel'
   const isSingleAction = !showCancelButton || !showConfirmButton
@@ -49,7 +52,7 @@ export const Dialog = (props: DialogProps) => {
       onClick={onConfirm}
       variant={isSingleAction || !isConfirmFirst ? 'primary' : 'outlined'}
     >
-      {confirmButtonTitle}
+      {confirmButtonTitle || t.buttons.confirmButtonTitle}
     </Button>
   )
 
@@ -59,7 +62,7 @@ export const Dialog = (props: DialogProps) => {
       onClick={onCancel}
       variant={isSingleAction || isConfirmFirst ? 'primary' : 'outlined'}
     >
-      {cancelButtonTitle}
+      {cancelButtonTitle || t.buttons.cancelButtonTitle}
     </Button>
   )
 

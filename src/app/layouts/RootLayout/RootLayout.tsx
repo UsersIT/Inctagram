@@ -14,30 +14,17 @@ type Props = {
 const RootLayout = ({ children }: Props) => {
   const { data: meData, isLoading } = useMeQuery()
 
-  const content = meData ? (
-    <>
+  return (
+    <div className={s.root}>
+      <Header isAuth={!!meData} isLoading={isLoading} />
       <div className={s.wrapper}>
-        <Sidebar profileId={meData.userId} />
+        {!!meData && !isLoading && <Sidebar profileId={meData.userId} />}
         <ScrollArea className={s.scrollArea}>
           <main className={s.pageOffset}>{children}</main>
           <ScrollBar orientation={'horizontal'} />
         </ScrollArea>
       </div>
-      <Bottombar profileId={meData.userId} />
-    </>
-  ) : (
-    <div className={s.wrapper}>
-      <ScrollArea className={s.scrollArea}>
-        <main>{children}</main>
-        <ScrollBar orientation={'horizontal'} />
-      </ScrollArea>
-    </div>
-  )
-
-  return (
-    <div className={s.root}>
-      <Header isAuth={!!meData} isLoading={isLoading} />
-      {content}
+      {!!meData && !isLoading && <Bottombar profileId={meData.userId} />}
     </div>
   )
 }

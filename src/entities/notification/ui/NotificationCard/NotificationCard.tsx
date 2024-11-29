@@ -13,7 +13,7 @@ type Props = {
 } & React.ComponentProps<'div'>
 
 export const NotificationCard: React.FC<Props> = ({ className, notification, ...rest }) => {
-  const { isRead, message, notifyAt } = notification
+  const { createdAt, isRead, message } = notification
   const { t } = useTranslation()
 
   return (
@@ -28,7 +28,7 @@ export const NotificationCard: React.FC<Props> = ({ className, notification, ...
       )}
 
       <Typography>{message}</Typography>
-      <Time time={notifyAt} />
+      <Time time={createdAt} />
     </div>
   )
 }
