@@ -4,6 +4,7 @@ import { usePagination } from 'react-use-pagination'
 import { useGetMyPaymentsQuery } from '@/src/features/businessAccountSubscription'
 import { useTranslation } from '@/src/shared/hooks'
 import { Pagination, Spinner, Table, Typography } from '@/src/shared/ui'
+import { getFormattedPaymentType, getFormattedSubscriptionType } from '@/src/shared/utility'
 
 import s from './SettingsMyPaymentsTab.module.scss'
 
@@ -16,30 +17,6 @@ export const SettingsMyPaymentsTab = () => {
       initialPageSize: 10,
       totalItems: payments?.length || 0,
     })
-
-  const getSubscriptionType = (type: string) => {
-    switch (type) {
-      case 'MONTHLY':
-        return '1 month'
-      case 'WEEKLY':
-        return '7 days'
-      case 'DAY':
-        return '1 day'
-      default:
-        return type
-    }
-  }
-
-  const getPaymentType = (type: string) => {
-    switch (type) {
-      case 'STRIPE':
-        return 'Stripe'
-      case 'PAYPAL':
-        return 'PayPal'
-      default:
-        return type
-    }
-  }
 
   return (
     <div className={s.wrapper}>
@@ -86,8 +63,8 @@ export const SettingsMyPaymentsTab = () => {
                     {new Date(payment.endDateOfSubscription).toLocaleDateString('ru-RU')}
                   </Table.Cell>
                   <Table.Cell>${payment.price}</Table.Cell>
-                  <Table.Cell>{getSubscriptionType(payment.subscriptionType)}</Table.Cell>
-                  <Table.Cell>{getPaymentType(payment.paymentType)}</Table.Cell>
+                  <Table.Cell>{getFormattedSubscriptionType(payment.subscriptionType)}</Table.Cell>
+                  <Table.Cell>{getFormattedPaymentType(payment.paymentType)}</Table.Cell>
                 </Table.Row>
               ))}
           </Table.Body>
