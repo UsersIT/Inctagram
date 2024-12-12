@@ -1,0 +1,51 @@
+.root {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.button {
+  cursor: pointer;
+
+  width: 24px;
+  height: 24px;
+  padding: 0.5rem;
+
+  color: var(--color-light-100);
+
+  border-radius: 4px;
+
+  transition: background 0.2s;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  &:not(:disabled, .active):hover {
+    color: var(--color-light-100);
+    background-color: var(--color-dark-500);
+  }
+
+  &.active {
+    cursor: default;
+    color: var(--color-dark-900);
+    background-color: var(--color-light-100);
+  }
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import s from './SettingsPage.module.scss'
 
 import { SettingsAccountManagementTab } from '../SettingsAccountManagmentTab/SettingsAccountManagementTab'
+import { SettingsMyPaymentsTab } from '../SettingsMyPaymentsTab/SettingsMyPaymentsTab'
 
 export const SettingsPage = () => {
   const { t } = useTranslation()
@@ -44,7 +45,7 @@ export const SettingsPage = () => {
           <SettingsAccountManagementTab />
         </TabsContent>
         <TabsContent value={'my-payments'}>
-          <Typography variant={'large'}>My payments</Typography>
+          <SettingsMyPaymentsTab />
         </TabsContent>
       </Tabs>
     </div>

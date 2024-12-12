@@ -46,11 +46,10 @@ export const ProfilePage = () => {
   const handleOpenPost = (post: number) => {
     if (meData) {
       setIsPostModalOpen(true)
-      router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
     } else {
       setIsPublicPostModalOpen(true)
-      router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
     }
+    router.push(routes.POST(Number(profileId), Number(post)), undefined, { shallow: true })
   }
 
   const handleClosePostModal = () => {

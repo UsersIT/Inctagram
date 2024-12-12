@@ -175,6 +175,14 @@ export const en: LocaleType = {
     home: {
       title: 'Registered users:',
     },
+    myPayments: {
+      dataOfPayment: 'Data of payment',
+      endDateOfSubscription: 'End Date of Subscription',
+      noPayments: 'No payments yet.',
+      paymentType: 'Payment Type',
+      price: 'Price',
+      subscriptionType: 'Subscription Type',
+    },
     policies: {
       policy: {
         childrenText: 'Our Service does not address anyone under the age of 13 ("Children").',
@@ -234,6 +242,10 @@ export const en: LocaleType = {
       signUpSuggestion: 'Don’t have an account?',
       title: 'Sign In',
     },
+  },
+  pagination: {
+    onPage: 'on page',
+    show: 'Show',
   },
   placeholders: {
     city: 'City',

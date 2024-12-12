@@ -23,3 +23,15 @@ export type GetCurrentPaymentSubscriptionsResponse = {
   data: PaymentSubscription[]
   hasAutoRenewal: boolean
 }
+
+export type MyPayment = {
+  dateOfPayment: string
+  endDateOfSubscription: string
+  paymentType: string
+  price: number
+  subscriptionId: null | string
+  subscriptionType: string
+  userId: number
+}
+
+export type GetMyPaymentsResponse = MyPayment[]

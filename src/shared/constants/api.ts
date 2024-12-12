@@ -55,6 +55,7 @@ export const apiEndpoints = {
   subscriptions: {
     cancelAutoRenewal: '/v1/subscriptions/canceled-auto-renewal',
     currentPaymentSubscriptions: '/v1/subscriptions/current-payment-subscriptions',
+    myPayments: '/v1/subscriptions/my-payments',
     subscribe: '/v1/subscriptions',
   },
 } as const
