@@ -51,9 +51,9 @@ const userPostApi = baseApi.injectEndpoints({
             ]
           : [{ id: 'LIST', type: 'Post' as const }],
 
-      query: ({ query, username }) => ({
+      query: ({ query, userName }) => ({
         method: 'GET',
-        url: `${apiEndpoints.posts.postsByUsername(username)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
+        url: `${apiEndpoints.posts.postsByUsername(userName)}?${new URLSearchParams(query as Record<string, string>).toString()}`,
       }),
     }),
 

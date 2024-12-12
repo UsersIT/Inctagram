@@ -17,8 +17,13 @@ export type GetCommentsResponse = {
 }
 
 export type GetUserPostsParams = {
-  query?: GetAllPublicPostsArgs
-  username: string
+  query?: {
+    pageNumber?: number
+    pageSize?: number
+    sortBy?: string
+    sortDirection?: 'asc' | 'desc'
+  }
+  userName: string
 }
 
 export type CommentsResponseType = {
