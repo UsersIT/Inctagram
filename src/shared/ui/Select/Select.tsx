@@ -1,13 +1,12 @@
 import { CSSProperties, JSX, ReactNode, useState } from 'react'
 
+import { ArrowDown } from '@/src/shared/assets/icons'
+import { ScrollArea, ScrollBar } from '@/src/shared/ui'
 import * as Label from '@radix-ui/react-label'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import clsx from 'clsx'
 
 import s from './Select.module.scss'
-
-import { ArrowDown } from '../../assets/icons'
-import { ScrollArea, ScrollBar } from '../ScrollArea/ScrollArea'
 
 export type Option = {
   disabled?: boolean

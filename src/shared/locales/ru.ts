@@ -173,6 +173,14 @@ export const ru = {
     home: {
       title: 'Зарегистрировано пользователей:',
     },
+    myPayments: {
+      dataOfPayment: 'Дата оплаты',
+      endDateOfSubscription: 'Дата окончания подписки',
+      noPayments: 'На текущий момент у вас нет оплат.',
+      paymentType: 'Тип оплаты',
+      price: 'Цена',
+      subscriptionType: 'Тип подписки',
+    },
     policies: {
       policy: {
         childrenText: 'Наш Сервис не предназначен для лиц младше 13 лет ("Дети").',
@@ -234,6 +242,10 @@ export const ru = {
       signUpSuggestion: 'У вас нет аккаунта?',
       title: 'Войти',
     },
+  },
+  pagination: {
+    onPage: 'на странице',
+    show: 'Показать',
   },
   placeholders: {
     city: 'Город',

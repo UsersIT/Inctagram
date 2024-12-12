@@ -9,6 +9,7 @@ import s from './CurrentSubscriptionSection.module.scss'
 import {
   useCancelAutoRenewalMutation,
   useGetCurrentPaymentSubscriptionsQuery,
+  useGetMyPaymentsQuery,
 } from '../../api/subscriptionApi'
 
 export const CurrentSubscriptionSection = () => {
@@ -17,6 +18,7 @@ export const CurrentSubscriptionSection = () => {
     isLoading: isLoadingCurrentPaymentSubscriptions,
     refetch,
   } = useGetCurrentPaymentSubscriptionsQuery()
+  const { data: payments } = useGetMyPaymentsQuery()
   const [cancelAutoRenewal, { isLoading: isLoadingCancelAutoRenewal }] =
     useCancelAutoRenewalMutation()
   const { t } = useTranslation()
@@ -67,12 +69,11 @@ export const CurrentSubscriptionSection = () => {
         <div className={s.column}>
           <Typography className={s.muted}>{t.pages.accountManagement.nextPayment}</Typography>
           <Typography>
-            {currentPaymentSubscriptions?.data &&
-              new Date(
-                currentPaymentSubscriptions.data[
-                  currentPaymentSubscriptions.data.length - 1
-                ].dateOfPayment
-              ).toLocaleDateString('ru-RU')}
+            {currentPaymentSubscriptions &&
+              payments &&
+              (currentPaymentSubscriptions.hasAutoRenewal
+                ? new Date(payments[0].endDateOfSubscription).toLocaleDateString('ru-RU')
+                : '—')}
           </Typography>
         </div>
       </Card>

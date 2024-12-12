@@ -66,7 +66,9 @@ export const SettingsAccountManagementTab = () => {
           : t.pages.accountManagement.errorMessage}
       </Dialog>
 
-      {selectedAccountType === 'business' && <CurrentSubscriptionSection />}
+      {selectedAccountType === 'business' &&
+        currentPaymentSubscriptions?.data &&
+        currentPaymentSubscriptions?.data.length > 0 && <CurrentSubscriptionSection />}
       <section className={s.section}>
         <Typography variant={'h3'}>{t.pages.accountManagement.accountType}:</Typography>
         <Card className={s.card}>

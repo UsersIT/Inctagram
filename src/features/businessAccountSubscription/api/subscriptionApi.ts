@@ -3,6 +3,7 @@ import { apiEndpoints } from '@/src/shared/constants/api'
 
 import {
   GetCurrentPaymentSubscriptionsResponse,
+  GetMyPaymentsResponse,
   SubscribeRequestBody,
   SubscribeResponse,
 } from '../model/types/api'
@@ -19,6 +20,12 @@ const subscriptionApi = baseApi.injectEndpoints({
       query: () => ({
         method: 'GET',
         url: apiEndpoints.subscriptions.currentPaymentSubscriptions,
+      }),
+    }),
+    getMyPayments: builder.query<GetMyPaymentsResponse, void>({
+      query: () => ({
+        method: 'GET',
+        url: apiEndpoints.subscriptions.myPayments,
       }),
     }),
     subscribe: builder.mutation<SubscribeResponse, SubscribeRequestBody>({
@@ -45,5 +52,6 @@ const subscriptionApi = baseApi.injectEndpoints({
 export const {
   useCancelAutoRenewalMutation,
   useGetCurrentPaymentSubscriptionsQuery,
+  useGetMyPaymentsQuery,
   useSubscribeMutation,
 } = subscriptionApi
