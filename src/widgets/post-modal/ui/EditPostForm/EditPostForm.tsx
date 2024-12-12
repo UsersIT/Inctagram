@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import { useTranslation } from '@/src/shared/hooks'
 import { Button, ControlledTextArea, Typography } from '@/src/shared/ui'
+import { eventEmitter } from '@/src/shared/utility'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import s from './EditPostForm.module.scss'
@@ -16,6 +17,7 @@ import {
 } from './../../model/schemas/editPostValidationSchema'
 
 type Props = {
+  fetch: () => void
   initialDescription: string
   onSuccess: (newDescription: string) => void
   postId: number
@@ -23,6 +25,7 @@ type Props = {
 }
 
 export const EditPostForm: React.FC<Props> = ({
+  fetch,
   initialDescription,
   onSuccess,
   postId,
@@ -52,6 +55,8 @@ export const EditPostForm: React.FC<Props> = ({
 
       await updatePostById({ description, postId }).unwrap()
       onSuccess(description)
+      fetch()
+      eventEmitter.emit('postEdited')
     } catch (err) {
       toast.error(t.errors.somethingWentWrong)
     }
