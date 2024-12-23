@@ -1,10 +1,10 @@
 import type { NextPageWithLayout } from '@/src/shared/types/next'
 
 import { withRootLayout } from '@/src/app/layouts/RootLayout/RootLayout'
-import { wrapper } from '@/src/app/providers/store/store'
 import { getPublicPostById, getRunningQueriesThunk, getUserPublicPosts } from '@/src/features/posts'
 import { getPublicUserProfileById } from '@/src/features/profile'
 import { ProfilePage } from '@/src/pages/profile'
+import { wrapper } from '@/src/shared/store'
 import { getPublicCommentsByPostId } from '@/src/widgets/public-post-modal'
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async context => {
