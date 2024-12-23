@@ -1,3 +1,5 @@
+import type { NotificationType } from '../../model/types/notification'
+
 import React from 'react'
 
 import { useTranslation } from '@/src/shared/hooks'
@@ -5,8 +7,6 @@ import { Time, Typography } from '@/src/shared/ui'
 import clsx from 'clsx'
 
 import s from './NotificationCard.module.scss'
-
-import { NotificationType } from '../../model/types/notification'
 
 type Props = {
   notification: NotificationType

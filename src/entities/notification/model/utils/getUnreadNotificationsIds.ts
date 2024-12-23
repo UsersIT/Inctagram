@@ -1,4 +1,4 @@
-import { NotificationType } from '../types/notification'
+import type { NotificationType } from '../types/notification'
 
 export const getUnreadNotificationsIds = (notifications: NotificationType[] = []) => {
   return (

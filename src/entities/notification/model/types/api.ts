@@ -1,4 +1,4 @@
-import { NotificationType } from './notification'
+import type { NotificationType } from './notification'
 
 export type GetNotificationsArg = {
   cursor?: number
