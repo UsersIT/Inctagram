@@ -1,5 +1,5 @@
+import type { RootState } from '../store'
 import type { UpdateTokensResult } from '../types/api'
-import type { RootState } from '@/src/app/providers/store'
 import type { Action, PayloadAction } from '@reduxjs/toolkit'
 
 import {
